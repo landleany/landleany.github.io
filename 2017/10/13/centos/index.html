@@ -1,0 +1,241 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <!-- so meta -->
+    <meta charset="utf-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="HandheldFriendly" content="True">
+    <meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1" />
+    <meta name="description" content="记录下使用中遇到的东西   rpmRedHat Package Manager（RedHat软件包管理工具）rpm只支持下载到本地进行安装，可以使用Yum来弥补rpm包分为两种：    二进制包   xxx.rpm rpm源码包  xxx.rpm.src  12$ rpm -aq  # 查询所有已经安装的包$ rpm -i   # 安装包 yumyum（全称为 Yellow dog Updater">
+<meta property="og:type" content="article">
+<meta property="og:title" content="CentOS操作">
+<meta property="og:url" content="http://yoursite.com/2017/10/13/centos/index.html">
+<meta property="og:site_name" content="Drip">
+<meta property="og:description" content="记录下使用中遇到的东西   rpmRedHat Package Manager（RedHat软件包管理工具）rpm只支持下载到本地进行安装，可以使用Yum来弥补rpm包分为两种：    二进制包   xxx.rpm rpm源码包  xxx.rpm.src  12$ rpm -aq  # 查询所有已经安装的包$ rpm -i   # 安装包 yumyum（全称为 Yellow dog Updater">
+<meta property="og:updated_time" content="2017-10-15T16:09:58.000Z">
+<meta name="twitter:card" content="summary">
+<meta name="twitter:title" content="CentOS操作">
+<meta name="twitter:description" content="记录下使用中遇到的东西   rpmRedHat Package Manager（RedHat软件包管理工具）rpm只支持下载到本地进行安装，可以使用Yum来弥补rpm包分为两种：    二进制包   xxx.rpm rpm源码包  xxx.rpm.src  12$ rpm -aq  # 查询所有已经安装的包$ rpm -i   # 安装包 yumyum（全称为 Yellow dog Updater">
+    
+    
+        
+          
+              <link rel="shortcut icon" href="/images/favicon.ico">
+          
+        
+        
+          
+            <link rel="icon" type="image/png" href="/images/favicon-192x192.png" sizes="192x192">
+          
+        
+        
+          
+            <link rel="apple-touch-icon" sizes="180x180" href="/images/apple-touch-icon.png">
+          
+        
+    
+    <!-- title -->
+    <title>CentOS操作</title>
+    <!-- styles -->
+    <link rel="stylesheet" href="/css/style.css">
+    <!-- rss -->
+    
+    
+</head>
+
+<body>
+    
+      <div id="header-post">
+  <a id="menu-icon" href="#"><i class="fa fa-bars fa-lg"></i></a>
+  <a id="menu-icon-tablet" href="#"><i class="fa fa-bars fa-lg"></i></a>
+  <a id="top-icon-tablet" href="#" onclick="$('html, body').animate({ scrollTop: 0 }, 'fast');" style="display:none;"><i class="fa fa-chevron-up fa-lg"></i></a>
+  <span id="menu">
+    <span id="nav">
+      <ul>
+         
+          <li><a href="/">Home</a></li>
+         
+          <li><a href="/about/">About</a></li>
+         
+          <li><a href="/archives/">Writing</a></li>
+         
+          <li><a href="http://github.com/probberechts">Projects</a></li>
+        
+      </ul>
+    </span>
+    <br/>
+    <span id="actions">
+      <ul>
+        
+        
+        <li><a class="icon" href="/2017/10/12/hello-world/"><i class="fa fa-chevron-right" aria-hidden="true" onmouseover="$('#i-next').toggle();" onmouseout="$('#i-next').toggle();"></i></a></li>
+        
+        <li><a class="icon" href="#" onclick="$('html, body').animate({ scrollTop: 0 }, 'fast');"><i class="fa fa-chevron-up" aria-hidden="true" onmouseover="$('#i-top').toggle();" onmouseout="$('#i-top').toggle();"></i></a></li>
+      </ul>
+      <span id="i-prev" class="info" style="display:none;">Previous post</span>
+      <span id="i-next" class="info" style="display:none;">Next post</span>
+      <span id="i-top" class="info" style="display:none;">Back to top</span>
+      <span id="i-share" class="info" style="display:none;">Share post</span>
+    </span>
+    <br/>
+    <div id="share" style="display: none">
+      <ul>
+  <li><a class="icon" href="http://www.facebook.com/sharer.php?u=http://yoursite.com/2017/10/13/centos/"><i class="fa fa-facebook " aria-hidden="true"></i></a></li>
+  <li><a class="icon" href="https://twitter.com/share?url=http://yoursite.com/2017/10/13/centos/&text=CentOS操作"><i class="fa fa-twitter " aria-hidden="true"></i></a></li>
+  <li><a class="icon" href="http://www.linkedin.com/shareArticle?url=http://yoursite.com/2017/10/13/centos/&title=CentOS操作"><i class="fa fa-linkedin " aria-hidden="true"></i></a></li>
+  <li><a class="icon" href="https://pinterest.com/pin/create/bookmarklet/?url=http://yoursite.com/2017/10/13/centos/&is_video=false&description=CentOS操作"><i class="fa fa-pinterest " aria-hidden="true"></i></a></li>
+  <li><a class="icon" href="mailto:?subject=CentOS操作&body=Check out this article: http://yoursite.com/2017/10/13/centos/"><i class="fa fa-envelope " aria-hidden="true"></i></a></li>
+  <li><a class="icon" href="https://getpocket.com/save?url=http://yoursite.com/2017/10/13/centos/&title=CentOS操作"><i class="fa fa-get-pocket " aria-hidden="true"></i></a></li>
+  <li><a class="icon" href="http://reddit.com/submit?url=http://yoursite.com/2017/10/13/centos/&title=CentOS操作"><i class="fa fa-reddit " aria-hidden="true"></i></a></li>
+  <li><a class="icon" href="http://www.stumbleupon.com/submit?url=http://yoursite.com/2017/10/13/centos/&title=CentOS操作"><i class="fa fa-stumbleupon " aria-hidden="true"></i></a></li>
+  <li><a class="icon" href="http://digg.com/submit?url=http://yoursite.com/2017/10/13/centos/&title=CentOS操作"><i class="fa fa-digg " aria-hidden="true"></i></a></li>
+  <li><a class="icon" href="http://www.tumblr.com/share/link?url=http://yoursite.com/2017/10/13/centos/&name=CentOS操作&description="><i class="fa fa-tumblr " aria-hidden="true"></i></a></li>
+</ul>
+
+    </div>
+    <div id="toc">
+      <ol class="toc"><li class="toc-item toc-level-1"><a class="toc-link" href="#rpm"><span class="toc-number">1.</span> <span class="toc-text">rpm</span></a></li><li class="toc-item toc-level-1"><a class="toc-link" href="#yum"><span class="toc-number">2.</span> <span class="toc-text">yum</span></a></li><li class="toc-item toc-level-1"><a class="toc-link" href="#ssh"><span class="toc-number">3.</span> <span class="toc-text">ssh</span></a></li><li class="toc-item toc-level-1"><a class="toc-link" href="#防火墙"><span class="toc-number">4.</span> <span class="toc-text">防火墙</span></a></li><li class="toc-item toc-level-1"><a class="toc-link" href="#docker"><span class="toc-number">5.</span> <span class="toc-text">docker</span></a><ol class="toc-child"><li class="toc-item toc-level-3"><a class="toc-link" href="#CentOS下docker权限问题"><span class="toc-number">5.0.1.</span> <span class="toc-text">CentOS下docker权限问题</span></a></li></ol></li></ol></li><li class="toc-item toc-level-1"><a class="toc-link" href="#SELinux"><span class="toc-number">6.</span> <span class="toc-text">SELinux</span></a></li><li class="toc-item toc-level-1"><a class="toc-link" href="#docker-compose"><span class="toc-number">7.</span> <span class="toc-text">docker-compose</span></a><ol class="toc-child"><li class="toc-item toc-level-3"><a class="toc-link" href="#epel扩展源"><span class="toc-number">7.0.1.</span> <span class="toc-text">epel扩展源</span></a></li></ol></li></ol></li><li class="toc-item toc-level-1"><a class="toc-link" href="#systemctl"><span class="toc-number">8.</span> <span class="toc-text">systemctl</span></a></li><li class="toc-item toc-level-1"><a class="toc-link" href="#chkconfig"><span class="toc-number">9.</span> <span class="toc-text">chkconfig</span></a></li><li class="toc-item toc-level-1"><a class="toc-link" href="#lsof"><span class="toc-number">10.</span> <span class="toc-text">lsof</span></a></li><li class="toc-item toc-level-1"><a class="toc-link" href="#chkconfig-1"><span class="toc-number">11.</span> <span class="toc-text">chkconfig</span></a></li><li class="toc-item toc-level-1"><a class="toc-link" href="#vagrant"><span class="toc-number">12.</span> <span class="toc-text">vagrant</span></a></li></ol>
+    </div>
+  </span>
+</div>
+
+    
+    <div class="content index width mx-auto px2 my4">
+        
+        <article class="post" itemscope itemtype="http://schema.org/BlogPosting">
+  <header>
+    
+    <h1 class="posttitle" itemprop="name headline">
+        CentOS操作
+    </h1>
+
+
+
+    <div class="meta">
+      <span class="author" itemprop="author" itemscope itemtype="http://schema.org/Person">
+        <span itemprop="name">Drip</span>
+      </span>
+      
+    <div class="postdate">
+        <time datetime="2017-10-12T16:30:30.000Z" itemprop="datePublished">2017-10-13</time>
+    </div>
+
+
+      
+
+    </div>
+  </header>
+  
+
+  <div class="content" itemprop="articleBody">
+    <p>记录下使用中遇到的东西  </p>
+<h1 id="rpm"><a href="#rpm" class="headerlink" title="rpm"></a>rpm</h1><p>RedHat Package Manager（RedHat软件包管理工具）<br>rpm只支持下载到本地进行安装，可以使用Yum来弥补<br>rpm包分为两种：  </p>
+<ol>
+<li>二进制包   xxx.rpm</li>
+<li>rpm源码包  xxx.rpm.src</li>
+</ol>
+<figure class="highlight bash"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div></pre></td><td class="code"><pre><div class="line">$ rpm -aq  <span class="comment"># 查询所有已经安装的包</span></div><div class="line">$ rpm -i   <span class="comment"># 安装包</span></div></pre></td></tr></table></figure>
+<h1 id="yum"><a href="#yum" class="headerlink" title="yum"></a>yum</h1><p>yum（全称为 Yellow dog Updater, Modified）是一个在Fedora和RedHat以及SUSE中的Shell前端软件包管理器。基於RPM包管理，能够从指定的服务器自动下载RPM包并且安装，可以自动处理依赖性关系，并且一次安装所有依赖的软体包，无须繁琐地一次次下载、安装。yum提供了查找、安装、删除某一个、一组甚至全部软件包的命令，而且命令简洁而又好记。</p>
+<figure class="highlight bash"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div></pre></td><td class="code"><pre><div class="line">$ yum list  <span class="comment"># 列出所有已安装的包</span></div><div class="line">$ yum install</div><div class="line">$ yum -y install</div></pre></td></tr></table></figure>
+<h1 id="ssh"><a href="#ssh" class="headerlink" title="ssh"></a>ssh</h1><figure class="highlight bash"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div><div class="line">7</div><div class="line">8</div><div class="line">9</div><div class="line">10</div><div class="line">11</div><div class="line">12</div></pre></td><td class="code"><pre><div class="line"><span class="comment"># sshd 配置</span></div><div class="line">$ <span class="built_in">cd</span> /etc/ssh</div><div class="line">$ vi sshd_config  <span class="comment"># 修改以下内容</span></div><div class="line">  Port 22</div><div class="line">  AddressFamily any</div><div class="line">  ListenAddress 0.0.0.0</div><div class="line">  PermitRootLogin yes</div><div class="line"></div><div class="line">$ service sshd restart <span class="comment"># 重启服务</span></div><div class="line"></div><div class="line"><span class="comment"># ssh</span></div><div class="line">$ ssh name@someip -p 3223 <span class="comment"># 默认22端口可以省略-p</span></div></pre></td></tr></table></figure>
+<h1 id="防火墙"><a href="#防火墙" class="headerlink" title="防火墙"></a>防火墙</h1><p>CentOS 6 使用iptable作为防火墙<br>CentOS 7 使用firewall作为防火墙<br><figure class="highlight bash"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div><div class="line">7</div></pre></td><td class="code"><pre><div class="line">$ service firewalld start</div><div class="line">$ service firewalld restart</div><div class="line">$ service firewalld stop</div><div class="line"></div><div class="line">$ firewall-cmd --state <span class="comment"># 查看当前防火墙是否启动</span></div><div class="line">  not running</div><div class="line">$ firewall-cmd --list-ports <span class="comment"># 查看开放端口</span></div></pre></td></tr></table></figure></p>
+<h1 id="docker"><a href="#docker" class="headerlink" title="docker"></a>docker</h1><p>通过yum install docker之后，必须用sudo才能执行docker客户端命令。<br>还需要将用户加到docker组里。<br><figure class="highlight bash"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div><div class="line">7</div><div class="line">8</div><div class="line">9</div><div class="line">10</div><div class="line">11</div><div class="line">12</div><div class="line">13</div><div class="line">14</div><div class="line">15</div><div class="line">16</div><div class="line">17</div><div class="line">18</div></pre></td><td class="code"><pre><div class="line">$ service docker restart/start/stop</div><div class="line"></div><div class="line"><span class="comment"># 通过yum安装docker后只有一个dockerroot组，所以还需要添加docker组：</span></div><div class="line">$ sudo groupadd docker</div><div class="line"><span class="comment"># 通过sudo cat /etc/group | grep docker 判断是否docker组是否添加成功</span></div><div class="line"></div><div class="line"><span class="comment"># 通过以下命令添加用户到docker组</span></div><div class="line">$ sudo gpasswd -a <span class="variable">$&#123;USER&#125;</span> docker 添加<span class="variable">$USER</span>到docker组</div><div class="line">$ sudo service docker restart</div><div class="line"><span class="comment"># 然后退出，重新登录</span></div><div class="line"></div><div class="line"><span class="comment"># 替换国内源</span></div><div class="line"><span class="comment"># 可以在 Docker 守护进程启动时传入 --registry-mirror</span></div><div class="line">$ docker --registry-mirror=https://registry.docker-cn.com</div><div class="line"><span class="comment"># 或者可以修改 /etc/docker/daemon.json</span></div><div class="line">&#123;</div><div class="line">  <span class="string">"registry-mirrors"</span>: [<span class="string">"https://registry.docker-cn.com"</span>]</div><div class="line">&#125;</div></pre></td></tr></table></figure></p>
+<h3 id="CentOS下docker权限问题"><a href="#CentOS下docker权限问题" class="headerlink" title="CentOS下docker权限问题"></a>CentOS下docker权限问题</h3><figure class="highlight bash"><table><tr><td class="gutter"><pre><div class="line">1</div></pre></td><td class="code"><pre><div class="line"><span class="comment"># CentOS开启SELinux情况下，docker挂载的目录下的文件container运行会出现Permission deny的情况</span></div></pre></td></tr></table></figure>
+<h1 id="SELinux"><a href="#SELinux" class="headerlink" title="SELinux"></a>SELinux</h1><p>SELinux全称是Security Enhanced Linux，由美国国家安全部(National Security Agency)领导开发的GPL项目，它拥有一个灵活而强制性的访问控制结构，旨在提高Linux系统的安全性，提供强健的安全保证，可防御未知攻击，据称相当于B1级的军事安全性能。比MS NT所谓的C2等高得多。<br>因为SELinux的安全性,使得很多应用在一些默认设置下,由于SELinux的设置而造成一些额外的问题。</p>
+<figure class="highlight bash"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div></pre></td><td class="code"><pre><div class="line"><span class="comment"># 关闭SELinux</span></div><div class="line">$ sudo vi /etc/sysconfig/selinux</div><div class="line">  SELINUX=disabled</div></pre></td></tr></table></figure>
+<h1 id="docker-compose"><a href="#docker-compose" class="headerlink" title="docker-compose"></a>docker-compose</h1><h3 id="epel扩展源"><a href="#epel扩展源" class="headerlink" title="epel扩展源"></a>epel扩展源</h3><p>EPEL (Extra Packages for Enterprise Linux，企业版Linux的额外软件包) 是Fedora小组维护的一个软件仓库项目，为RHEL/CentOS提供他们默认不提供的软件包。这个源兼容RHEL及像CentOS和Scientific Linux这样的衍生版本。</p>
+<figure class="highlight bash"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div></pre></td><td class="code"><pre><div class="line">$ sudo yum -y install epel-release 安装epel扩展源，否则搜不到python-pip包</div><div class="line">$ sudo yum install python-pip</div><div class="line">$ sudo pip install --upgrade pip <span class="comment"># 最好升级一下pip</span></div><div class="line">$ sudo pip install docker-compose</div></pre></td></tr></table></figure>
+<h1 id="systemctl"><a href="#systemctl" class="headerlink" title="systemctl"></a>systemctl</h1><h1 id="chkconfig"><a href="#chkconfig" class="headerlink" title="chkconfig"></a>chkconfig</h1><h1 id="lsof"><a href="#lsof" class="headerlink" title="lsof"></a>lsof</h1><p>lsof（list open files）是一个列出当前系统打开文件的工具。在linux环境下，任何事物都以文件的形式存在，通过文件不仅仅可以访问常规数据，还可以访问网络连接和硬件。<br><figure class="highlight bash"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div></pre></td><td class="code"><pre><div class="line"><span class="comment"># 常用的命令</span></div><div class="line">$ lsof -i:22  <span class="comment"># 查看占用22端口的文件</span></div></pre></td></tr></table></figure></p>
+<h1 id="chkconfig-1"><a href="#chkconfig-1" class="headerlink" title="chkconfig"></a>chkconfig</h1><p>chkconfig命令主要用来更新（启动或停止）和查询系统服务的运行级信息。谨记chkconfig不是立即自动禁止或激活一个服务，它只是简单的改变了符号连接。</p>
+<figure class="highlight bash"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div></pre></td><td class="code"><pre><div class="line">$ chkconfig xxx  <span class="comment"># 查询xxx是否在当前运行级系统开启时启动</span></div><div class="line">$ chkconfig xxx on/off/reset</div></pre></td></tr></table></figure>
+<h1 id="vagrant"><a href="#vagrant" class="headerlink" title="vagrant"></a>vagrant</h1><p>如何使用virtual box作为vm provider，设置sync_folder前需要执行以下命令：<br>vagrant plugin install vagrant-vbguest</p>
+
+  </div>
+</article>
+
+
+
+    </div>
+    
+      <div id="footer-post-container">
+  <div id="footer-post">
+
+    <div id="nav-footer" style="display: none">
+      <ul>
+         
+          <li><a href="/">Home</a></li>
+         
+          <li><a href="/about/">About</a></li>
+         
+          <li><a href="/archives/">Writing</a></li>
+         
+          <li><a href="http://github.com/probberechts">Projects</a></li>
+        
+      </ul>
+    </div>
+
+    <div id="toc-footer" style="display: none">
+      <ol class="toc"><li class="toc-item toc-level-1"><a class="toc-link" href="#rpm"><span class="toc-number">1.</span> <span class="toc-text">rpm</span></a></li><li class="toc-item toc-level-1"><a class="toc-link" href="#yum"><span class="toc-number">2.</span> <span class="toc-text">yum</span></a></li><li class="toc-item toc-level-1"><a class="toc-link" href="#ssh"><span class="toc-number">3.</span> <span class="toc-text">ssh</span></a></li><li class="toc-item toc-level-1"><a class="toc-link" href="#防火墙"><span class="toc-number">4.</span> <span class="toc-text">防火墙</span></a></li><li class="toc-item toc-level-1"><a class="toc-link" href="#docker"><span class="toc-number">5.</span> <span class="toc-text">docker</span></a><ol class="toc-child"><li class="toc-item toc-level-3"><a class="toc-link" href="#CentOS下docker权限问题"><span class="toc-number">5.0.1.</span> <span class="toc-text">CentOS下docker权限问题</span></a></li></ol></li></ol></li><li class="toc-item toc-level-1"><a class="toc-link" href="#SELinux"><span class="toc-number">6.</span> <span class="toc-text">SELinux</span></a></li><li class="toc-item toc-level-1"><a class="toc-link" href="#docker-compose"><span class="toc-number">7.</span> <span class="toc-text">docker-compose</span></a><ol class="toc-child"><li class="toc-item toc-level-3"><a class="toc-link" href="#epel扩展源"><span class="toc-number">7.0.1.</span> <span class="toc-text">epel扩展源</span></a></li></ol></li></ol></li><li class="toc-item toc-level-1"><a class="toc-link" href="#systemctl"><span class="toc-number">8.</span> <span class="toc-text">systemctl</span></a></li><li class="toc-item toc-level-1"><a class="toc-link" href="#chkconfig"><span class="toc-number">9.</span> <span class="toc-text">chkconfig</span></a></li><li class="toc-item toc-level-1"><a class="toc-link" href="#lsof"><span class="toc-number">10.</span> <span class="toc-text">lsof</span></a></li><li class="toc-item toc-level-1"><a class="toc-link" href="#chkconfig-1"><span class="toc-number">11.</span> <span class="toc-text">chkconfig</span></a></li><li class="toc-item toc-level-1"><a class="toc-link" href="#vagrant"><span class="toc-number">12.</span> <span class="toc-text">vagrant</span></a></li></ol>
+    </div>
+
+    <div id="actions-footer">
+      <ul>
+        <li id="toc"><a class="icon" href="#" onclick="$('#toc-footer').toggle();return false;"><i class="fa fa-list fa-lg" aria-hidden="true"></i> TOC</a></li>
+        <li id="share"><a class="icon" href="#" onclick="$('#share-footer').toggle();return false;"><i class="fa fa-share-alt fa-lg" aria-hidden="true"></i> Share</a></li>
+        <li id="top" style="display:none"><a class="icon" href="#" onclick="$('html, body').animate({ scrollTop: 0 }, 'fast');"><i class="fa fa-chevron-up fa-lg" aria-hidden="true"></i> Top</a></li>
+        <li id="menu"><a class="icon" href="#" onclick="$('#nav-footer').toggle();return false;"><i class="fa fa-bars fa-lg" aria-hidden="true"></i> Menu</a></li>
+      </ul>
+    </div>
+
+  </div>
+</div>
+
+    
+    <footer id="footer">
+  <div class="footer-left">
+    Copyright &copy; 2017 Landleany
+  </div>
+  <div class="footer-right">
+    <nav>
+      <ul>
+         
+          <li><a href="/">Home</a></li>
+         
+          <li><a href="/about/">About</a></li>
+         
+          <li><a href="/archives/">Writing</a></li>
+         
+          <li><a href="http://github.com/probberechts">Projects</a></li>
+        
+      </ul>
+    </nav>
+  </div>
+</footer>
+
+</body>
+</html>
+<!-- styles -->
+<link rel="stylesheet" href="/lib/font-awesome/css/font-awesome.min.css">
+<link rel="stylesheet" href="/lib/meslo-LG/styles.css">
+<link rel="stylesheet" href="/lib/justified-gallery/justifiedGallery.min.css">
+
+<!-- jquery -->
+<script src="/lib/jquery/jquery.min.js"></script>
+<script src="/lib/justified-gallery/jquery.justifiedGallery.min.js"></script>
+<script src="/js/main.js"></script>
+<!-- search -->
+
+<!-- Google Analytics -->
+
+    <script type="text/javascript">
+        (function(i,s,o,g,r,a,m) {i['GoogleAnalyticsObject']=r;i[r]=i[r]||function() {
+        (i[r].q=i[r].q||[]).push(arguments)},i[r].l=1*new Date();a=s.createElement(o),
+        m=s.getElementsByTagName(o)[0];a.async=1;a.src=g;m.parentNode.insertBefore(a,m)
+        })(window,document,'script','//www.google-analytics.com/analytics.js','ga');
+        ga('create', 'UA-86660611-1', 'auto');
+        ga('send', 'pageview');
+    </script>
+
+<!-- Disqus Comments -->
+
+
