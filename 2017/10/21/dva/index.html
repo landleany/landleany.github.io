@@ -6,16 +6,16 @@
     <meta http-equiv="X-UA-Compatible" content="IE=edge">
     <meta name="HandheldFriendly" content="True">
     <meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1" />
-    <meta name="description" content="目前使用到的框架: Dva.js  感觉beego框架代码和用户代码耦合的很厉害…  Pass props to {this.props.children}1234//利用该方法可以实现一个通用的父组件，//让子组件传递props，//例如使子组件实现自适应宽度React.cloneElement(this.props.children, &amp;#123;...this.props&amp;#125;;">
+    <meta name="description" content="目前使用到的框架:Dva.jsReactReduxRouter  Pass props to {this.props.children}1234//利用该方法可以实现一个通用的父组件，//让子组件传递props，//例如使子组件实现自适应宽度React.cloneElement(this.props.children, &amp;#123;...this.props&amp;#125;; 强制remount组件">
 <meta property="og:type" content="article">
 <meta property="og:title" content="前端笔记">
 <meta property="og:url" content="http://yoursite.com/2017/10/21/dva/index.html">
 <meta property="og:site_name" content="Drip">
-<meta property="og:description" content="目前使用到的框架: Dva.js  感觉beego框架代码和用户代码耦合的很厉害…  Pass props to {this.props.children}1234//利用该方法可以实现一个通用的父组件，//让子组件传递props，//例如使子组件实现自适应宽度React.cloneElement(this.props.children, &amp;#123;...this.props&amp;#125;;">
-<meta property="og:updated_time" content="2017-10-21T09:05:36.000Z">
+<meta property="og:description" content="目前使用到的框架:Dva.jsReactReduxRouter  Pass props to {this.props.children}1234//利用该方法可以实现一个通用的父组件，//让子组件传递props，//例如使子组件实现自适应宽度React.cloneElement(this.props.children, &amp;#123;...this.props&amp;#125;; 强制remount组件">
+<meta property="og:updated_time" content="2017-10-21T15:22:07.000Z">
 <meta name="twitter:card" content="summary">
 <meta name="twitter:title" content="前端笔记">
-<meta name="twitter:description" content="目前使用到的框架: Dva.js  感觉beego框架代码和用户代码耦合的很厉害…  Pass props to {this.props.children}1234//利用该方法可以实现一个通用的父组件，//让子组件传递props，//例如使子组件实现自适应宽度React.cloneElement(this.props.children, &amp;#123;...this.props&amp;#125;;">
+<meta name="twitter:description" content="目前使用到的框架:Dva.jsReactReduxRouter  Pass props to {this.props.children}1234//利用该方法可以实现一个通用的父组件，//让子组件传递props，//例如使子组件实现自适应宽度React.cloneElement(this.props.children, &amp;#123;...this.props&amp;#125;; 强制remount组件">
     
     
         
@@ -94,7 +94,7 @@
 
     </div>
     <div id="toc">
-      <ol class="toc"><li class="toc-item toc-level-1"><a class="toc-link" href="#Pass-props-to-this-props-children"><span class="toc-number">1.</span> <span class="toc-text">Pass props to {this.props.children}</span></a></li></ol>
+      <ol class="toc"><li class="toc-item toc-level-1"><a class="toc-link" href="#Pass-props-to-this-props-children"><span class="toc-number">1.</span> <span class="toc-text">Pass props to {this.props.children}</span></a></li><li class="toc-item toc-level-1"><a class="toc-link" href="#强制remount组件"><span class="toc-number">2.</span> <span class="toc-text">强制remount组件</span></a></li><li class="toc-item toc-level-1"><a class="toc-link" href="#componentDidMount触发时机"><span class="toc-number">3.</span> <span class="toc-text">componentDidMount触发时机</span></a></li><li class="toc-item toc-level-1"><a class="toc-link" href="#有些时候在componentDidMount中获得Dom宽度不准确"><span class="toc-number">4.</span> <span class="toc-text">有些时候在componentDidMount中获得Dom宽度不准确</span></a></li></ol>
     </div>
   </span>
 </div>
@@ -128,11 +128,13 @@
   
 
   <div class="content" itemprop="articleBody">
-    <p>目前使用到的框架: Dva.js</p>
-<blockquote>
-<p>感觉beego框架代码和用户代码耦合的很厉害…</p>
+    <blockquote>
+<p>目前使用到的框架:<br>Dva.js<br>React<br>Redux<br>Router</p>
 </blockquote>
 <h1 id="Pass-props-to-this-props-children"><a href="#Pass-props-to-this-props-children" class="headerlink" title="Pass props to {this.props.children}"></a>Pass props to {this.props.children}</h1><figure class="highlight js"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div></pre></td><td class="code"><pre><div class="line"><span class="comment">//利用该方法可以实现一个通用的父组件，</span></div><div class="line"><span class="comment">//让子组件传递props，</span></div><div class="line"><span class="comment">//例如使子组件实现自适应宽度</span></div><div class="line">React.cloneElement(<span class="keyword">this</span>.props.children, &#123;...this.props&#125;;</div></pre></td></tr></table></figure>
+<h1 id="强制remount组件"><a href="#强制remount组件" class="headerlink" title="强制remount组件"></a>强制remount组件</h1><p>可以通过更改key值来强制刷新整个组件</p>
+<h1 id="componentDidMount触发时机"><a href="#componentDidMount触发时机" class="headerlink" title="componentDidMount触发时机"></a>componentDidMount触发时机</h1><p>当所有子组件执行完componentDidMount之后</p>
+<h1 id="有些时候在componentDidMount中获得Dom宽度不准确"><a href="#有些时候在componentDidMount中获得Dom宽度不准确" class="headerlink" title="有些时候在componentDidMount中获得Dom宽度不准确"></a>有些时候在componentDidMount中获得Dom宽度不准确</h1><p>可能是因为webpack打包的css执行在render调用之后，可以用element style在div中显式设置宽度百分比</p>
 
   </div>
 </article>
@@ -159,7 +161,7 @@
     </div>
 
     <div id="toc-footer" style="display: none">
-      <ol class="toc"><li class="toc-item toc-level-1"><a class="toc-link" href="#Pass-props-to-this-props-children"><span class="toc-number">1.</span> <span class="toc-text">Pass props to {this.props.children}</span></a></li></ol>
+      <ol class="toc"><li class="toc-item toc-level-1"><a class="toc-link" href="#Pass-props-to-this-props-children"><span class="toc-number">1.</span> <span class="toc-text">Pass props to {this.props.children}</span></a></li><li class="toc-item toc-level-1"><a class="toc-link" href="#强制remount组件"><span class="toc-number">2.</span> <span class="toc-text">强制remount组件</span></a></li><li class="toc-item toc-level-1"><a class="toc-link" href="#componentDidMount触发时机"><span class="toc-number">3.</span> <span class="toc-text">componentDidMount触发时机</span></a></li><li class="toc-item toc-level-1"><a class="toc-link" href="#有些时候在componentDidMount中获得Dom宽度不准确"><span class="toc-number">4.</span> <span class="toc-text">有些时候在componentDidMount中获得Dom宽度不准确</span></a></li></ol>
     </div>
 
     <div id="actions-footer">
