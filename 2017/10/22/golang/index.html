@@ -6,16 +6,16 @@
     <meta http-equiv="X-UA-Compatible" content="IE=edge">
     <meta name="HandheldFriendly" content="True">
     <meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1" />
-    <meta name="description" content="select case 不能像switch一样使用fallthrough 没有顺序，从多个不阻塞的case中随机选择一个执行  chan1234567ch := make(chan int)  // ch是没有缓冲的ch &amp;lt;- 1   // 该操作会被阻塞，必须在另一个协程中执行 &amp;lt;- ch 才能发送成功&amp;lt;- ch   // 因此在同一个协程中向一个没有缓冲的通道中发送数据会被阻">
+    <meta name="description" content="select case 不能像switch一样使用fallthrough 没有顺序，从多个不阻塞的case中随机选择一个执行  channel1234567ch := make(chan int)  // ch是没有缓冲的ch &amp;lt;- 1   // 该操作会被阻塞，必须在另一个协程中执行 &amp;lt;- ch 才能发送成功&amp;lt;- ch   // 因此在同一个协程中向一个没有缓冲的通道中发送数据">
 <meta property="og:type" content="article">
 <meta property="og:title" content="golang笔记">
 <meta property="og:url" content="http://yoursite.com/2017/10/22/golang/index.html">
 <meta property="og:site_name" content="Drip">
-<meta property="og:description" content="select case 不能像switch一样使用fallthrough 没有顺序，从多个不阻塞的case中随机选择一个执行  chan1234567ch := make(chan int)  // ch是没有缓冲的ch &amp;lt;- 1   // 该操作会被阻塞，必须在另一个协程中执行 &amp;lt;- ch 才能发送成功&amp;lt;- ch   // 因此在同一个协程中向一个没有缓冲的通道中发送数据会被阻">
-<meta property="og:updated_time" content="2017-10-22T12:42:44.000Z">
+<meta property="og:description" content="select case 不能像switch一样使用fallthrough 没有顺序，从多个不阻塞的case中随机选择一个执行  channel1234567ch := make(chan int)  // ch是没有缓冲的ch &amp;lt;- 1   // 该操作会被阻塞，必须在另一个协程中执行 &amp;lt;- ch 才能发送成功&amp;lt;- ch   // 因此在同一个协程中向一个没有缓冲的通道中发送数据">
+<meta property="og:updated_time" content="2017-10-22T16:00:02.000Z">
 <meta name="twitter:card" content="summary">
 <meta name="twitter:title" content="golang笔记">
-<meta name="twitter:description" content="select case 不能像switch一样使用fallthrough 没有顺序，从多个不阻塞的case中随机选择一个执行  chan1234567ch := make(chan int)  // ch是没有缓冲的ch &amp;lt;- 1   // 该操作会被阻塞，必须在另一个协程中执行 &amp;lt;- ch 才能发送成功&amp;lt;- ch   // 因此在同一个协程中向一个没有缓冲的通道中发送数据会被阻">
+<meta name="twitter:description" content="select case 不能像switch一样使用fallthrough 没有顺序，从多个不阻塞的case中随机选择一个执行  channel1234567ch := make(chan int)  // ch是没有缓冲的ch &amp;lt;- 1   // 该操作会被阻塞，必须在另一个协程中执行 &amp;lt;- ch 才能发送成功&amp;lt;- ch   // 因此在同一个协程中向一个没有缓冲的通道中发送数据">
     
     
         
@@ -94,7 +94,7 @@
 
     </div>
     <div id="toc">
-      <ol class="toc"><li class="toc-item toc-level-1"><a class="toc-link" href="#select-case"><span class="toc-number">1.</span> <span class="toc-text">select case</span></a></li><li class="toc-item toc-level-1"><a class="toc-link" href="#chan"><span class="toc-number">2.</span> <span class="toc-text">chan</span></a></li></ol>
+      <ol class="toc"><li class="toc-item toc-level-1"><a class="toc-link" href="#select-case"><span class="toc-number">1.</span> <span class="toc-text">select case</span></a></li><li class="toc-item toc-level-1"><a class="toc-link" href="#channel"><span class="toc-number">2.</span> <span class="toc-text">channel</span></a></li><li class="toc-item toc-level-1"><a class="toc-link" href="#channel-操作要小心"><span class="toc-number">3.</span> <span class="toc-text">channel 操作要小心</span></a></li></ol>
     </div>
   </span>
 </div>
@@ -132,7 +132,14 @@
 <li>不能像switch一样使用fallthrough</li>
 <li>没有顺序，从多个不阻塞的case中随机选择一个执行</li>
 </ul>
-<h1 id="chan"><a href="#chan" class="headerlink" title="chan"></a>chan</h1><figure class="highlight go"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div><div class="line">7</div></pre></td><td class="code"><pre><div class="line">ch := <span class="built_in">make</span>(<span class="keyword">chan</span> <span class="keyword">int</span>)  <span class="comment">// ch是没有缓冲的</span></div><div class="line">ch &lt;- <span class="number">1</span>   <span class="comment">// 该操作会被阻塞，必须在另一个协程中执行 &lt;- ch 才能发送成功</span></div><div class="line">&lt;- ch   <span class="comment">// 因此在同一个协程中向一个没有缓冲的通道中发送数据会被阻塞</span></div><div class="line"></div><div class="line">ch := <span class="built_in">make</span>(<span class="keyword">chan</span> <span class="keyword">int</span>, <span class="number">1</span>)  <span class="comment">// ch带一个数据的缓冲</span></div><div class="line">ch &lt;- <span class="number">1</span></div><div class="line">&lt;- ch  <span class="comment">// 可以顺利执行</span></div></pre></td></tr></table></figure>
+<h1 id="channel"><a href="#channel" class="headerlink" title="channel"></a>channel</h1><figure class="highlight go"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div><div class="line">7</div></pre></td><td class="code"><pre><div class="line">ch := <span class="built_in">make</span>(<span class="keyword">chan</span> <span class="keyword">int</span>)  <span class="comment">// ch是没有缓冲的</span></div><div class="line">ch &lt;- <span class="number">1</span>   <span class="comment">// 该操作会被阻塞，必须在另一个协程中执行 &lt;- ch 才能发送成功</span></div><div class="line">&lt;- ch   <span class="comment">// 因此在同一个协程中向一个没有缓冲的通道中发送数据会被阻塞</span></div><div class="line"></div><div class="line">ch := <span class="built_in">make</span>(<span class="keyword">chan</span> <span class="keyword">int</span>, <span class="number">1</span>)  <span class="comment">// ch带一个数据的缓冲</span></div><div class="line">ch &lt;- <span class="number">1</span></div><div class="line">&lt;- ch  <span class="comment">// 可以顺利执行</span></div></pre></td></tr></table></figure>
+<h1 id="channel-操作要小心"><a href="#channel-操作要小心" class="headerlink" title="channel 操作要小心"></a>channel 操作要小心</h1><ul>
+<li><p>向关闭的chan传值，不会被阻塞，而且会panic，非常危险</p>
+<figure class="highlight go"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div><div class="line">7</div><div class="line">8</div><div class="line">9</div></pre></td><td class="code"><pre><div class="line"><span class="comment">// 由于向关闭的chan传值不会阻塞，</span></div><div class="line"><span class="comment">//且case选择的随机性，</span></div><div class="line"><span class="comment">//下面的代码有一定概率出错</span></div><div class="line">ch := <span class="built_in">make</span>(<span class="keyword">chan</span> <span class="keyword">int</span>)</div><div class="line"><span class="built_in">close</span>(ch)</div><div class="line"><span class="keyword">select</span> &#123;</div><div class="line"><span class="keyword">case</span> &lt;- ch:</div><div class="line"><span class="keyword">case</span> ch &lt;- <span class="number">1</span>:</div><div class="line">&#125;</div></pre></td></tr></table></figure>
+</li>
+<li><p>向关闭的chan取值还是比较安全的，至少不会panic</p>
+</li>
+</ul>
 
   </div>
 </article>
@@ -159,7 +166,7 @@
     </div>
 
     <div id="toc-footer" style="display: none">
-      <ol class="toc"><li class="toc-item toc-level-1"><a class="toc-link" href="#select-case"><span class="toc-number">1.</span> <span class="toc-text">select case</span></a></li><li class="toc-item toc-level-1"><a class="toc-link" href="#chan"><span class="toc-number">2.</span> <span class="toc-text">chan</span></a></li></ol>
+      <ol class="toc"><li class="toc-item toc-level-1"><a class="toc-link" href="#select-case"><span class="toc-number">1.</span> <span class="toc-text">select case</span></a></li><li class="toc-item toc-level-1"><a class="toc-link" href="#channel"><span class="toc-number">2.</span> <span class="toc-text">channel</span></a></li><li class="toc-item toc-level-1"><a class="toc-link" href="#channel-操作要小心"><span class="toc-number">3.</span> <span class="toc-text">channel 操作要小心</span></a></li></ol>
     </div>
 
     <div id="actions-footer">
