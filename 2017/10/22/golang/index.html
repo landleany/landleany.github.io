@@ -12,7 +12,7 @@
 <meta property="og:url" content="http://yoursite.com/2017/10/22/golang/index.html">
 <meta property="og:site_name" content="Drip">
 <meta property="og:description" content="select case 不能像switch一样使用fallthrough 没有顺序，从多个不阻塞的case中随机选择一个执行  channel1234567ch := make(chan int)  // ch是没有缓冲的ch &amp;lt;- 1   // 该操作会被阻塞，必须在另一个协程中执行 &amp;lt;- ch 才能发送成功&amp;lt;- ch   // 因此在同一个协程中向一个没有缓冲的通道中发送数据">
-<meta property="og:updated_time" content="2017-10-22T16:14:10.000Z">
+<meta property="og:updated_time" content="2017-10-25T07:43:12.000Z">
 <meta name="twitter:card" content="summary">
 <meta name="twitter:title" content="golang笔记">
 <meta name="twitter:description" content="select case 不能像switch一样使用fallthrough 没有顺序，从多个不阻塞的case中随机选择一个执行  channel1234567ch := make(chan int)  // ch是没有缓冲的ch &amp;lt;- 1   // 该操作会被阻塞，必须在另一个协程中执行 &amp;lt;- ch 才能发送成功&amp;lt;- ch   // 因此在同一个协程中向一个没有缓冲的通道中发送数据">
@@ -94,7 +94,7 @@
 
     </div>
     <div id="toc">
-      <ol class="toc"><li class="toc-item toc-level-1"><a class="toc-link" href="#select-case"><span class="toc-number">1.</span> <span class="toc-text">select case</span></a></li><li class="toc-item toc-level-1"><a class="toc-link" href="#channel"><span class="toc-number">2.</span> <span class="toc-text">channel</span></a></li><li class="toc-item toc-level-1"><a class="toc-link" href="#channel-操作要小心"><span class="toc-number">3.</span> <span class="toc-text">channel 操作要小心</span></a></li><li class="toc-item toc-level-1"><a class="toc-link" href="#带缓冲的channel"><span class="toc-number">4.</span> <span class="toc-text">带缓冲的channel</span></a></li></ol>
+      <ol class="toc"><li class="toc-item toc-level-1"><a class="toc-link" href="#select-case"><span class="toc-number">1.</span> <span class="toc-text">select case</span></a></li><li class="toc-item toc-level-1"><a class="toc-link" href="#channel"><span class="toc-number">2.</span> <span class="toc-text">channel</span></a></li><li class="toc-item toc-level-1"><a class="toc-link" href="#channel-操作要小心"><span class="toc-number">3.</span> <span class="toc-text">channel 操作要小心</span></a></li><li class="toc-item toc-level-1"><a class="toc-link" href="#带缓冲的channel"><span class="toc-number">4.</span> <span class="toc-text">带缓冲的channel</span></a></li><li class="toc-item toc-level-1"><a class="toc-link" href="#千万不要在forloop-中的select中写break"><span class="toc-number">5.</span> <span class="toc-text">千万不要在forloop 中的select中写break</span></a></li></ol>
     </div>
   </span>
 </div>
@@ -141,6 +141,7 @@
 </li>
 </ul>
 <h1 id="带缓冲的channel"><a href="#带缓冲的channel" class="headerlink" title="带缓冲的channel"></a>带缓冲的channel</h1><p>一般来说channel用于跨协程的通信<br>但是对于带缓冲的channel，可以用于单协程(不会造成阻塞)<br>例如下面的代码交替输出ch和ph<br><figure class="highlight go"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div><div class="line">7</div><div class="line">8</div><div class="line">9</div><div class="line">10</div><div class="line">11</div></pre></td><td class="code"><pre><div class="line">ch := <span class="built_in">make</span>(<span class="keyword">chan</span> <span class="keyword">int</span>, <span class="number">1</span>)</div><div class="line">ph := <span class="built_in">make</span>(<span class="keyword">chan</span> <span class="keyword">int</span>, <span class="number">1</span>)</div><div class="line">ph &lt;- <span class="number">1</span></div><div class="line"><span class="keyword">for</span> &#123;</div><div class="line">  <span class="keyword">select</span> &#123;</div><div class="line">  <span class="keyword">case</span> &lt;- ph:</div><div class="line">    ch &lt;- <span class="number">1</span></div><div class="line">  <span class="keyword">case</span> &lt;- ch:</div><div class="line">    ph &lt;- <span class="number">1</span></div><div class="line">  &#125;</div><div class="line">&#125;</div></pre></td></tr></table></figure></p>
+<h1 id="千万不要在forloop-中的select中写break"><a href="#千万不要在forloop-中的select中写break" class="headerlink" title="千万不要在forloop 中的select中写break"></a>千万不要在forloop 中的select中写break</h1><figure class="highlight go"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div><div class="line">7</div></pre></td><td class="code"><pre><div class="line"><span class="comment">// 下面的代码会死循环</span></div><div class="line"><span class="keyword">for</span> &#123;</div><div class="line">  <span class="keyword">select</span> &#123;</div><div class="line">  <span class="keyword">case</span> &lt;- <span class="built_in">close</span>:</div><div class="line">    <span class="keyword">break</span></div><div class="line">  &#125;</div><div class="line">&#125;</div></pre></td></tr></table></figure>
 
   </div>
 </article>
@@ -167,7 +168,7 @@
     </div>
 
     <div id="toc-footer" style="display: none">
-      <ol class="toc"><li class="toc-item toc-level-1"><a class="toc-link" href="#select-case"><span class="toc-number">1.</span> <span class="toc-text">select case</span></a></li><li class="toc-item toc-level-1"><a class="toc-link" href="#channel"><span class="toc-number">2.</span> <span class="toc-text">channel</span></a></li><li class="toc-item toc-level-1"><a class="toc-link" href="#channel-操作要小心"><span class="toc-number">3.</span> <span class="toc-text">channel 操作要小心</span></a></li><li class="toc-item toc-level-1"><a class="toc-link" href="#带缓冲的channel"><span class="toc-number">4.</span> <span class="toc-text">带缓冲的channel</span></a></li></ol>
+      <ol class="toc"><li class="toc-item toc-level-1"><a class="toc-link" href="#select-case"><span class="toc-number">1.</span> <span class="toc-text">select case</span></a></li><li class="toc-item toc-level-1"><a class="toc-link" href="#channel"><span class="toc-number">2.</span> <span class="toc-text">channel</span></a></li><li class="toc-item toc-level-1"><a class="toc-link" href="#channel-操作要小心"><span class="toc-number">3.</span> <span class="toc-text">channel 操作要小心</span></a></li><li class="toc-item toc-level-1"><a class="toc-link" href="#带缓冲的channel"><span class="toc-number">4.</span> <span class="toc-text">带缓冲的channel</span></a></li><li class="toc-item toc-level-1"><a class="toc-link" href="#千万不要在forloop-中的select中写break"><span class="toc-number">5.</span> <span class="toc-text">千万不要在forloop 中的select中写break</span></a></li></ol>
     </div>
 
     <div id="actions-footer">
