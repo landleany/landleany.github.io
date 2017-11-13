@@ -12,7 +12,7 @@
 <meta property="og:url" content="http://yoursite.com/2017/11/01/fabric-go-sdk/index.html">
 <meta property="og:site_name" content="Drip">
 <meta property="og:description" content="不错的学习文档  go 包管理器，基本是基于vendor目录链接官方依赖包管理工具：dep12$ dep init    初始化$ dep ensure  分析源码，将项目所需的库填充(populate)至vendor目录下 lock.json 和 package.json一般来说依赖包管理器会有两个文件：  package.json 用户定义的文件，里面定义了项目依赖的库的版本(^,~表示版本">
-<meta property="og:updated_time" content="2017-11-13T02:28:17.000Z">
+<meta property="og:updated_time" content="2017-11-13T02:32:41.000Z">
 <meta name="twitter:card" content="summary">
 <meta name="twitter:title" content="fabric-go-sdk笔记">
 <meta name="twitter:description" content="不错的学习文档  go 包管理器，基本是基于vendor目录链接官方依赖包管理工具：dep12$ dep init    初始化$ dep ensure  分析源码，将项目所需的库填充(populate)至vendor目录下 lock.json 和 package.json一般来说依赖包管理器会有两个文件：  package.json 用户定义的文件，里面定义了项目依赖的库的版本(^,~表示版本">
@@ -231,18 +231,9 @@ User的PrivateKey指的就是MSP下的私钥
 <h1 id="ESCC-负责背书endorse的系统chaincode"><a href="#ESCC-负责背书endorse的系统chaincode" class="headerlink" title="ESCC 负责背书endorse的系统chaincode"></a>ESCC 负责背书endorse的系统chaincode</h1><h1 id="VSCC-策略检查"><a href="#VSCC-策略检查" class="headerlink" title="VSCC 策略检查"></a>VSCC 策略检查</h1><p>当一个peer收到一个block数据时，开启检查该条交易的背书验证</p>
 <h1 id="同一条Channel上的各个合约里面的字段是独立的还是公用的？"><a href="#同一条Channel上的各个合约里面的字段是独立的还是公用的？" class="headerlink" title="同一条Channel上的各个合约里面的字段是独立的还是公用的？"></a>同一条Channel上的各个合约里面的字段是独立的还是公用的？</h1><h1 id="系统chaincode都是-a-文件"><a href="#系统chaincode都是-a-文件" class="headerlink" title="系统chaincode都是 .a 文件"></a>系统chaincode都是 .a 文件</h1><h1 id="比较证书时，比较公钥，而不是什么ip信息。"><a href="#比较证书时，比较公钥，而不是什么ip信息。" class="headerlink" title="比较证书时，比较公钥，而不是什么ip信息。"></a>比较证书时，比较公钥，而不是什么ip信息。</h1><h1 id="configtx-yaml"><a href="#configtx-yaml" class="headerlink" title="configtx.yaml"></a>configtx.yaml</h1><ol>
 <li>AdminPrincipal: Role.ADMIN / Role.MEMBER 表示那些人具有Admin的权限:<ul>
-<li><ul>
 <li>create/update channel</li>
-</ul>
-</li>
-<li><ul>
 <li>install/instantiate chaincode</li>
-</ul>
-</li>
-<li><ul>
 <li>query installed/instantiated chaincode</li>
-</ul>
-</li>
 </ul>
 </li>
 <li>AdminPrincipal 不填表示默认为Role.Admin，即只有管理员的MSP才可以执行上述属于管理员的权限</li>
