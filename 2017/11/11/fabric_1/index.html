@@ -1,0 +1,233 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <!-- so meta -->
+    <meta charset="utf-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="HandheldFriendly" content="True">
+    <meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1" />
+    <meta name="description" content="继续start.go的serve函数，peerServer对象在ChaincodeSupport服务之后，又注册了Admin，Endorser服务：123pb.RegisterAdminServer(peerServer.Server(), core.NewAdminServer())serverEndorser := endorser.NewEndorserServer()pb.Register">
+<meta property="og:type" content="article">
+<meta property="og:title" content="peer的Admin和Endorser服务">
+<meta property="og:url" content="http://yoursite.com/2017/11/11/fabric_1/index.html">
+<meta property="og:site_name" content="Drip">
+<meta property="og:description" content="继续start.go的serve函数，peerServer对象在ChaincodeSupport服务之后，又注册了Admin，Endorser服务：123pb.RegisterAdminServer(peerServer.Server(), core.NewAdminServer())serverEndorser := endorser.NewEndorserServer()pb.Register">
+<meta property="og:updated_time" content="2017-11-13T02:30:56.000Z">
+<meta name="twitter:card" content="summary">
+<meta name="twitter:title" content="peer的Admin和Endorser服务">
+<meta name="twitter:description" content="继续start.go的serve函数，peerServer对象在ChaincodeSupport服务之后，又注册了Admin，Endorser服务：123pb.RegisterAdminServer(peerServer.Server(), core.NewAdminServer())serverEndorser := endorser.NewEndorserServer()pb.Register">
+    
+    
+        
+          
+              <link rel="shortcut icon" href="/images/favicon.ico">
+          
+        
+        
+          
+            <link rel="icon" type="image/png" href="/images/favicon-192x192.png" sizes="192x192">
+          
+        
+        
+          
+            <link rel="apple-touch-icon" sizes="180x180" href="/images/apple-touch-icon.png">
+          
+        
+    
+    <!-- title -->
+    <title>peer的Admin和Endorser服务</title>
+    <!-- styles -->
+    <link rel="stylesheet" href="/css/style.css">
+    <!-- rss -->
+    
+    
+</head>
+
+<body>
+    
+      <div id="header-post">
+  <a id="menu-icon" href="#"><i class="fa fa-bars fa-lg"></i></a>
+  <a id="menu-icon-tablet" href="#"><i class="fa fa-bars fa-lg"></i></a>
+  <a id="top-icon-tablet" href="#" onclick="$('html, body').animate({ scrollTop: 0 }, 'fast');" style="display:none;"><i class="fa fa-chevron-up fa-lg"></i></a>
+  <span id="menu">
+    <span id="nav">
+      <ul>
+         
+          <li><a href="/">Home</a></li>
+         
+          <li><a href="/about/">About</a></li>
+         
+          <li><a href="/archives/">Writing</a></li>
+         
+          <li><a href="http://github.com/probberechts">Projects</a></li>
+        
+      </ul>
+    </span>
+    <br/>
+    <span id="actions">
+      <ul>
+        
+        
+        <li><a class="icon" href="/2017/11/01/fabric-go-sdk/"><i class="fa fa-chevron-right" aria-hidden="true" onmouseover="$('#i-next').toggle();" onmouseout="$('#i-next').toggle();"></i></a></li>
+        
+        <li><a class="icon" href="#" onclick="$('html, body').animate({ scrollTop: 0 }, 'fast');"><i class="fa fa-chevron-up" aria-hidden="true" onmouseover="$('#i-top').toggle();" onmouseout="$('#i-top').toggle();"></i></a></li>
+      </ul>
+      <span id="i-prev" class="info" style="display:none;">Previous post</span>
+      <span id="i-next" class="info" style="display:none;">Next post</span>
+      <span id="i-top" class="info" style="display:none;">Back to top</span>
+      <span id="i-share" class="info" style="display:none;">Share post</span>
+    </span>
+    <br/>
+    <div id="share" style="display: none">
+      <ul>
+  <li><a class="icon" href="http://www.facebook.com/sharer.php?u=http://yoursite.com/2017/11/11/fabric_1/"><i class="fa fa-facebook " aria-hidden="true"></i></a></li>
+  <li><a class="icon" href="https://twitter.com/share?url=http://yoursite.com/2017/11/11/fabric_1/&text=peer的Admin和Endorser服务"><i class="fa fa-twitter " aria-hidden="true"></i></a></li>
+  <li><a class="icon" href="http://www.linkedin.com/shareArticle?url=http://yoursite.com/2017/11/11/fabric_1/&title=peer的Admin和Endorser服务"><i class="fa fa-linkedin " aria-hidden="true"></i></a></li>
+  <li><a class="icon" href="https://pinterest.com/pin/create/bookmarklet/?url=http://yoursite.com/2017/11/11/fabric_1/&is_video=false&description=peer的Admin和Endorser服务"><i class="fa fa-pinterest " aria-hidden="true"></i></a></li>
+  <li><a class="icon" href="mailto:?subject=peer的Admin和Endorser服务&body=Check out this article: http://yoursite.com/2017/11/11/fabric_1/"><i class="fa fa-envelope " aria-hidden="true"></i></a></li>
+  <li><a class="icon" href="https://getpocket.com/save?url=http://yoursite.com/2017/11/11/fabric_1/&title=peer的Admin和Endorser服务"><i class="fa fa-get-pocket " aria-hidden="true"></i></a></li>
+  <li><a class="icon" href="http://reddit.com/submit?url=http://yoursite.com/2017/11/11/fabric_1/&title=peer的Admin和Endorser服务"><i class="fa fa-reddit " aria-hidden="true"></i></a></li>
+  <li><a class="icon" href="http://www.stumbleupon.com/submit?url=http://yoursite.com/2017/11/11/fabric_1/&title=peer的Admin和Endorser服务"><i class="fa fa-stumbleupon " aria-hidden="true"></i></a></li>
+  <li><a class="icon" href="http://digg.com/submit?url=http://yoursite.com/2017/11/11/fabric_1/&title=peer的Admin和Endorser服务"><i class="fa fa-digg " aria-hidden="true"></i></a></li>
+  <li><a class="icon" href="http://www.tumblr.com/share/link?url=http://yoursite.com/2017/11/11/fabric_1/&name=peer的Admin和Endorser服务&description="><i class="fa fa-tumblr " aria-hidden="true"></i></a></li>
+</ul>
+
+    </div>
+    <div id="toc">
+      <ol class="toc"><li class="toc-item toc-level-1"><a class="toc-link" href="#Admin"><span class="toc-number">1.</span> <span class="toc-text">Admin</span></a></li><li class="toc-item toc-level-1"><a class="toc-link" href="#Endorser"><span class="toc-number">2.</span> <span class="toc-text">Endorser</span></a></li><li class="toc-item toc-level-1"><a class="toc-link" href="#背书服务原型和实现"><span class="toc-number">3.</span> <span class="toc-text">背书服务原型和实现</span></a></li></ol>
+    </div>
+  </span>
+</div>
+
+    
+    <div class="content index width mx-auto px2 my4">
+        
+        <article class="post" itemscope itemtype="http://schema.org/BlogPosting">
+  <header>
+    
+    <h1 class="posttitle" itemprop="name headline">
+        peer的Admin和Endorser服务
+    </h1>
+
+
+
+    <div class="meta">
+      <span class="author" itemprop="author" itemscope itemtype="http://schema.org/Person">
+        <span itemprop="name">Drip</span>
+      </span>
+      
+    <div class="postdate">
+        <time datetime="2017-11-11T02:30:30.000Z" itemprop="datePublished">2017-11-11</time>
+    </div>
+
+
+      
+
+    </div>
+  </header>
+  
+
+  <div class="content" itemprop="articleBody">
+    <p>继续start.go的serve函数，peerServer对象在ChaincodeSupport服务之后，又注册了Admin，Endorser服务：<br><figure class="highlight go"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div></pre></td><td class="code"><pre><div class="line">pb.RegisterAdminServer(peerServer.Server(), core.NewAdminServer())</div><div class="line">serverEndorser := endorser.NewEndorserServer()</div><div class="line">pb.RegisterEndorserServer(peerServer.Server(), serverEndorser)</div></pre></td></tr></table></figure></p>
+<p>其注册方式与注册ChaincodeSupport服务一致，在fabirc源码解析7中已经详述，所以本文只将目光锁定在Admin和Endorser服务本身。  </p>
+<h1 id="Admin"><a href="#Admin" class="headerlink" title="Admin"></a>Admin</h1><p>Admin服务实现对服务器、模块日志级别的获取和控制。服务原型定义在/fabric/protos/peer/admin.proto以及对应生成的admin.pb.go文件。核心代码在/fabric/core/admin.go中，该文件中实现了admin.pb.go中的Admin服务端服务。<br><figure class="highlight go"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div><div class="line">7</div><div class="line">8</div><div class="line">9</div><div class="line">10</div><div class="line">11</div><div class="line">12</div><div class="line">13</div><div class="line">14</div><div class="line">15</div><div class="line">16</div><div class="line">17</div><div class="line">18</div><div class="line">19</div><div class="line">20</div><div class="line">21</div><div class="line">22</div><div class="line">23</div><div class="line">24</div><div class="line">25</div><div class="line">26</div><div class="line">27</div><div class="line">28</div><div class="line">29</div><div class="line">30</div><div class="line">31</div><div class="line">32</div><div class="line">33</div><div class="line">34</div><div class="line">35</div><div class="line">36</div><div class="line">37</div><div class="line">38</div><div class="line">39</div><div class="line">40</div><div class="line">41</div><div class="line">42</div><div class="line">43</div><div class="line">44</div><div class="line">45</div><div class="line">46</div><div class="line">47</div><div class="line">48</div></pre></td><td class="code"><pre><div class="line"><span class="comment">//proto定义的服务原型和定义的服务状态</span></div><div class="line"><span class="comment">//在/fabric/protos/peer/admin.proto中定义</span></div><div class="line">service Admin &#123;</div><div class="line">    rpc GetStatus(google.protobuf.Empty) returns (ServerStatus) &#123;&#125;</div><div class="line">    rpc StartServer(google.protobuf.Empty) returns (ServerStatus) &#123;&#125;</div><div class="line">    rpc StopServer(google.protobuf.Empty) returns (ServerStatus) &#123;&#125;</div><div class="line">    ...</div><div class="line">&#125;</div><div class="line"><span class="comment">//proto使用枚举定义的服务状态</span></div><div class="line">message ServerStatus &#123;</div><div class="line">    enum StatusCode &#123;</div><div class="line">        UNDEFINED = <span class="number">0</span>;</div><div class="line">        STARTED = <span class="number">1</span>;</div><div class="line">        STOPPED = <span class="number">2</span>;</div><div class="line">        PAUSED = <span class="number">3</span>;</div><div class="line">        ERROR = <span class="number">4</span>;</div><div class="line">        UNKNOWN = <span class="number">5</span>;</div><div class="line">    &#125;<span class="comment">//状态</span></div><div class="line">    StatusCode status = <span class="number">1</span>;</div><div class="line">&#125;</div><div class="line"><span class="comment">//proto生成的服务端接口和注册函数</span></div><div class="line"><span class="comment">//在/fabric/protos/peer/admin.pb.go中定义</span></div><div class="line"><span class="keyword">type</span> AdminServer <span class="keyword">interface</span> &#123;</div><div class="line">    GetStatus(context.Context, *google_protobuf.Empty) (*ServerStatus, error)</div><div class="line">    StartServer(context.Context, *google_protobuf.Empty) (*ServerStatus, error)</div><div class="line">    ...</div><div class="line">&#125;</div><div class="line"><span class="function"><span class="keyword">func</span> <span class="title">RegisterAdminServer</span><span class="params">(s *grpc.Server, srv AdminServer)</span></span> &#123;</div><div class="line">    s.RegisterService(&amp;_Admin_serviceDesc, srv)</div><div class="line">&#125;</div><div class="line"></div><div class="line"><span class="comment">//核心代码实现Admin服务</span></div><div class="line"><span class="comment">//在/fabric/core/admin.go中定义</span></div><div class="line"><span class="keyword">type</span> ServerAdmin <span class="keyword">struct</span> &#123;</div><div class="line">&#125;</div><div class="line"><span class="comment">//服务器的开启、停止、获取状态函数</span></div><div class="line"><span class="function"><span class="keyword">func</span> <span class="params">(*ServerAdmin)</span> <span class="title">StartServer</span><span class="params">(context.Context, *empty.Empty)</span> <span class="params">(*pb.ServerStatus, error)</span></span> &#123;</div><div class="line">    status := &amp;pb.ServerStatus&#123;Status: pb.ServerStatus_STARTED&#125;</div><div class="line">    log.Debugf(<span class="string">"returning status: %s"</span>, status</div><div class="line">    <span class="keyword">return</span> status, <span class="literal">nil</span></div><div class="line">&#125;</div><div class="line"><span class="function"><span class="keyword">func</span> <span class="params">(*ServerAdmin)</span> <span class="title">StartServer</span><span class="params">(...)</span>...</span>&#123;...&#125;</div><div class="line"><span class="function"><span class="keyword">func</span> <span class="params">(*ServerAdmin)</span> <span class="title">GetStatus</span><span class="params">(...)</span>...</span>&#123;...&#125;</div><div class="line"><span class="function"><span class="keyword">func</span> <span class="params">(*ServerAdmin)</span> <span class="title">StartServer</span><span class="params">(...)</span>...</span>&#123;...&#125;</div><div class="line"><span class="comment">//模块日志的获取、设置、恢复函数</span></div><div class="line"><span class="function"><span class="keyword">func</span> <span class="params">(*ServerAdmin)</span> <span class="title">GetModuleLogLevel</span><span class="params">(...)</span>...</span>&#123;...&#125;</div><div class="line"><span class="function"><span class="keyword">func</span> <span class="params">(*ServerAdmin)</span> <span class="title">SetModuleLogLevel</span><span class="params">(...)</span>...</span>&#123;...&#125;</div><div class="line"><span class="function"><span class="keyword">func</span> <span class="params">(*ServerAdmin)</span> <span class="title">RevertLogLevels</span><span class="params">(...)</span>...</span>&#123;...&#125;</div></pre></td></tr></table></figure></p>
+<p>在此对Admin的StartServer和StopServer操作有一些疑问，字面上看来其是启动和停止服务，但是实际操作中，如StartServer函数，其只是返回了一个状态为STARTED的状态对象，并无其他操作。既然是返回状态，也有可能是其他处需要此状态，但是通过grep搜索StartServer也并未发现有按期望的调用。在此歇笔，若后文其他模块发现这两个操作用法的意图，则会补明。<br>Admin服务关于模块日志的函数中，涉及到了flogging，在fabirc源码解析3中已经详述，可参看之后再追溯Admin的这三个函数。若对fabric的日志系统有所了解，则此处的三个函数的作用很好理解。以SetModuleLogLevel为例，作用就是从客户端获取requst中包含的模块关键字和要设置的日志级别，然后在flogging中进行设置。  </p>
+<h1 id="Endorser"><a href="#Endorser" class="headerlink" title="Endorser"></a>Endorser</h1><p>Endorser，个人习惯直译成背书者。类似于对支票的背书，表示对一种行为或权利的认可。放在fabric中，就是一个主体接收到其他某一peer点发送的申请消息，通过检查该申请消息中的签名的方式，向发送者表示支持和认可，这样该请求或申请才有可能被最终提交，使之作用于系统。这里说有可能，是指一个申请可能还需要满足一些条件，比如必须得到一定比例数量的背书，才算得到整个系统的认同。而这些条件，就是指的背书策略。<br>背书者Endorser在一个交易流中充当的作用如下：</p>
+<ol>
+<li>客户端发送一个背书申请（SignedProposal）到Endorser。</li>
+<li>Endorser对申请进行背书，发送一个申请应答（ProposalResponse）到客户端。</li>
+<li>客户端将申请应答中的背书组装到一个交易请求（SignedTransaction）中。<br>在此简单提一下交易（Transaction）的概念，之后还会在主题文章中详述。交易是一个更大的概念，fabric的任何操作，如chaincode操作，甚至是配置系统的操作，都被定义为一项交易。而背书只是组成交易请求数据的一个准备环节而已，交易请求数据准备就绪后，会被发送到orderer。需要注意的是，一般交易和chaincode交易所进行的背书过程一致，但是背书过程所交流的数据中包含的内容项有所区别。具体可参看/fabric/protos/peer/proposal.proto和proposal_response.proto中的注释和数据原型定义。  <h1 id="背书服务原型和实现"><a href="#背书服务原型和实现" class="headerlink" title="背书服务原型和实现"></a>背书服务原型和实现</h1>Endorser服务的原型定义在/fabric/protos/peer/peer.proto以及对应生成的peer.pb.go中，核心代码实现在/fabric/core/endorser下。  <figure class="highlight go"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div><div class="line">7</div><div class="line">8</div><div class="line">9</div><div class="line">10</div><div class="line">11</div><div class="line">12</div><div class="line">13</div><div class="line">14</div><div class="line">15</div><div class="line">16</div><div class="line">17</div><div class="line">18</div><div class="line">19</div><div class="line">20</div><div class="line">21</div><div class="line">22</div><div class="line">23</div><div class="line">24</div><div class="line">25</div><div class="line">26</div><div class="line">27</div><div class="line">28</div><div class="line">29</div><div class="line">30</div><div class="line">31</div></pre></td><td class="code"><pre><div class="line"><span class="comment">//proto中定义的服务原型</span></div><div class="line"><span class="comment">//在/fabric/protos/peer/peer.proto中定义</span></div><div class="line">service Endorser &#123;</div><div class="line">    rpc ProcessProposal(SignedProposal) returns (ProposalResponse) &#123;&#125;</div><div class="line">&#125;</div><div class="line"><span class="comment">//proto生成的服务端接口和注册函数</span></div><div class="line"><span class="comment">//在/fabric/protos/peer/peer.pb.go中定义</span></div><div class="line"><span class="keyword">type</span> EndorserServer <span class="keyword">interface</span> &#123;</div><div class="line">    ProcessProposal(context.Context, *SignedProposal) (*ProposalResponse, error)</div><div class="line">&#125;</div><div class="line"><span class="function"><span class="keyword">func</span> <span class="title">RegisterEndorserServer</span><span class="params">(s *grpc.Server, srv EndorserServer)</span></span> &#123;</div><div class="line">    s.RegisterService(&amp;_Endorser_serviceDesc, srv)</div><div class="line">&#125;</div><div class="line"><span class="comment">//核心代码实现Endorser服务</span></div><div class="line"><span class="keyword">type</span> Endorser <span class="keyword">struct</span> &#123;</div><div class="line">    policyChecker policy.PolicyChecker</div><div class="line">&#125;</div><div class="line"><span class="comment">//Endorser专用初始化函数</span></div><div class="line"><span class="function"><span class="keyword">func</span> <span class="title">NewEndorserServer</span><span class="params">()</span> <span class="title">pb</span>.<span class="title">EndorserServer</span></span> &#123;</div><div class="line">    e := <span class="built_in">new</span>(Endorser)</div><div class="line">    e.policyChecker = policy.NewPolicyChecker(</div><div class="line">        peer.NewChannelPolicyManagerGetter(),</div><div class="line">        mgmt.GetLocalMSP(),</div><div class="line">        mgmt.NewLocalMSPPrincipalGetter(),</div><div class="line">    )</div><div class="line">    <span class="keyword">return</span> e</div><div class="line">&#125;</div><div class="line"><span class="comment">//实现ProcessProposal服务</span></div><div class="line"><span class="function"><span class="keyword">func</span> <span class="params">(e *Endorser)</span> <span class="title">ProcessProposal</span><span class="params">(...)</span></span>&#123;...&#125;</div><div class="line"><span class="function"><span class="keyword">func</span> <span class="params">(e *Endorser)</span> <span class="title">endorseProposal</span><span class="params">(...)</span></span>&#123;...&#125;</div><div class="line">...</div></pre></td></tr></table></figure>
+</li>
+</ol>
+<p>Endorser服务的核心实现中，只有一个核心函数ProcessProposal，endorser.go中其余的函数都是相互配合供ProcessProposal调用，处理客户端发来的SignedProposal数据，返回ProposalResponse数据，完成最终的任务<br>按图索骥，我们接下来顺着ProcessProposal函数来看看Endorser函数到底是如何处理从客户端传来的SignedProposal数据，然后包装何种数据到ProposalResponse并将之返回。<br><figure class="highlight go"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div></pre></td><td class="code"><pre><div class="line"><span class="comment">//ProcessProposal函数中调用</span></div><div class="line">prop, hdr, hdrExt, err := validation.ValidateProposalMessage(signedProp)</div></pre></td></tr></table></figure></p>
+<p>首先，第一步，ProcessProposal函数使用ValidateProposalMessage对所接收的signedProp数据进行了验证，并返回signedProp中的一些字段Unmarshal过后的数据。这个函数还是比较绕的，而且写在此处不是太顺理成章，因为涉及到数据验证，所以最起码要知道接收的都有哪些数据或哪种数据是合法的，你才能验证，而这又涉及到了客户端的操作，我们还没讲到。在将来讲到客户端相关操作的时候，可以于此对看。<br>验证过程涉及到了MSP。MSP将在相关主题文章中详述，在此撇开一笔简单介绍：MSP又是一个比较大的概念，是Membership Service Provider的缩写，个人习惯直译为成员关系服务提供者。类似于一个运行的fabric系统网络中，有众多的参与者，而MSP就是为了管理这些参与者，辨识验证哪些人有资格，哪些人没资格，既维护某一个参与者的权限，也维护参与者之间的关系。<br>回到本文主线，ValidateProposalMessage在/fabric/core/common/validation/msgvalidation.go中定义，调用了同文件中的辅助验证函数和/fabric/protos/utils下的工具函数（putils.XXX一类的函数，下文用putils表示）对SignedProposal按结构进行逐步验证。/fabric/protos/utils下的工具函数基本都是对protos中所定义的数据原型的Unmarshal操作，如proputils.go中的GetProposal函数，就是尝试着将传入的[]byte格式的数据Unmarshal成/fabric/protos/peer/proposal.pb.go中定义的Proposal结构数据。  </p>
+
+  </div>
+</article>
+
+
+
+    </div>
+    
+      <div id="footer-post-container">
+  <div id="footer-post">
+
+    <div id="nav-footer" style="display: none">
+      <ul>
+         
+          <li><a href="/">Home</a></li>
+         
+          <li><a href="/about/">About</a></li>
+         
+          <li><a href="/archives/">Writing</a></li>
+         
+          <li><a href="http://github.com/probberechts">Projects</a></li>
+        
+      </ul>
+    </div>
+
+    <div id="toc-footer" style="display: none">
+      <ol class="toc"><li class="toc-item toc-level-1"><a class="toc-link" href="#Admin"><span class="toc-number">1.</span> <span class="toc-text">Admin</span></a></li><li class="toc-item toc-level-1"><a class="toc-link" href="#Endorser"><span class="toc-number">2.</span> <span class="toc-text">Endorser</span></a></li><li class="toc-item toc-level-1"><a class="toc-link" href="#背书服务原型和实现"><span class="toc-number">3.</span> <span class="toc-text">背书服务原型和实现</span></a></li></ol>
+    </div>
+
+    <div id="actions-footer">
+      <ul>
+        <li id="toc"><a class="icon" href="#" onclick="$('#toc-footer').toggle();return false;"><i class="fa fa-list fa-lg" aria-hidden="true"></i> TOC</a></li>
+        <li id="share"><a class="icon" href="#" onclick="$('#share-footer').toggle();return false;"><i class="fa fa-share-alt fa-lg" aria-hidden="true"></i> Share</a></li>
+        <li id="top" style="display:none"><a class="icon" href="#" onclick="$('html, body').animate({ scrollTop: 0 }, 'fast');"><i class="fa fa-chevron-up fa-lg" aria-hidden="true"></i> Top</a></li>
+        <li id="menu"><a class="icon" href="#" onclick="$('#nav-footer').toggle();return false;"><i class="fa fa-bars fa-lg" aria-hidden="true"></i> Menu</a></li>
+      </ul>
+    </div>
+
+  </div>
+</div>
+
+    
+    <footer id="footer">
+  <div class="footer-left">
+    Copyright &copy; 2017 Landleany
+  </div>
+  <div class="footer-right">
+    <nav>
+      <ul>
+         
+          <li><a href="/">Home</a></li>
+         
+          <li><a href="/about/">About</a></li>
+         
+          <li><a href="/archives/">Writing</a></li>
+         
+          <li><a href="http://github.com/probberechts">Projects</a></li>
+        
+      </ul>
+    </nav>
+  </div>
+</footer>
+
+</body>
+</html>
+<!-- styles -->
+<link rel="stylesheet" href="/lib/font-awesome/css/font-awesome.min.css">
+<link rel="stylesheet" href="/lib/meslo-LG/styles.css">
+<link rel="stylesheet" href="/lib/justified-gallery/justifiedGallery.min.css">
+
+<!-- jquery -->
+<script src="/lib/jquery/jquery.min.js"></script>
+<script src="/lib/justified-gallery/jquery.justifiedGallery.min.js"></script>
+<script src="/js/main.js"></script>
+<!-- search -->
+
+<!-- Google Analytics -->
+
+    <script type="text/javascript">
+        (function(i,s,o,g,r,a,m) {i['GoogleAnalyticsObject']=r;i[r]=i[r]||function() {
+        (i[r].q=i[r].q||[]).push(arguments)},i[r].l=1*new Date();a=s.createElement(o),
+        m=s.getElementsByTagName(o)[0];a.async=1;a.src=g;m.parentNode.insertBefore(a,m)
+        })(window,document,'script','//www.google-analytics.com/analytics.js','ga');
+        ga('create', 'UA-86660611-1', 'auto');
+        ga('send', 'pageview');
+    </script>
+
+<!-- Disqus Comments -->
+
+
