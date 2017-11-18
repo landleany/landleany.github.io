@@ -12,7 +12,7 @@
 <meta property="og:url" content="http://yoursite.com/2017/10/19/beego/index.html">
 <meta property="og:site_name" content="Drip">
 <meta property="og:description" content="一个RESTful的框架  感觉beego框架代码和用户代码耦合的很厉害…  Router12345# 表示GET方法去找该Struct的Get Method&quot;/url&quot;, &amp;amp;Controller&amp;#123;&amp;#125;  # 表示POST方法去找该Struct的CreateXXX Method&quot;/url&quot;, &amp;amp;Controller&amp;#123;&amp;#125;, &quot;post:Creat">
-<meta property="og:updated_time" content="2017-10-19T08:41:06.000Z">
+<meta property="og:updated_time" content="2017-11-16T04:08:46.000Z">
 <meta name="twitter:card" content="summary">
 <meta name="twitter:title" content="Beego笔记">
 <meta name="twitter:description" content="一个RESTful的框架  感觉beego框架代码和用户代码耦合的很厉害…  Router12345# 表示GET方法去找该Struct的Get Method&quot;/url&quot;, &amp;amp;Controller&amp;#123;&amp;#125;  # 表示POST方法去找该Struct的CreateXXX Method&quot;/url&quot;, &amp;amp;Controller&amp;#123;&amp;#125;, &quot;post:Creat">
@@ -172,7 +172,7 @@
 <p>从上面也可以看出Beego代码和用户代码耦合很严重，用户自定义的Controller方法时：如果自定义Prepare方法，则会在任何Method前被调用。而定义其他名字的方法，则可以在路由中指定为Method调用的方法</p>
 </blockquote>
 <p>以上的整个流程会被：this.StopRun 打断，结合Prepare可以实现权限控制(this.StopRun可以在Prepare函数内打断整个Controller流程，因为是panic)</p>
-<h1 id="beego-API功能"><a href="#beego-API功能" class="headerlink" title="beego API功能"></a>beego API功能</h1><p>beego提供了便捷的API直接输出方式  </p>
+<h1 id="beego-API功能"><a href="#beego-API功能" class="headerlink" title="beego API功能"></a>beego API功能</h1><p>beego提供了便捷的API直接输出方式<br>必须要在conf文件里面设置 copyrequestbody = true</p>
 <ol>
 <li><p>JSON 数据直接输出：<br>调用 ServeJSON 之后，会设置 content-type 为 application/json，然后同时把数据进行 JSON 序列化输出。</p>
 <figure class="highlight go"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div></pre></td><td class="code"><pre><div class="line"><span class="function"><span class="keyword">func</span> <span class="params">(this *AddController)</span> <span class="title">Get</span><span class="params">()</span></span> &#123;</div><div class="line">  mystruct := &#123; ... &#125;</div><div class="line">  this.Data[<span class="string">"json"</span>] = &amp;mystruct</div><div class="line">  this.ServeJSON()</div><div class="line">&#125;</div></pre></td></tr></table></figure>
