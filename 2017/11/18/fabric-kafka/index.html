@@ -6,16 +6,16 @@
     <meta http-equiv="X-UA-Compatible" content="IE=edge">
     <meta name="HandheldFriendly" content="True">
     <meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1" />
-    <meta name="description" content="Kafka 介绍Kafka 与 Orderer 交互">
+    <meta name="description" content="Kafka 介绍如果consumer从多个partition读到数据，不保证数据间的顺序性，kafka只保证在一个partition上数据是有序的，但多个partition，根据你读的顺序会有不同。因此Kafka与Fabric一起使用时，每个channel使用的是单partition的topic。 Kafka 与 Orderer 交互TLS 证书一般有4种类型：  单域名证书：可以绑定一条带www">
 <meta property="og:type" content="article">
 <meta property="og:title" content="fabric-kafka">
 <meta property="og:url" content="http://yoursite.com/2017/11/18/fabric-kafka/index.html">
 <meta property="og:site_name" content="Drip">
-<meta property="og:description" content="Kafka 介绍Kafka 与 Orderer 交互">
-<meta property="og:updated_time" content="2017-11-18T10:36:05.000Z">
+<meta property="og:description" content="Kafka 介绍如果consumer从多个partition读到数据，不保证数据间的顺序性，kafka只保证在一个partition上数据是有序的，但多个partition，根据你读的顺序会有不同。因此Kafka与Fabric一起使用时，每个channel使用的是单partition的topic。 Kafka 与 Orderer 交互TLS 证书一般有4种类型：  单域名证书：可以绑定一条带www">
+<meta property="og:updated_time" content="2017-11-22T02:23:44.000Z">
 <meta name="twitter:card" content="summary">
 <meta name="twitter:title" content="fabric-kafka">
-<meta name="twitter:description" content="Kafka 介绍Kafka 与 Orderer 交互">
+<meta name="twitter:description" content="Kafka 介绍如果consumer从多个partition读到数据，不保证数据间的顺序性，kafka只保证在一个partition上数据是有序的，但多个partition，根据你读的顺序会有不同。因此Kafka与Fabric一起使用时，每个channel使用的是单partition的topic。 Kafka 与 Orderer 交互TLS 证书一般有4种类型：  单域名证书：可以绑定一条带www">
     
     
         
@@ -94,7 +94,7 @@
 
     </div>
     <div id="toc">
-      <ol class="toc"><li class="toc-item toc-level-1"><a class="toc-link" href="#Kafka-介绍"><span class="toc-number">1.</span> <span class="toc-text">Kafka 介绍</span></a></li><li class="toc-item toc-level-1"><a class="toc-link" href="#Kafka-与-Orderer-交互"><span class="toc-number">2.</span> <span class="toc-text">Kafka 与 Orderer 交互</span></a></li></ol>
+      <ol class="toc"><li class="toc-item toc-level-1"><a class="toc-link" href="#Kafka-介绍"><span class="toc-number">1.</span> <span class="toc-text">Kafka 介绍</span></a></li><li class="toc-item toc-level-1"><a class="toc-link" href="#Kafka-与-Orderer-交互"><span class="toc-number">2.</span> <span class="toc-text">Kafka 与 Orderer 交互</span></a></li><li class="toc-item toc-level-1"><a class="toc-link" href="#TLS-证书"><span class="toc-number">3.</span> <span class="toc-text">TLS 证书</span></a></li><li class="toc-item toc-level-1"><a class="toc-link" href="#openssl-x509-in-lt-lt-certificate-crt-text-noout"><span class="toc-number">4.</span> <span class="toc-text">openssl x509 -in <<certificate.crt -text -noout</span></a></li></ol>
     </div>
   </span>
 </div>
@@ -128,7 +128,16 @@
   
 
   <div class="content" itemprop="articleBody">
-    <h1 id="Kafka-介绍"><a href="#Kafka-介绍" class="headerlink" title="Kafka 介绍"></a>Kafka 介绍</h1><h1 id="Kafka-与-Orderer-交互"><a href="#Kafka-与-Orderer-交互" class="headerlink" title="Kafka 与 Orderer 交互"></a>Kafka 与 Orderer 交互</h1>
+    <h1 id="Kafka-介绍"><a href="#Kafka-介绍" class="headerlink" title="Kafka 介绍"></a>Kafka 介绍</h1><p>如果consumer从多个partition读到数据，不保证数据间的顺序性，kafka只保证在一个partition上数据是有序的，但多个partition，根据你读的顺序会有不同。因此Kafka与Fabric一起使用时，每个channel使用的是单partition的topic。</p>
+<h1 id="Kafka-与-Orderer-交互"><a href="#Kafka-与-Orderer-交互" class="headerlink" title="Kafka 与 Orderer 交互"></a>Kafka 与 Orderer 交互</h1><h1 id="TLS-证书"><a href="#TLS-证书" class="headerlink" title="TLS 证书"></a>TLS 证书</h1><p>一般有4种类型：</p>
+<ol>
+<li>单域名证书：可以绑定一条带www和不带www的域名，写在CN(common name)处</li>
+<li>多域名证书：可以绑定250多条任意类型的域名，写在SAN(subject alternative name)处</li>
+<li>泛域名证书：可以绑定一条顶级域名和顶级域名下的所有二级域名，或者是一条二级域名和二级域名下的所有三级域名</li>
+<li>绑定IP的证书：首先必须是公网IP，在生成 CSR 的时候 CN 信息直接使用公网 IP 地址</li>
+</ol>
+<h1 id="openssl-x509-in-lt-lt-certificate-crt-text-noout"><a href="#openssl-x509-in-lt-lt-certificate-crt-text-noout" class="headerlink" title="openssl x509 -in &lt;&lt;certificate.crt -text -noout"></a>openssl x509 -in &lt;&lt;certificate.crt -text -noout</h1><p>可以查看证书的内容</p>
+
   </div>
 </article>
 
@@ -154,7 +163,7 @@
     </div>
 
     <div id="toc-footer" style="display: none">
-      <ol class="toc"><li class="toc-item toc-level-1"><a class="toc-link" href="#Kafka-介绍"><span class="toc-number">1.</span> <span class="toc-text">Kafka 介绍</span></a></li><li class="toc-item toc-level-1"><a class="toc-link" href="#Kafka-与-Orderer-交互"><span class="toc-number">2.</span> <span class="toc-text">Kafka 与 Orderer 交互</span></a></li></ol>
+      <ol class="toc"><li class="toc-item toc-level-1"><a class="toc-link" href="#Kafka-介绍"><span class="toc-number">1.</span> <span class="toc-text">Kafka 介绍</span></a></li><li class="toc-item toc-level-1"><a class="toc-link" href="#Kafka-与-Orderer-交互"><span class="toc-number">2.</span> <span class="toc-text">Kafka 与 Orderer 交互</span></a></li><li class="toc-item toc-level-1"><a class="toc-link" href="#TLS-证书"><span class="toc-number">3.</span> <span class="toc-text">TLS 证书</span></a></li><li class="toc-item toc-level-1"><a class="toc-link" href="#openssl-x509-in-lt-lt-certificate-crt-text-noout"><span class="toc-number">4.</span> <span class="toc-text">openssl x509 -in <<certificate.crt -text -noout</span></a></li></ol>
     </div>
 
     <div id="actions-footer">
