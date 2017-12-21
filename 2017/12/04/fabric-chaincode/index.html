@@ -1,0 +1,230 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <!-- so meta -->
+    <meta charset="utf-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="HandheldFriendly" content="True">
+    <meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1" />
+    <meta name="description" content="两部分构成：外部的ChaincodeSupport 和 内部的shim  ChaincodeSupport （peer这一侧）这是一个很关键的类，并且使用的是单例。下面是用到的几个关键的类型。1234567891011121314151617181920212223242526272829303132333435363738394041424344454647484950515253545556">
+<meta property="og:type" content="article">
+<meta property="og:title" content="Fabric-Chaincode 部分">
+<meta property="og:url" content="http://yoursite.com/2017/12/04/fabric-chaincode/index.html">
+<meta property="og:site_name" content="Drip">
+<meta property="og:description" content="两部分构成：外部的ChaincodeSupport 和 内部的shim  ChaincodeSupport （peer这一侧）这是一个很关键的类，并且使用的是单例。下面是用到的几个关键的类型。1234567891011121314151617181920212223242526272829303132333435363738394041424344454647484950515253545556">
+<meta property="og:updated_time" content="2017-12-05T06:47:27.000Z">
+<meta name="twitter:card" content="summary">
+<meta name="twitter:title" content="Fabric-Chaincode 部分">
+<meta name="twitter:description" content="两部分构成：外部的ChaincodeSupport 和 内部的shim  ChaincodeSupport （peer这一侧）这是一个很关键的类，并且使用的是单例。下面是用到的几个关键的类型。1234567891011121314151617181920212223242526272829303132333435363738394041424344454647484950515253545556">
+    
+    
+        
+          
+              <link rel="shortcut icon" href="/images/favicon.ico">
+          
+        
+        
+          
+            <link rel="icon" type="image/png" href="/images/favicon-192x192.png" sizes="192x192">
+          
+        
+        
+          
+            <link rel="apple-touch-icon" sizes="180x180" href="/images/apple-touch-icon.png">
+          
+        
+    
+    <!-- title -->
+    <title>Fabric-Chaincode 部分</title>
+    <!-- styles -->
+    <link rel="stylesheet" href="/css/style.css">
+    <!-- rss -->
+    
+    
+</head>
+
+<body>
+    
+      <div id="header-post">
+  <a id="menu-icon" href="#"><i class="fa fa-bars fa-lg"></i></a>
+  <a id="menu-icon-tablet" href="#"><i class="fa fa-bars fa-lg"></i></a>
+  <a id="top-icon-tablet" href="#" onclick="$('html, body').animate({ scrollTop: 0 }, 'fast');" style="display:none;"><i class="fa fa-chevron-up fa-lg"></i></a>
+  <span id="menu">
+    <span id="nav">
+      <ul>
+         
+          <li><a href="/">Home</a></li>
+         
+          <li><a href="/about/">About</a></li>
+         
+          <li><a href="/archives/">Writing</a></li>
+         
+          <li><a href="http://github.com/probberechts">Projects</a></li>
+        
+      </ul>
+    </span>
+    <br/>
+    <span id="actions">
+      <ul>
+        
+        
+        <li><a class="icon" href="/2017/11/22/baas/"><i class="fa fa-chevron-right" aria-hidden="true" onmouseover="$('#i-next').toggle();" onmouseout="$('#i-next').toggle();"></i></a></li>
+        
+        <li><a class="icon" href="#" onclick="$('html, body').animate({ scrollTop: 0 }, 'fast');"><i class="fa fa-chevron-up" aria-hidden="true" onmouseover="$('#i-top').toggle();" onmouseout="$('#i-top').toggle();"></i></a></li>
+      </ul>
+      <span id="i-prev" class="info" style="display:none;">Previous post</span>
+      <span id="i-next" class="info" style="display:none;">Next post</span>
+      <span id="i-top" class="info" style="display:none;">Back to top</span>
+      <span id="i-share" class="info" style="display:none;">Share post</span>
+    </span>
+    <br/>
+    <div id="share" style="display: none">
+      <ul>
+  <li><a class="icon" href="http://www.facebook.com/sharer.php?u=http://yoursite.com/2017/12/04/fabric-chaincode/"><i class="fa fa-facebook " aria-hidden="true"></i></a></li>
+  <li><a class="icon" href="https://twitter.com/share?url=http://yoursite.com/2017/12/04/fabric-chaincode/&text=Fabric-Chaincode 部分"><i class="fa fa-twitter " aria-hidden="true"></i></a></li>
+  <li><a class="icon" href="http://www.linkedin.com/shareArticle?url=http://yoursite.com/2017/12/04/fabric-chaincode/&title=Fabric-Chaincode 部分"><i class="fa fa-linkedin " aria-hidden="true"></i></a></li>
+  <li><a class="icon" href="https://pinterest.com/pin/create/bookmarklet/?url=http://yoursite.com/2017/12/04/fabric-chaincode/&is_video=false&description=Fabric-Chaincode 部分"><i class="fa fa-pinterest " aria-hidden="true"></i></a></li>
+  <li><a class="icon" href="mailto:?subject=Fabric-Chaincode 部分&body=Check out this article: http://yoursite.com/2017/12/04/fabric-chaincode/"><i class="fa fa-envelope " aria-hidden="true"></i></a></li>
+  <li><a class="icon" href="https://getpocket.com/save?url=http://yoursite.com/2017/12/04/fabric-chaincode/&title=Fabric-Chaincode 部分"><i class="fa fa-get-pocket " aria-hidden="true"></i></a></li>
+  <li><a class="icon" href="http://reddit.com/submit?url=http://yoursite.com/2017/12/04/fabric-chaincode/&title=Fabric-Chaincode 部分"><i class="fa fa-reddit " aria-hidden="true"></i></a></li>
+  <li><a class="icon" href="http://www.stumbleupon.com/submit?url=http://yoursite.com/2017/12/04/fabric-chaincode/&title=Fabric-Chaincode 部分"><i class="fa fa-stumbleupon " aria-hidden="true"></i></a></li>
+  <li><a class="icon" href="http://digg.com/submit?url=http://yoursite.com/2017/12/04/fabric-chaincode/&title=Fabric-Chaincode 部分"><i class="fa fa-digg " aria-hidden="true"></i></a></li>
+  <li><a class="icon" href="http://www.tumblr.com/share/link?url=http://yoursite.com/2017/12/04/fabric-chaincode/&name=Fabric-Chaincode 部分&description="><i class="fa fa-tumblr " aria-hidden="true"></i></a></li>
+</ul>
+
+    </div>
+    <div id="toc">
+      <ol class="toc"><li class="toc-item toc-level-1"><a class="toc-link" href="#ChaincodeSupport-（peer这一侧）"><span class="toc-number">1.</span> <span class="toc-text">ChaincodeSupport （peer这一侧）</span></a></li></ol>
+    </div>
+  </span>
+</div>
+
+    
+    <div class="content index width mx-auto px2 my4">
+        
+        <article class="post" itemscope itemtype="http://schema.org/BlogPosting">
+  <header>
+    
+    <h1 class="posttitle" itemprop="name headline">
+        Fabric-Chaincode 部分
+    </h1>
+
+
+
+    <div class="meta">
+      <span class="author" itemprop="author" itemscope itemtype="http://schema.org/Person">
+        <span itemprop="name">Drip</span>
+      </span>
+      
+    <div class="postdate">
+        <time datetime="2017-12-04T05:30:30.000Z" itemprop="datePublished">2017-12-04</time>
+    </div>
+
+
+      
+
+    </div>
+  </header>
+  
+
+  <div class="content" itemprop="articleBody">
+    <blockquote>
+<p>两部分构成：外部的ChaincodeSupport 和 内部的shim</p>
+</blockquote>
+<h1 id="ChaincodeSupport-（peer这一侧）"><a href="#ChaincodeSupport-（peer这一侧）" class="headerlink" title="ChaincodeSupport （peer这一侧）"></a>ChaincodeSupport （peer这一侧）</h1><p>这是一个很关键的类，并且使用的是单例。<br>下面是用到的几个关键的类型。<br><figure class="highlight go"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div><div class="line">7</div><div class="line">8</div><div class="line">9</div><div class="line">10</div><div class="line">11</div><div class="line">12</div><div class="line">13</div><div class="line">14</div><div class="line">15</div><div class="line">16</div><div class="line">17</div><div class="line">18</div><div class="line">19</div><div class="line">20</div><div class="line">21</div><div class="line">22</div><div class="line">23</div><div class="line">24</div><div class="line">25</div><div class="line">26</div><div class="line">27</div><div class="line">28</div><div class="line">29</div><div class="line">30</div><div class="line">31</div><div class="line">32</div><div class="line">33</div><div class="line">34</div><div class="line">35</div><div class="line">36</div><div class="line">37</div><div class="line">38</div><div class="line">39</div><div class="line">40</div><div class="line">41</div><div class="line">42</div><div class="line">43</div><div class="line">44</div><div class="line">45</div><div class="line">46</div><div class="line">47</div><div class="line">48</div><div class="line">49</div><div class="line">50</div><div class="line">51</div><div class="line">52</div><div class="line">53</div><div class="line">54</div><div class="line">55</div><div class="line">56</div><div class="line">57</div><div class="line">58</div><div class="line">59</div><div class="line">60</div><div class="line">61</div><div class="line">62</div><div class="line">63</div><div class="line">64</div><div class="line">65</div><div class="line">66</div><div class="line">67</div><div class="line">68</div><div class="line">69</div><div class="line">70</div><div class="line">71</div><div class="line">72</div><div class="line">73</div><div class="line">74</div><div class="line">75</div><div class="line">76</div><div class="line">77</div><div class="line">78</div><div class="line">79</div><div class="line">80</div><div class="line">81</div><div class="line">82</div><div class="line">83</div><div class="line">84</div><div class="line">85</div><div class="line">86</div><div class="line">87</div><div class="line">88</div><div class="line">89</div><div class="line">90</div><div class="line">91</div></pre></td><td class="code"><pre><div class="line"><span class="keyword">type</span> ChaincodeSupport <span class="keyword">struct</span> &#123;</div><div class="line">	runningChaincodes *runningChaincodes</div><div class="line">	peerAddress       <span class="keyword">string</span></div><div class="line">	ccStartupTimeout  time.Duration</div><div class="line">	peerNetworkID     <span class="keyword">string</span></div><div class="line">	peerID            <span class="keyword">string</span></div><div class="line">	peerTLSCertFile   <span class="keyword">string</span></div><div class="line">	peerTLSKeyFile    <span class="keyword">string</span></div><div class="line">	peerTLSSvrHostOrd <span class="keyword">string</span></div><div class="line">	keepalive         time.Duration</div><div class="line">	chaincodeLogLevel <span class="keyword">string</span></div><div class="line">	shimLogLevel      <span class="keyword">string</span></div><div class="line">	logFormat         <span class="keyword">string</span></div><div class="line">	executetimeout    time.Duration</div><div class="line">	userRunsCC        <span class="keyword">bool</span></div><div class="line">	peerTLS           <span class="keyword">bool</span></div><div class="line">&#125;</div><div class="line"></div><div class="line"><span class="comment">// runningChaincodes contains maps of chaincodeIDs to their chaincodeRTEs</span></div><div class="line"><span class="keyword">type</span> runningChaincodes <span class="keyword">struct</span> &#123;</div><div class="line">	sync.RWMutex</div><div class="line">	<span class="comment">// chaincode environment for each chaincode</span></div><div class="line">	chaincodeMap <span class="keyword">map</span>[<span class="keyword">string</span>]*chaincodeRTEnv</div><div class="line"></div><div class="line">	<span class="comment">//mark the starting of launch of a chaincode so multiple requests</span></div><div class="line">	<span class="comment">//do not attempt to start the chaincode at the same time </span></div><div class="line">	launchStarted <span class="keyword">map</span>[<span class="keyword">string</span>]<span class="keyword">bool</span>  <span class="comment">//防止多次请求</span></div><div class="line">&#125;</div><div class="line"></div><div class="line"></div><div class="line"><span class="keyword">type</span> chaincodeRTEnv <span class="keyword">struct</span> &#123;</div><div class="line">	handler *Handler</div><div class="line">&#125;</div><div class="line"></div><div class="line"><span class="comment">// Handler responsible for management of Peer's side of chaincode stream</span></div><div class="line"><span class="keyword">type</span> Handler <span class="keyword">struct</span> &#123;</div><div class="line">	sync.RWMutex</div><div class="line">	<span class="comment">//peer to shim grpc serializer. User only in serialSend</span></div><div class="line">	serialLock  sync.Mutex</div><div class="line">	ChatStream  ccintf.ChaincodeStream</div><div class="line">	FSM         *fsm.FSM</div><div class="line">	ChaincodeID *pb.ChaincodeID</div><div class="line">	ccInstance  *sysccprovider.ChaincodeInstance</div><div class="line"></div><div class="line">	chaincodeSupport *ChaincodeSupport</div><div class="line">	registered       <span class="keyword">bool</span></div><div class="line">	readyNotify      <span class="keyword">chan</span> <span class="keyword">bool</span></div><div class="line">	<span class="comment">// Map of tx txid to either invoke tx. Each tx will be</span></div><div class="line">	<span class="comment">// added prior to execute and remove when done execute</span></div><div class="line">	txCtxs <span class="keyword">map</span>[<span class="keyword">string</span>]*transactionContext <span class="comment">//transactionContext里面有TxSimulator等东西 </span></div><div class="line"></div><div class="line">	txidMap <span class="keyword">map</span>[<span class="keyword">string</span>]<span class="keyword">bool</span></div><div class="line"></div><div class="line">	<span class="comment">// used to do Send after making sure the state transition is complete</span></div><div class="line">	nextState <span class="keyword">chan</span> *nextStateInfo</div><div class="line"></div><div class="line">	policyChecker policy.PolicyChecker</div><div class="line">&#125;</div><div class="line"></div><div class="line"><span class="keyword">type</span> transactionContext <span class="keyword">struct</span> &#123;</div><div class="line">	chainID          <span class="keyword">string</span></div><div class="line">	signedProp       *pb.SignedProposal</div><div class="line">	proposal         *pb.Proposal</div><div class="line">	responseNotifier <span class="keyword">chan</span> *pb.ChaincodeMessage</div><div class="line"></div><div class="line">	<span class="comment">// tracks open iterators used for range queries</span></div><div class="line">	queryIteratorMap <span class="keyword">map</span>[<span class="keyword">string</span>]commonledger.ResultsIterator</div><div class="line"></div><div class="line">	txsimulator          ledger.TxSimulator</div><div class="line">	historyQueryExecutor ledger.HistoryQueryExecutor</div><div class="line">&#125;</div><div class="line"></div><div class="line"><span class="keyword">type</span> TxSimulator <span class="keyword">interface</span> &#123;</div><div class="line">	QueryExecutor</div><div class="line">	<span class="comment">// SetState sets the given value for the given namespace and key. For a chaincode, the namespace corresponds to the chaincodeId</span></div><div class="line">	SetState(namespace <span class="keyword">string</span>, key <span class="keyword">string</span>, value []<span class="keyword">byte</span>) error</div><div class="line">	<span class="comment">// DeleteState deletes the given namespace and key</span></div><div class="line">	DeleteState(namespace <span class="keyword">string</span>, key <span class="keyword">string</span>) error</div><div class="line">	<span class="comment">// SetMultipleKeys sets the values for multiple keys in a single call</span></div><div class="line">	SetStateMultipleKeys(namespace <span class="keyword">string</span>, kvs <span class="keyword">map</span>[<span class="keyword">string</span>][]<span class="keyword">byte</span>) error</div><div class="line">	<span class="comment">// ExecuteUpdate for supporting rich data model (see comments on QueryExecutor above)</span></div><div class="line">	ExecuteUpdate(query <span class="keyword">string</span>) error</div><div class="line">	<span class="comment">// GetTxSimulationResults encapsulates the results of the transaction simulation.</span></div><div class="line">	<span class="comment">// This should contain enough detail for</span></div><div class="line">	<span class="comment">// - The update in the state that would be caused if the transaction is to be committed</span></div><div class="line">	<span class="comment">// - The environment in which the transaction is executed so as to be able to decide the validity of the environment</span></div><div class="line">	<span class="comment">//   (at a later time on a different peer) during committing the transactions</span></div><div class="line">	<span class="comment">// Different ledger implementation (or configurations of a single implementation) may want to represent the above two pieces</span></div><div class="line">	<span class="comment">// of information in different way in order to support different data-models or optimize the information representations.</span></div><div class="line">	GetTxSimulationResults() ([]<span class="keyword">byte</span>, error)</div><div class="line">&#125;</div></pre></td></tr></table></figure></p>
+<figure class="highlight go"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div><div class="line">7</div><div class="line">8</div><div class="line">9</div><div class="line">10</div><div class="line">11</div><div class="line">12</div><div class="line">13</div><div class="line">14</div><div class="line">15</div></pre></td><td class="code"><pre><div class="line"><span class="comment">// ChaincodeSupport 的关键函数，后面会用到</span></div><div class="line"><span class="function"><span class="keyword">func</span> <span class="params">(chaincodeSupport *ChaincodeSupport)</span> <span class="title">preLaunchSetup</span><span class="params">(chaincode <span class="keyword">string</span>)</span> <span class="title">chan</span> <span class="title">bool</span></span></div><div class="line"><span class="function"><span class="title">func</span> <span class="params">(chaincodeSupport *ChaincodeSupport)</span> <span class="title">chaincodeHasBeenLaunched</span><span class="params">(chaincode <span class="keyword">string</span>)</span><span class="params">(*chaincodeRTEnv, <span class="keyword">bool</span>)</span> </span></div><div class="line"><span class="function"><span class="title">func</span> <span class="params">(chaincodeSupport *ChaincodeSupport)</span> <span class="title">launchStarted</span><span class="params">(chaincode <span class="keyword">string</span>)</span> <span class="title">bool</span> </span></div><div class="line"><span class="function"><span class="title">func</span> <span class="params">(chaincodeSupport *ChaincodeSupport)</span> <span class="title">registerHandler</span><span class="params">(chaincodehandler *Handler)</span> <span class="title">error</span> </span></div><div class="line"><span class="function"><span class="title">func</span> <span class="params">(chaincodeSupport *ChaincodeSupport)</span> <span class="title">deregisterHandler</span><span class="params">(chaincodehandler *Handler)</span> <span class="title">error</span> </span></div><div class="line"><span class="function"><span class="title">func</span> <span class="params">(chaincodeSupport *ChaincodeSupport)</span> <span class="title">sendReady</span><span class="params">(context context.Context, cccid *ccprovider.CCContext, timeout time.Duration)</span> <span class="title">error</span></span></div><div class="line"><span class="function"><span class="title">func</span> <span class="params">(chaincodeSupport *ChaincodeSupport)</span> <span class="title">getArgsAndEnv</span><span class="params">(cccid *ccprovider.CCContext, cLang pb.ChaincodeSpec_Type)</span> <span class="params">(args []<span class="keyword">string</span>, envs []<span class="keyword">string</span>, err error)</span></span></div><div class="line"><span class="function"><span class="title">func</span> <span class="params">(chaincodeSupport *ChaincodeSupport)</span> <span class="title">launchAndWaitForRegister</span><span class="params">(ctxt context.Context, cccid *ccprovider.CCContext, cds *pb.ChaincodeDeploymentSpec, cLang pb.ChaincodeSpec_Type, builder api.BuildSpecFactory)</span> <span class="title">error</span> </span></div><div class="line"><span class="function"><span class="title">func</span> <span class="params">(chaincodeSupport *ChaincodeSupport)</span> <span class="title">Stop</span><span class="params">(context context.Context, cccid *ccprovider.CCContext, cds *pb.ChaincodeDeploymentSpec)</span> <span class="title">error</span> </span></div><div class="line"><span class="function"><span class="title">func</span> <span class="params">(chaincodeSupport *ChaincodeSupport)</span> <span class="title">Launch</span><span class="params">(context context.Context, cccid *ccprovider.CCContext, spec <span class="keyword">interface</span>&#123;&#125;)</span> <span class="params">(*pb.ChaincodeID, *pb.ChaincodeInput, error)</span> </span></div><div class="line"><span class="function"><span class="title">func</span> <span class="params">(chaincodeSupport *ChaincodeSupport)</span> <span class="title">getVMType</span><span class="params">(cds *pb.ChaincodeDeploymentSpec)</span> <span class="params">(<span class="keyword">string</span>, error)</span> </span></div><div class="line"><span class="function"><span class="title">func</span> <span class="params">(chaincodeSupport *ChaincodeSupport)</span> <span class="title">HandleChaincodeStream</span><span class="params">(ctxt context.Context, stream ccintf.ChaincodeStream)</span> <span class="title">error</span> </span></div><div class="line"><span class="function"><span class="title">func</span> <span class="params">(chaincodeSupport *ChaincodeSupport)</span> <span class="title">Register</span><span class="params">(stream pb.ChaincodeSupport_RegisterServer)</span> <span class="title">error</span> </span></div><div class="line"><span class="function"><span class="title">func</span> <span class="params">(chaincodeSupport *ChaincodeSupport)</span> <span class="title">Execute</span><span class="params">(ctxt context.Context, cccid *ccprovider.CCContext, msg *pb.ChaincodeMessage, timeout time.Duration)</span> <span class="params">(*pb.ChaincodeMessage, error)</span></span></div></pre></td></tr></table></figure>
+<p>如果想看ChaincodeSupport单例对象是怎么初始化的<br><figure class="highlight go"><table><tr><td class="gutter"><pre><div class="line">1</div></pre></td><td class="code"><pre><div class="line"><span class="function"><span class="keyword">func</span> <span class="title">NewChaincodeSupport</span><span class="params">(getCCEndpoint <span class="keyword">func</span>()</span> <span class="params">(*pb.PeerEndpoint, error)</span>, <span class="title">userrunsCC</span> <span class="title">bool</span>, <span class="title">ccstartuptimeout</span> <span class="title">time</span>.<span class="title">Duration</span>) *<span class="title">ChaincodeSupport</span></span> &#123;...&#125;</div></pre></td></tr></table></figure></p>
+<p>入口函数： 只列出关键部分<br><figure class="highlight go"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div><div class="line">7</div><div class="line">8</div><div class="line">9</div><div class="line">10</div><div class="line">11</div><div class="line">12</div><div class="line">13</div><div class="line">14</div><div class="line">15</div><div class="line">16</div><div class="line">17</div><div class="line">18</div><div class="line">19</div><div class="line">20</div><div class="line">21</div><div class="line">22</div><div class="line">23</div><div class="line">24</div><div class="line">25</div><div class="line">26</div><div class="line">27</div><div class="line">28</div><div class="line">29</div><div class="line">30</div><div class="line">31</div><div class="line">32</div><div class="line">33</div><div class="line">34</div><div class="line">35</div><div class="line">36</div><div class="line">37</div><div class="line">38</div><div class="line">39</div><div class="line">40</div><div class="line">41</div><div class="line">42</div><div class="line">43</div><div class="line">44</div><div class="line">45</div><div class="line">46</div><div class="line">47</div><div class="line">48</div><div class="line">49</div><div class="line">50</div><div class="line">51</div><div class="line">52</div><div class="line">53</div><div class="line">54</div><div class="line">55</div><div class="line">56</div><div class="line">57</div><div class="line">58</div><div class="line">59</div><div class="line">60</div><div class="line">61</div><div class="line">62</div><div class="line">63</div><div class="line">64</div><div class="line">65</div><div class="line">66</div><div class="line">67</div><div class="line">68</div><div class="line">69</div><div class="line">70</div><div class="line">71</div><div class="line">72</div></pre></td><td class="code"><pre><div class="line"><span class="comment">// 文件位置: core/chaincode/exectransaction.go</span></div><div class="line"><span class="comment">// 该函数处理Deploy和Invoke的proposal</span></div><div class="line"><span class="function"><span class="keyword">func</span> <span class="title">Execute</span><span class="params">(ctxt context.Context, cccid *ccprovider.CCContext, spec <span class="keyword">interface</span>&#123;&#125;)</span> <span class="params">(*pb.Response, *pb.ChaincodeEvent, error)</span></span> &#123;</div><div class="line">    <span class="comment">// ... 省略</span></div><div class="line">    <span class="comment">// theChaincodeSupport是一个单例对象</span></div><div class="line">    theChaincodeSupport.Launch(ctxt, cccid, spec)</div><div class="line">    <span class="comment">// ... 省略</span></div><div class="line">    theChaincodeSupport.Execute(ctxt, cccid, ccMsg, theChaincodeSupport.executetimeout)</div><div class="line">    <span class="comment">// ... 省略</span></div><div class="line">&#125;</div><div class="line"><span class="string">``</span><span class="string">`  </span></div><div class="line"><span class="string"></span></div><div class="line"><span class="string">`</span><span class="string">``</span> <span class="keyword">go</span></div><div class="line"><span class="function"><span class="keyword">func</span> <span class="params">(chaincodeSupport *ChaincodeSupport)</span> <span class="title">Launch</span><span class="params">(context context.Context, cccid *ccprovider.CCContext, spec <span class="keyword">interface</span>&#123;&#125;)</span> <span class="params">(*pb.ChaincodeID, *pb.ChaincodeInput, error)</span></span> &#123;</div><div class="line">    <span class="comment">// 判断是否已经launched</span></div><div class="line">    <span class="comment">// 判断是否正在launching</span></div><div class="line">    <span class="comment">// 如果不是dev模式且不是syscc，开始launch</span></div><div class="line">    <span class="comment">// 省略...</span></div><div class="line">    <span class="comment">// created -&gt; established [register]，阻塞直到cc来Register，然后handler中的状态机进入established状态</span></div><div class="line">    chaincodeSupport.launchAndWaitForRegister(context, cccid, cds, cLang, builder)</div><div class="line">    <span class="comment">// 省略...</span></div><div class="line">    <span class="comment">// established -&gt; ready [ready]，跟具体的Tx相关了，Tx信息也存放在cccid(CCContext类型)中</span></div><div class="line">    chaincodeSupport.sendReady(context, cccid, chaincodeSupport.ccStartupTimeout)</div><div class="line">    <span class="comment">// 省略...</span></div><div class="line"></div><div class="line"></div><div class="line">&#125;</div><div class="line"></div><div class="line"><span class="function"><span class="keyword">func</span> <span class="params">(chaincodeSupport *ChaincodeSupport)</span> <span class="title">sendReady</span><span class="params">(context context.Context, cccid *ccprovider.CCContext, timeout time.Duration)</span> <span class="title">error</span></span> &#123;</div><div class="line">    <span class="comment">// 省略...</span></div><div class="line">    <span class="comment">// chrte.handler.ready中会调用createTxContext，会在handler.txCtxs[txid] = txctx，然后返回txctx.responseNotifier</span></div><div class="line">	<span class="keyword">if</span> notfy, err = chrte.handler.ready(context, cccid.ChainID, cccid.TxID, cccid.SignedProposal, cccid.Proposal); err != <span class="literal">nil</span> &#123;</div><div class="line">		<span class="keyword">return</span> fmt.Errorf(<span class="string">"Error sending %s: %s"</span>, pb.ChaincodeMessage_READY, err)</div><div class="line">    &#125;</div><div class="line">    <span class="comment">// 阻塞直到cc容器进入ready状态，这个ready状态是跟txid绑定的</span></div><div class="line">	<span class="keyword">if</span> notfy != <span class="literal">nil</span> &#123;</div><div class="line">		<span class="keyword">select</span> &#123;</div><div class="line">		<span class="keyword">case</span> ccMsg := &lt;-notfy:</div><div class="line">			<span class="keyword">if</span> ccMsg.Type == pb.ChaincodeMessage_ERROR &#123;</div><div class="line">				err = fmt.Errorf(<span class="string">"Error initializing container %s: %s"</span>, canName, <span class="keyword">string</span>(ccMsg.Payload))</div><div class="line">			&#125;</div><div class="line">			<span class="keyword">if</span> ccMsg.Type == pb.ChaincodeMessage_COMPLETED &#123;</div><div class="line">				res := &amp;pb.Response&#123;&#125;</div><div class="line">				_ = proto.Unmarshal(ccMsg.Payload, res)</div><div class="line">				<span class="keyword">if</span> res.Status != shim.OK &#123;</div><div class="line">					err = fmt.Errorf(<span class="string">"Error initializing container %s: %s"</span>, canName, <span class="keyword">string</span>(res.Message))</div><div class="line">				&#125;</div><div class="line">				<span class="comment">// TODO</span></div><div class="line">				<span class="comment">// return res so that endorser can anylyze it.</span></div><div class="line">			&#125;</div><div class="line">		<span class="keyword">case</span> &lt;-time.After(timeout):</div><div class="line">			err = fmt.Errorf(<span class="string">"Timeout expired while executing send init message"</span>)</div><div class="line">		&#125;</div><div class="line">	&#125;</div><div class="line"></div><div class="line">	<span class="comment">//if initOrReady succeeded, our responsibility to delete the context</span></div><div class="line">	chrte.handler.deleteTxContext(cccid.TxID)</div><div class="line"></div><div class="line">	<span class="keyword">return</span> err</div><div class="line">&#125;</div><div class="line"></div><div class="line"><span class="keyword">type</span> CCContext <span class="keyword">struct</span> &#123;</div><div class="line">	ChainID <span class="keyword">string</span></div><div class="line">	Name <span class="keyword">string</span></div><div class="line">    Version <span class="keyword">string</span></div><div class="line">    <span class="comment">//TxID is the transaction id for the proposal (if any)</span></div><div class="line">	TxID <span class="keyword">string</span></div><div class="line">	Syscc <span class="keyword">bool</span></div><div class="line">	SignedProposal *pb.SignedProposal</div><div class="line">	Proposal *pb.Proposal</div><div class="line">	canonicalName <span class="keyword">string</span></div><div class="line">&#125;</div></pre></td></tr></table></figure></p>
+<figure class="highlight go"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div><div class="line">7</div><div class="line">8</div><div class="line">9</div><div class="line">10</div><div class="line">11</div><div class="line">12</div><div class="line">13</div><div class="line">14</div><div class="line">15</div><div class="line">16</div><div class="line">17</div><div class="line">18</div><div class="line">19</div><div class="line">20</div><div class="line">21</div><div class="line">22</div></pre></td><td class="code"><pre><div class="line"><span class="function"><span class="keyword">func</span> <span class="params">(chaincodeSupport *ChaincodeSupport)</span> <span class="title">launchAndWaitForRegister</span><span class="params">(ctxt context.Context, cccid *ccprovider.CCContext, cds *pb.ChaincodeDeploymentSpec, cLang pb.ChaincodeSpec_Type, builder api.BuildSpecFactory)</span> <span class="title">error</span></span> &#123;</div><div class="line">    <span class="comment">// 省略...</span></div><div class="line">    <span class="comment">// 调用preLaunchSetup 往 chaincodeSupport.runningChaincodes.chaincodeMap加入一个chaincodeRTEnv对象，只是其中的handler是临时的。</span></div><div class="line">    <span class="comment">// 该chaincodeRTEnv对象中的handler会在Register阶段被替换，但其中的notify会继续保留</span></div><div class="line">    <span class="comment">// notify 用于</span></div><div class="line">    notfy = chaincodeSupport.preLaunchSetup(canName)</div><div class="line">    <span class="comment">// 调用VM创建虚拟机</span></div><div class="line"></div><div class="line">&#125;</div><div class="line"></div><div class="line"><span class="comment">// 该函数用于在chaincodeSupport.runningChaincodes.chaincodeMap放置一个占位chaincodeRTEnv，同时返回handler中的notify，用于setup阶段的通信。</span></div><div class="line"><span class="comment">// 这个chaincodeRTEnv可以表示正在setup进程中，放置多次进入。</span></div><div class="line"><span class="function"><span class="keyword">func</span> <span class="params">(chaincodeSupport *ChaincodeSupport)</span> <span class="title">preLaunchSetup</span><span class="params">(chaincode <span class="keyword">string</span>)</span> <span class="title">chan</span> <span class="title">bool</span></span> &#123;</div><div class="line">	chaincodeSupport.runningChaincodes.Lock()</div><div class="line">	<span class="keyword">defer</span> chaincodeSupport.runningChaincodes.Unlock()</div><div class="line">	<span class="comment">//register placeholder Handler. This will be transferred in registerHandler</span></div><div class="line">	<span class="comment">//<span class="doctag">NOTE:</span> from this point, existence of handler for this chaincode means the chaincode</span></div><div class="line">	<span class="comment">//is in the process of getting started (or has been started)</span></div><div class="line">	notfy := <span class="built_in">make</span>(<span class="keyword">chan</span> <span class="keyword">bool</span>, <span class="number">1</span>)</div><div class="line">	chaincodeSupport.runningChaincodes.chaincodeMap[chaincode] = &amp;chaincodeRTEnv&#123;handler: &amp;Handler&#123;readyNotify: notfy&#125;&#125;</div><div class="line">	<span class="keyword">return</span> notfy</div><div class="line">&#125;</div></pre></td></tr></table></figure>
+<figure class="highlight go"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div><div class="line">7</div><div class="line">8</div><div class="line">9</div></pre></td><td class="code"><pre><div class="line"><span class="function"><span class="keyword">func</span> <span class="params">(handler *Handler)</span> <span class="title">processStream</span><span class="params">()</span> <span class="title">error</span></span> &#123;</div><div class="line">    <span class="comment">// 循环处理 handler.ChatStream.Recv() 的 ChaincodeMessage 以及 peer 端通过通道发给handler.nextState的ChaincodeMessage</span></div><div class="line">    <span class="comment">// in 即为上面两个途径进入的ChaincodeMessage，即为状态机需要的event，进入FSM的handleMessage。</span></div><div class="line">    err = handler.HandleMessage(in)</div><div class="line">    <span class="comment">// nsInfo 即为从handler.nextState 中收到的ChaincodeMessage,除了更改本地handler（peer端）的FSM，还要根据sendToCC标志确定是否发送给CC，更新那边的FSM状态。</span></div><div class="line">    <span class="keyword">if</span> nsInfo != <span class="literal">nil</span> &amp;&amp; nsInfo.sendToCC &#123;</div><div class="line">        handler.serialSend(in)</div><div class="line">    &#125;</div><div class="line">&#125;</div></pre></td></tr></table></figure>
+<p>状态机:<br>两个状态机有什么联系呢:</p>
+
+  </div>
+</article>
+
+
+
+    </div>
+    
+      <div id="footer-post-container">
+  <div id="footer-post">
+
+    <div id="nav-footer" style="display: none">
+      <ul>
+         
+          <li><a href="/">Home</a></li>
+         
+          <li><a href="/about/">About</a></li>
+         
+          <li><a href="/archives/">Writing</a></li>
+         
+          <li><a href="http://github.com/probberechts">Projects</a></li>
+        
+      </ul>
+    </div>
+
+    <div id="toc-footer" style="display: none">
+      <ol class="toc"><li class="toc-item toc-level-1"><a class="toc-link" href="#ChaincodeSupport-（peer这一侧）"><span class="toc-number">1.</span> <span class="toc-text">ChaincodeSupport （peer这一侧）</span></a></li></ol>
+    </div>
+
+    <div id="actions-footer">
+      <ul>
+        <li id="toc"><a class="icon" href="#" onclick="$('#toc-footer').toggle();return false;"><i class="fa fa-list fa-lg" aria-hidden="true"></i> TOC</a></li>
+        <li id="share"><a class="icon" href="#" onclick="$('#share-footer').toggle();return false;"><i class="fa fa-share-alt fa-lg" aria-hidden="true"></i> Share</a></li>
+        <li id="top" style="display:none"><a class="icon" href="#" onclick="$('html, body').animate({ scrollTop: 0 }, 'fast');"><i class="fa fa-chevron-up fa-lg" aria-hidden="true"></i> Top</a></li>
+        <li id="menu"><a class="icon" href="#" onclick="$('#nav-footer').toggle();return false;"><i class="fa fa-bars fa-lg" aria-hidden="true"></i> Menu</a></li>
+      </ul>
+    </div>
+
+  </div>
+</div>
+
+    
+    <footer id="footer">
+  <div class="footer-left">
+    Copyright &copy; 2017 Landleany
+  </div>
+  <div class="footer-right">
+    <nav>
+      <ul>
+         
+          <li><a href="/">Home</a></li>
+         
+          <li><a href="/about/">About</a></li>
+         
+          <li><a href="/archives/">Writing</a></li>
+         
+          <li><a href="http://github.com/probberechts">Projects</a></li>
+        
+      </ul>
+    </nav>
+  </div>
+</footer>
+
+</body>
+</html>
+<!-- styles -->
+<link rel="stylesheet" href="/lib/font-awesome/css/font-awesome.min.css">
+<link rel="stylesheet" href="/lib/meslo-LG/styles.css">
+<link rel="stylesheet" href="/lib/justified-gallery/justifiedGallery.min.css">
+
+<!-- jquery -->
+<script src="/lib/jquery/jquery.min.js"></script>
+<script src="/lib/justified-gallery/jquery.justifiedGallery.min.js"></script>
+<script src="/js/main.js"></script>
+<!-- search -->
+
+<!-- Google Analytics -->
+
+    <script type="text/javascript">
+        (function(i,s,o,g,r,a,m) {i['GoogleAnalyticsObject']=r;i[r]=i[r]||function() {
+        (i[r].q=i[r].q||[]).push(arguments)},i[r].l=1*new Date();a=s.createElement(o),
+        m=s.getElementsByTagName(o)[0];a.async=1;a.src=g;m.parentNode.insertBefore(a,m)
+        })(window,document,'script','//www.google-analytics.com/analytics.js','ga');
+        ga('create', 'UA-86660611-1', 'auto');
+        ga('send', 'pageview');
+    </script>
+
+<!-- Disqus Comments -->
+
+
