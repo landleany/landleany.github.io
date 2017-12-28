@@ -12,7 +12,7 @@
 <meta property="og:url" content="http://yoursite.com/2017/10/21/js/index.html">
 <meta property="og:site_name" content="Drip">
 <meta property="og:description" content="this 的用法单纯在函数中调用123function test() &amp;#123;    this.x = 1; // this表示全局&amp;#125; 做为对象的方法被调用12var o = &amp;#123;&amp;#125;o.m = function() &amp;#123;console.log(this)&amp;#125; // this表示o这个对象 作为构造函数被创建的对象1234function test()">
-<meta property="og:updated_time" content="2017-12-19T06:32:08.000Z">
+<meta property="og:updated_time" content="2017-12-28T02:30:38.000Z">
 <meta name="twitter:card" content="summary">
 <meta name="twitter:title" content="前端基础&#x2F;趋势">
 <meta name="twitter:description" content="this 的用法单纯在函数中调用123function test() &amp;#123;    this.x = 1; // this表示全局&amp;#125; 做为对象的方法被调用12var o = &amp;#123;&amp;#125;o.m = function() &amp;#123;console.log(this)&amp;#125; // this表示o这个对象 作为构造函数被创建的对象1234function test()">
@@ -96,7 +96,7 @@
 
     </div>
     <div id="toc">
-      <ol class="toc"><li class="toc-item toc-level-1"><a class="toc-link" href="#this-的用法"><span class="toc-number">1.</span> <span class="toc-text">this 的用法</span></a></li><li class="toc-item toc-level-1"><a class="toc-link" href="#css-inline-block-inline-block区别"><span class="toc-number">2.</span> <span class="toc-text">css: inline, block, inline-block区别</span></a></li></ol>
+      <ol class="toc"><li class="toc-item toc-level-1"><a class="toc-link" href="#this-的用法"><span class="toc-number">1.</span> <span class="toc-text">this 的用法</span></a></li><li class="toc-item toc-level-1"><a class="toc-link" href="#css-display-inline-block-inline-block区别"><span class="toc-number">2.</span> <span class="toc-text">css: [display] inline, block, inline-block区别</span></a></li><li class="toc-item toc-level-1"><a class="toc-link" href="#css-position"><span class="toc-number">3.</span> <span class="toc-text">css: [position]</span></a></li><li class="toc-item toc-level-1"><a class="toc-link" href="#CSS-绝对定位-absolute-fixed"><span class="toc-number">4.</span> <span class="toc-text">CSS 绝对定位 (absolute, fixed)</span></a></li><li class="toc-item toc-level-1"><a class="toc-link" href="#CSS-相对定位-relative-还是会占据文档流的空间的"><span class="toc-number">5.</span> <span class="toc-text">CSS 相对定位 (relative) 还是会占据文档流的空间的</span></a></li><li class="toc-item toc-level-1"><a class="toc-link" href="#JSON"><span class="toc-number">6.</span> <span class="toc-text">JSON</span></a></li><li class="toc-item toc-level-1"><a class="toc-link" href="#Array"><span class="toc-number">7.</span> <span class="toc-text">Array</span></a></li></ol>
     </div>
   </span>
 </div>
@@ -134,7 +134,16 @@
 <p>做为对象的方法被调用<br><figure class="highlight js"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div></pre></td><td class="code"><pre><div class="line"><span class="keyword">var</span> o = &#123;&#125;</div><div class="line">o.m = <span class="function"><span class="keyword">function</span>(<span class="params"></span>) </span>&#123;<span class="built_in">console</span>.log(<span class="keyword">this</span>)&#125; <span class="comment">// this表示o这个对象</span></div></pre></td></tr></table></figure></p>
 <p>作为构造函数被创建的对象<br><figure class="highlight js"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div></pre></td><td class="code"><pre><div class="line"><span class="function"><span class="keyword">function</span> <span class="title">test</span>(<span class="params"></span>) </span>&#123;</div><div class="line">    <span class="keyword">this</span>.x = <span class="number">1</span></div><div class="line">&#125;</div><div class="line"><span class="keyword">var</span> o = <span class="keyword">new</span> test() <span class="comment">// this表示o这个对象</span></div></pre></td></tr></table></figure></p>
 <p>apply, call, bind<br>apply 基本上等于 call，只是前者的函数参数需要用数组，后者不用<br>bind 则不执行，而是返回bind this之后的函数</p>
-<h1 id="css-inline-block-inline-block区别"><a href="#css-inline-block-inline-block区别" class="headerlink" title="css: inline, block, inline-block区别"></a>css: inline, block, inline-block区别</h1><p>inline: 内联元素，和其他元素在一行上；高、行高以及外边距内边距不可改变；宽度就是文字或者图片的宽度，不可改变；内联元素只能容纳文本或者其他内联元素<br>block: 块级元素，此元素前后会带有换行符<br>inline-block: 可以在同一行的block哦，可以代替float<br><a href="http://zh.learnlayout.com/" target="_blank" rel="external">学习css布局</a></p>
+<h1 id="css-display-inline-block-inline-block区别"><a href="#css-display-inline-block-inline-block区别" class="headerlink" title="css: [display] inline, block, inline-block区别"></a>css: [display] inline, block, inline-block区别</h1><p>inline: 内联元素，和其他元素在一行上；高、行高以及外边距内边距不可改变；宽度就是文字或者图片的宽度，不可改变；内联元素只能容纳文本或者其他内联元素<br>block: 块级元素，此元素前后会带有换行符<br>inline-block: 可以在同一行的block哦，可以代替float<br><a href="http://zh.learnlayout.com/" target="_blank" rel="external">学习css布局</a></p>
+<h1 id="css-position"><a href="#css-position" class="headerlink" title="css: [position]"></a>css: [position]</h1><ul>
+<li>static (默认，占据文档流)</li>
+<li>relative （占据文档流）</li>
+<li>absolute (不影响父级大小)</li>
+<li>fixed (不影响父级大小)</li>
+</ul>
+<h1 id="CSS-绝对定位-absolute-fixed"><a href="#CSS-绝对定位-absolute-fixed" class="headerlink" title="CSS 绝对定位 (absolute, fixed)"></a>CSS 绝对定位 (absolute, fixed)</h1><p>绝对定位使元素的位置与文档流无关，因此不占据空间。这一点与相对定位不同，相对定位实际上被看作普通流定位模型的一部分，因为元素的位置相对于它在普通流中的位置。<br>普通流中其它元素的布局就像绝对定位的元素不存在一样：</p>
+<h1 id="CSS-相对定位-relative-还是会占据文档流的空间的"><a href="#CSS-相对定位-relative-还是会占据文档流的空间的" class="headerlink" title="CSS 相对定位 (relative) 还是会占据文档流的空间的"></a>CSS 相对定位 (relative) 还是会占据文档流的空间的</h1><h1 id="JSON"><a href="#JSON" class="headerlink" title="JSON"></a>JSON</h1><p>JSON.parse(str) ==&gt; obj<br>JSON.stringify(obj)  =&gt;  str<br>JSON.stringify() 会返回undefined<br>JSON.stringify(“str”) 会返回 ‘“str”‘  表示字符串类型<br>JSON.stringify(12) 会返回 “12”  表示数字类型</p>
+<h1 id="Array"><a href="#Array" class="headerlink" title="Array"></a>Array</h1><p>Array.prototype 可以增加新属性或方法</p>
 
   </div>
 </article>
@@ -161,7 +170,7 @@
     </div>
 
     <div id="toc-footer" style="display: none">
-      <ol class="toc"><li class="toc-item toc-level-1"><a class="toc-link" href="#this-的用法"><span class="toc-number">1.</span> <span class="toc-text">this 的用法</span></a></li><li class="toc-item toc-level-1"><a class="toc-link" href="#css-inline-block-inline-block区别"><span class="toc-number">2.</span> <span class="toc-text">css: inline, block, inline-block区别</span></a></li></ol>
+      <ol class="toc"><li class="toc-item toc-level-1"><a class="toc-link" href="#this-的用法"><span class="toc-number">1.</span> <span class="toc-text">this 的用法</span></a></li><li class="toc-item toc-level-1"><a class="toc-link" href="#css-display-inline-block-inline-block区别"><span class="toc-number">2.</span> <span class="toc-text">css: [display] inline, block, inline-block区别</span></a></li><li class="toc-item toc-level-1"><a class="toc-link" href="#css-position"><span class="toc-number">3.</span> <span class="toc-text">css: [position]</span></a></li><li class="toc-item toc-level-1"><a class="toc-link" href="#CSS-绝对定位-absolute-fixed"><span class="toc-number">4.</span> <span class="toc-text">CSS 绝对定位 (absolute, fixed)</span></a></li><li class="toc-item toc-level-1"><a class="toc-link" href="#CSS-相对定位-relative-还是会占据文档流的空间的"><span class="toc-number">5.</span> <span class="toc-text">CSS 相对定位 (relative) 还是会占据文档流的空间的</span></a></li><li class="toc-item toc-level-1"><a class="toc-link" href="#JSON"><span class="toc-number">6.</span> <span class="toc-text">JSON</span></a></li><li class="toc-item toc-level-1"><a class="toc-link" href="#Array"><span class="toc-number">7.</span> <span class="toc-text">Array</span></a></li></ol>
     </div>
 
     <div id="actions-footer">
