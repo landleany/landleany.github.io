@@ -12,7 +12,7 @@
 <meta property="og:url" content="http://yoursite.com/2017/10/22/golang/index.html">
 <meta property="og:site_name" content="Drip">
 <meta property="og:description" content="select case 不能像switch一样使用fallthrough 没有顺序，从多个不阻塞的case中随机选择一个执行  channel1234567ch := make(chan int)  // ch是没有缓冲的ch &amp;lt;- 1   // 该操作会被阻塞，必须在另一个协程中执行 &amp;lt;- ch 才能发送成功&amp;lt;- ch   // 因此在同一个协程中向一个没有缓冲的通道中发送数据">
-<meta property="og:updated_time" content="2017-12-02T12:57:40.000Z">
+<meta property="og:updated_time" content="2018-01-06T06:49:57.000Z">
 <meta name="twitter:card" content="summary">
 <meta name="twitter:title" content="golang笔记">
 <meta name="twitter:description" content="select case 不能像switch一样使用fallthrough 没有顺序，从多个不阻塞的case中随机选择一个执行  channel1234567ch := make(chan int)  // ch是没有缓冲的ch &amp;lt;- 1   // 该操作会被阻塞，必须在另一个协程中执行 &amp;lt;- ch 才能发送成功&amp;lt;- ch   // 因此在同一个协程中向一个没有缓冲的通道中发送数据">
@@ -70,7 +70,7 @@
         <li><a class="icon" href="/2017/10/29/k8s/"><i class="fa fa-chevron-left" aria-hidden="true" onmouseover="$('#i-prev').toggle();" onmouseout="$('#i-prev').toggle();"></i></a></li>
         
         
-        <li><a class="icon" href="/2017/10/21/dva/"><i class="fa fa-chevron-right" aria-hidden="true" onmouseover="$('#i-next').toggle();" onmouseout="$('#i-next').toggle();"></i></a></li>
+        <li><a class="icon" href="/2017/10/21/js/"><i class="fa fa-chevron-right" aria-hidden="true" onmouseover="$('#i-next').toggle();" onmouseout="$('#i-next').toggle();"></i></a></li>
         
         <li><a class="icon" href="#" onclick="$('html, body').animate({ scrollTop: 0 }, 'fast');"><i class="fa fa-chevron-up" aria-hidden="true" onmouseover="$('#i-top').toggle();" onmouseout="$('#i-top').toggle();"></i></a></li>
       </ul>
@@ -96,7 +96,7 @@
 
     </div>
     <div id="toc">
-      <ol class="toc"><li class="toc-item toc-level-1"><a class="toc-link" href="#select-case"><span class="toc-number">1.</span> <span class="toc-text">select case</span></a></li><li class="toc-item toc-level-1"><a class="toc-link" href="#channel"><span class="toc-number">2.</span> <span class="toc-text">channel</span></a></li><li class="toc-item toc-level-1"><a class="toc-link" href="#channel-操作要小心"><span class="toc-number">3.</span> <span class="toc-text">channel 操作要小心</span></a></li><li class="toc-item toc-level-1"><a class="toc-link" href="#带缓冲的channel"><span class="toc-number">4.</span> <span class="toc-text">带缓冲的channel</span></a></li><li class="toc-item toc-level-1"><a class="toc-link" href="#千万不要在forloop-中的select中写break"><span class="toc-number">5.</span> <span class="toc-text">千万不要在forloop 中的select中写break</span></a></li><li class="toc-item toc-level-1"><a class="toc-link" href="#json-Unmarshal-原理和常见问题"><span class="toc-number">6.</span> <span class="toc-text">json.Unmarshal 原理和常见问题</span></a></li><li class="toc-item toc-level-1"><a class="toc-link" href="#json-Unmarshal必须传入对象的地址"><span class="toc-number">7.</span> <span class="toc-text">json.Unmarshal必须传入对象的地址</span></a></li><li class="toc-item toc-level-1"><a class="toc-link" href="#注意strings-Split-“”-“-”-会形成长度为1的切片。第0个位置为一个空字符。"><span class="toc-number">8.</span> <span class="toc-text">注意strings.Split(“”, “,”)会形成长度为1的切片。第0个位置为一个空字符。</span></a></li><li class="toc-item toc-level-1"><a class="toc-link" href="#chan-int-和-chan-lt-int-和-lt-chan-int-作为参数类型的区别"><span class="toc-number">9.</span> <span class="toc-text">chan int 和 chan<- int 和 <-chan int 作为参数类型的区别</span></a></li><li class="toc-item toc-level-1"><a class="toc-link" href="#全局中-var-a-make-map-int-int-是可以的，不用非要放到-init-中初始化"><span class="toc-number">10.</span> <span class="toc-text">全局中 var a = make(map[int]int) 是可以的，不用非要放到 init() 中初始化</span></a></li></ol>
+      <ol class="toc"><li class="toc-item toc-level-1"><a class="toc-link" href="#select-case"><span class="toc-number">1.</span> <span class="toc-text">select case</span></a></li><li class="toc-item toc-level-1"><a class="toc-link" href="#channel"><span class="toc-number">2.</span> <span class="toc-text">channel</span></a></li><li class="toc-item toc-level-1"><a class="toc-link" href="#channel-操作要小心"><span class="toc-number">3.</span> <span class="toc-text">channel 操作要小心</span></a></li><li class="toc-item toc-level-1"><a class="toc-link" href="#带缓冲的channel"><span class="toc-number">4.</span> <span class="toc-text">带缓冲的channel</span></a></li><li class="toc-item toc-level-1"><a class="toc-link" href="#千万不要在forloop-中的select中写break"><span class="toc-number">5.</span> <span class="toc-text">千万不要在forloop 中的select中写break</span></a></li><li class="toc-item toc-level-1"><a class="toc-link" href="#json-Unmarshal-原理和常见问题"><span class="toc-number">6.</span> <span class="toc-text">json.Unmarshal 原理和常见问题</span></a></li><li class="toc-item toc-level-1"><a class="toc-link" href="#json-Unmarshal必须传入对象的地址"><span class="toc-number">7.</span> <span class="toc-text">json.Unmarshal必须传入对象的地址</span></a></li><li class="toc-item toc-level-1"><a class="toc-link" href="#注意strings-Split-“”-“-”-会形成长度为1的切片。第0个位置为一个空字符。"><span class="toc-number">8.</span> <span class="toc-text">注意strings.Split(“”, “,”)会形成长度为1的切片。第0个位置为一个空字符。</span></a></li><li class="toc-item toc-level-1"><a class="toc-link" href="#chan-int-和-chan-lt-int-和-lt-chan-int-作为参数类型的区别"><span class="toc-number">9.</span> <span class="toc-text">chan int 和 chan<- int 和 <-chan int 作为参数类型的区别</span></a></li><li class="toc-item toc-level-1"><a class="toc-link" href="#全局中-var-a-make-map-int-int-是可以的，不用非要放到-init-中初始化"><span class="toc-number">10.</span> <span class="toc-text">全局中 var a = make(map[int]int) 是可以的，不用非要放到 init() 中初始化</span></a></li><li class="toc-item toc-level-1"><a class="toc-link" href="#sync-Once-一般用于惰性初始化"><span class="toc-number">11.</span> <span class="toc-text">sync.Once 一般用于惰性初始化</span></a></li><li class="toc-item toc-level-1"><a class="toc-link" href="#sync-Mutex-sync-RWMutex"><span class="toc-number">12.</span> <span class="toc-text">sync.Mutex sync.RWMutex</span></a></li><li class="toc-item toc-level-1"><a class="toc-link" href="#go-get-github-com-xxx-…-表示下载并安装xxx下所有库（即子库）"><span class="toc-number">13.</span> <span class="toc-text">go get github.com/xxx/… 表示下载并安装xxx下所有库（即子库）</span></a></li><li class="toc-item toc-level-1"><a class="toc-link" href="#关于嵌套-vendor-，你想知道的"><span class="toc-number">14.</span> <span class="toc-text">关于嵌套 vendor ，你想知道的</span></a></li><li class="toc-item toc-level-1"><a class="toc-link" href="#由errors-New或fmt-Errorf返回的错误变量，它们实现了error-interface"><span class="toc-number">15.</span> <span class="toc-text">由errors.New或fmt.Errorf返回的错误变量，它们实现了error interface</span></a></li><li class="toc-item toc-level-1"><a class="toc-link" href="#govendor-使用方法"><span class="toc-number">16.</span> <span class="toc-text">govendor 使用方法</span></a></li><li class="toc-item toc-level-1"><a class="toc-link" href="#golang-中的编码-UTF8"><span class="toc-number">17.</span> <span class="toc-text">golang 中的编码 UTF8</span></a></li></ol>
     </div>
   </span>
 </div>
@@ -152,7 +152,54 @@
 <h1 id="json-Unmarshal必须传入对象的地址"><a href="#json-Unmarshal必须传入对象的地址" class="headerlink" title="json.Unmarshal必须传入对象的地址"></a>json.Unmarshal必须传入对象的地址</h1><p>因为这个函数的形参是interface，所以内部有一个reflect.ValueOf的操作返回一个真实类型的<strong>新对象</strong>。</p>
 <h1 id="注意strings-Split-“”-“-”-会形成长度为1的切片。第0个位置为一个空字符。"><a href="#注意strings-Split-“”-“-”-会形成长度为1的切片。第0个位置为一个空字符。" class="headerlink" title="注意strings.Split(“”, “,”)会形成长度为1的切片。第0个位置为一个空字符。"></a>注意strings.Split(“”, “,”)会形成长度为1的切片。第0个位置为一个空字符。</h1><p>然后再append一个“s”进入该切片，调用strings.Join(a, “,”)会返回“,s”这样的字符串！</p>
 <h1 id="chan-int-和-chan-lt-int-和-lt-chan-int-作为参数类型的区别"><a href="#chan-int-和-chan-lt-int-和-lt-chan-int-作为参数类型的区别" class="headerlink" title="chan int 和 chan&lt;- int 和 &lt;-chan int 作为参数类型的区别"></a>chan int 和 chan&lt;- int 和 &lt;-chan int 作为参数类型的区别</h1><p>第一个表示对于client可以读写，第二个对于client只写，第三个对于client只读。</p>
-<h1 id="全局中-var-a-make-map-int-int-是可以的，不用非要放到-init-中初始化"><a href="#全局中-var-a-make-map-int-int-是可以的，不用非要放到-init-中初始化" class="headerlink" title="全局中 var a = make(map[int]int) 是可以的，不用非要放到 init() 中初始化"></a>全局中 var a = make(map[int]int) 是可以的，不用非要放到 init() 中初始化</h1>
+<h1 id="全局中-var-a-make-map-int-int-是可以的，不用非要放到-init-中初始化"><a href="#全局中-var-a-make-map-int-int-是可以的，不用非要放到-init-中初始化" class="headerlink" title="全局中 var a = make(map[int]int) 是可以的，不用非要放到 init() 中初始化"></a>全局中 var a = make(map[int]int) 是可以的，不用非要放到 init() 中初始化</h1><h1 id="sync-Once-一般用于惰性初始化"><a href="#sync-Once-一般用于惰性初始化" class="headerlink" title="sync.Once 一般用于惰性初始化"></a>sync.Once 一般用于惰性初始化</h1><p>所谓惰性初始化，即不是放在func init() 中的初始化，而是使用时即时判断是否已经初始化（若没有则现场初始化）</p>
+<h1 id="sync-Mutex-sync-RWMutex"><a href="#sync-Mutex-sync-RWMutex" class="headerlink" title="sync.Mutex sync.RWMutex"></a>sync.Mutex sync.RWMutex</h1><p>RWMutex: 多读单写锁，调用了RLock和RUnlock方法来获取和释放一个读取或者共享锁。调用mu.Lock和mu.Unlock方法来获取和释放一个写或互斥锁。(写的时候不能读)</p>
+<h1 id="go-get-github-com-xxx-…-表示下载并安装xxx下所有库（即子库）"><a href="#go-get-github-com-xxx-…-表示下载并安装xxx下所有库（即子库）" class="headerlink" title="go get github.com/xxx/… 表示下载并安装xxx下所有库（即子库）"></a>go get github.com/xxx/… 表示下载并安装xxx下所有库（即子库）</h1><p>同理 govendor add github.com/xxx/… 可以移入所有xxx的子库，建议这样操作  </p>
+<h1 id="关于嵌套-vendor-，你想知道的"><a href="#关于嵌套-vendor-，你想知道的" class="headerlink" title="关于嵌套 vendor ，你想知道的"></a>关于嵌套 vendor ，你想知道的</h1><p>首先总结下 vendor ：   </p>
+<ul>
+<li>vendor是一个特殊的目录，在应用的源码目录下，go doc工具会忽略它。</li>
+<li>vendor机制支持嵌套vendor，vendor中的第三方包中也可以包含vendor目录。</li>
+<li>若不同层次的vendor下存在相同的package，编译查找路径优先搜索当前pakcage下的vendor是否存在，若没有再向parent pacakge下的vendor搜索（x/y/z作为parentpath输入，搜索路径：x/y/z/vendor/path-&gt;x/y/vendor/path-&gt;x/vendor/path-&gt;vendor/path)</li>
+<li>在使用时不用理会vendor这个路径的存在，该怎么import包就怎么import，不要出现import “d/vendor/p”的情况。vendor是由go tool隐式处理的。</li>
+<li>不会校验vendor中package的import path是否与canonical import路径是否一致了。<br>vendor机制看似像node.js的node_modules，支持嵌套vendor，若一个工程中在着两个版本的相的包，可以放在不同的层次的vendor下：    </li>
+<li>优点：可能解决不同的版本依赖冲突问题，不同的层次的vendor存放在不同的vendor。</li>
+<li>缺点：由于go的package是以路径组织的，在编译时，不同层次的vendor中相同的包会编译两次，链接两份，程序文件变大，运行期是执行不同的代码逻辑。会导致一些问题，如果在package init中全局初始化，可能重复初化出问题，也可能初化为不同的变量（内存中不同），无法共享获取。像之前我们遇到gprc类似的问题就是不同层次的相同package重复init导致的，见社区反馈 。</li>
+</ul>
+<p>所以Russ Cox期望大家良好设计工程布局，作为lib的包 不携带vendor更佳 ，一个project内的所有vendor都集中在顶层vendor里面。Go的包依赖问题依旧困扰着开发人员，嵌套vendor可以一定程度解决多版本的依赖冲突问题，但也引入多份编译导致的问题。目前社区也在一直讨论如何更好的解决，将进入下一个改进周期。</p>
+<blockquote>
+<p>使用 godep 以自动地将第三方库中的 vendor 内容移动到顶层 vendor 下，同时处理冲突问题。（称为<strong>flattern</strong>）<br>或使用 govendor add +e 会将所有缺失的外部引用添加进 vendor，效果是一样的</p>
+</blockquote>
+<h1 id="由errors-New或fmt-Errorf返回的错误变量，它们实现了error-interface"><a href="#由errors-New或fmt-Errorf返回的错误变量，它们实现了error-interface" class="headerlink" title="由errors.New或fmt.Errorf返回的错误变量，它们实现了error interface"></a>由errors.New或fmt.Errorf返回的错误变量，它们实现了error interface</h1><h1 id="govendor-使用方法"><a href="#govendor-使用方法" class="headerlink" title="govendor 使用方法"></a>govendor 使用方法</h1><ol>
+<li>govendor init</li>
+<li>手动添加需要的包：govendor add github.com/xxx/… 或 govendor add github.com/xxx/yyy</li>
+<li><p>或者如果项目中已经有可build的代码，可以自动添加依赖： govendor add +e </p>
+<p><code>govendor list</code> 可以查看当前项目下，所有依赖包的状态，其中：</p>
+</li>
+</ol>
+<ul>
+<li>+local    (l) packages in your project</li>
+<li>+external (e) referenced packages in GOPATH but not in current project</li>
+<li>+vendor   (v) packages in the vendor folder</li>
+<li><p>+std      (s) packages in the standard library</p>
+</li>
+<li><p>+excluded (x) external packages explicitly excluded from vendoring</p>
+</li>
+<li>+unused   (u) packages in the vendor folder, but unused</li>
+<li><p>+missing  (m) referenced packages but not found</p>
+</li>
+<li><p>+program  (p) package is a main package</p>
+</li>
+<li><p>+outside  +external +missing</p>
+</li>
+<li>+all      +all packages</li>
+</ul>
+<p>对应，可以在添加依赖时 <code>govendor add +e</code> 或者在更新时 <code>govendor update +e</code></p>
+<h1 id="golang-中的编码-UTF8"><a href="#golang-中的编码-UTF8" class="headerlink" title="golang 中的编码 UTF8"></a>golang 中的编码 UTF8</h1><p>var str string = “界”<br>fmt.Println(str[0],str[1],str[2])<br>输出的是231 149 140     </p>
+<p>golang源码必须是UTF-8编码，所以这就是’界’用UTF-8编码后的3个byte。string用下标访问时，是当作[]byte来处理的，所以会访问到每个byte。如果需要按每个字符访问，要转换成[]rune，[]rune(“界”)[0]就是’界’，这是rune类型，表示一个unicode codepoint。用for range遍历string，也是按[]rune来处理。总之是介于[]byte和[]rune之间的一个类型。如果一个string不是来自源码而是文件或者网络等等，就不能保证是UTF-8编码的。如果不是，就要先转换成UTF-8，才能转换成[]rune。官方提供了package。<br>string 就是一个 readonly 的 []byte，str[0], str[1] 分别是第一个字节和第二个字节。string 里面可以放任何数据。如果你用来放文本，可以用任何编码。Go 编译器假设且只接受 UTF-8 编码的文件，也就是你的 .go 文件必须是 UTF-8 编码的。所以，你的代码里面的 “界” 在 Go 编译器看来，就是三个字节的一个字符串，这个就是 str 的初值，你打印的三个 byte 的值就是“界”字的 UTF-8 编码。   </p>
+<blockquote>
+<p> 也就是说 string 并没有编码成 utf8，只是按字节放入数组而已！ </p>
+</blockquote>
+
   </div>
 </article>
 
@@ -178,7 +225,7 @@
     </div>
 
     <div id="toc-footer" style="display: none">
-      <ol class="toc"><li class="toc-item toc-level-1"><a class="toc-link" href="#select-case"><span class="toc-number">1.</span> <span class="toc-text">select case</span></a></li><li class="toc-item toc-level-1"><a class="toc-link" href="#channel"><span class="toc-number">2.</span> <span class="toc-text">channel</span></a></li><li class="toc-item toc-level-1"><a class="toc-link" href="#channel-操作要小心"><span class="toc-number">3.</span> <span class="toc-text">channel 操作要小心</span></a></li><li class="toc-item toc-level-1"><a class="toc-link" href="#带缓冲的channel"><span class="toc-number">4.</span> <span class="toc-text">带缓冲的channel</span></a></li><li class="toc-item toc-level-1"><a class="toc-link" href="#千万不要在forloop-中的select中写break"><span class="toc-number">5.</span> <span class="toc-text">千万不要在forloop 中的select中写break</span></a></li><li class="toc-item toc-level-1"><a class="toc-link" href="#json-Unmarshal-原理和常见问题"><span class="toc-number">6.</span> <span class="toc-text">json.Unmarshal 原理和常见问题</span></a></li><li class="toc-item toc-level-1"><a class="toc-link" href="#json-Unmarshal必须传入对象的地址"><span class="toc-number">7.</span> <span class="toc-text">json.Unmarshal必须传入对象的地址</span></a></li><li class="toc-item toc-level-1"><a class="toc-link" href="#注意strings-Split-“”-“-”-会形成长度为1的切片。第0个位置为一个空字符。"><span class="toc-number">8.</span> <span class="toc-text">注意strings.Split(“”, “,”)会形成长度为1的切片。第0个位置为一个空字符。</span></a></li><li class="toc-item toc-level-1"><a class="toc-link" href="#chan-int-和-chan-lt-int-和-lt-chan-int-作为参数类型的区别"><span class="toc-number">9.</span> <span class="toc-text">chan int 和 chan<- int 和 <-chan int 作为参数类型的区别</span></a></li><li class="toc-item toc-level-1"><a class="toc-link" href="#全局中-var-a-make-map-int-int-是可以的，不用非要放到-init-中初始化"><span class="toc-number">10.</span> <span class="toc-text">全局中 var a = make(map[int]int) 是可以的，不用非要放到 init() 中初始化</span></a></li></ol>
+      <ol class="toc"><li class="toc-item toc-level-1"><a class="toc-link" href="#select-case"><span class="toc-number">1.</span> <span class="toc-text">select case</span></a></li><li class="toc-item toc-level-1"><a class="toc-link" href="#channel"><span class="toc-number">2.</span> <span class="toc-text">channel</span></a></li><li class="toc-item toc-level-1"><a class="toc-link" href="#channel-操作要小心"><span class="toc-number">3.</span> <span class="toc-text">channel 操作要小心</span></a></li><li class="toc-item toc-level-1"><a class="toc-link" href="#带缓冲的channel"><span class="toc-number">4.</span> <span class="toc-text">带缓冲的channel</span></a></li><li class="toc-item toc-level-1"><a class="toc-link" href="#千万不要在forloop-中的select中写break"><span class="toc-number">5.</span> <span class="toc-text">千万不要在forloop 中的select中写break</span></a></li><li class="toc-item toc-level-1"><a class="toc-link" href="#json-Unmarshal-原理和常见问题"><span class="toc-number">6.</span> <span class="toc-text">json.Unmarshal 原理和常见问题</span></a></li><li class="toc-item toc-level-1"><a class="toc-link" href="#json-Unmarshal必须传入对象的地址"><span class="toc-number">7.</span> <span class="toc-text">json.Unmarshal必须传入对象的地址</span></a></li><li class="toc-item toc-level-1"><a class="toc-link" href="#注意strings-Split-“”-“-”-会形成长度为1的切片。第0个位置为一个空字符。"><span class="toc-number">8.</span> <span class="toc-text">注意strings.Split(“”, “,”)会形成长度为1的切片。第0个位置为一个空字符。</span></a></li><li class="toc-item toc-level-1"><a class="toc-link" href="#chan-int-和-chan-lt-int-和-lt-chan-int-作为参数类型的区别"><span class="toc-number">9.</span> <span class="toc-text">chan int 和 chan<- int 和 <-chan int 作为参数类型的区别</span></a></li><li class="toc-item toc-level-1"><a class="toc-link" href="#全局中-var-a-make-map-int-int-是可以的，不用非要放到-init-中初始化"><span class="toc-number">10.</span> <span class="toc-text">全局中 var a = make(map[int]int) 是可以的，不用非要放到 init() 中初始化</span></a></li><li class="toc-item toc-level-1"><a class="toc-link" href="#sync-Once-一般用于惰性初始化"><span class="toc-number">11.</span> <span class="toc-text">sync.Once 一般用于惰性初始化</span></a></li><li class="toc-item toc-level-1"><a class="toc-link" href="#sync-Mutex-sync-RWMutex"><span class="toc-number">12.</span> <span class="toc-text">sync.Mutex sync.RWMutex</span></a></li><li class="toc-item toc-level-1"><a class="toc-link" href="#go-get-github-com-xxx-…-表示下载并安装xxx下所有库（即子库）"><span class="toc-number">13.</span> <span class="toc-text">go get github.com/xxx/… 表示下载并安装xxx下所有库（即子库）</span></a></li><li class="toc-item toc-level-1"><a class="toc-link" href="#关于嵌套-vendor-，你想知道的"><span class="toc-number">14.</span> <span class="toc-text">关于嵌套 vendor ，你想知道的</span></a></li><li class="toc-item toc-level-1"><a class="toc-link" href="#由errors-New或fmt-Errorf返回的错误变量，它们实现了error-interface"><span class="toc-number">15.</span> <span class="toc-text">由errors.New或fmt.Errorf返回的错误变量，它们实现了error interface</span></a></li><li class="toc-item toc-level-1"><a class="toc-link" href="#govendor-使用方法"><span class="toc-number">16.</span> <span class="toc-text">govendor 使用方法</span></a></li><li class="toc-item toc-level-1"><a class="toc-link" href="#golang-中的编码-UTF8"><span class="toc-number">17.</span> <span class="toc-text">golang 中的编码 UTF8</span></a></li></ol>
     </div>
 
     <div id="actions-footer">
@@ -196,7 +243,7 @@
     
     <footer id="footer">
   <div class="footer-left">
-    Copyright &copy; 2017 Landleany
+    Copyright &copy; 2018 Landleany
   </div>
   <div class="footer-right">
     <nav>
