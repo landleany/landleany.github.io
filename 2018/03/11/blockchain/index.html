@@ -1,0 +1,250 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <!-- so meta -->
+    <meta charset="utf-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="HandheldFriendly" content="True">
+    <meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1" />
+    <meta name="description" content="PBFT阅读     共识算法即多个网络节点达成一致的算法分为 CFT（Crash Fault Tolerance） 和 BFT（Byzantine Fault Tolerant）CFT：只能容忍节点挂掉，但不能容忍节点恶意返回，例如 paxos算法BFT：拜占庭容错算法，既能容忍节点挂掉，也能容忍拜占庭问题（即节点恶意返回）     BFT 理解拜占庭容错算法：Byzantine Fault T">
+<meta property="og:type" content="article">
+<meta property="og:title" content="区块链技术">
+<meta property="og:url" content="http://yoursite.com/2018/03/11/blockchain/index.html">
+<meta property="og:site_name" content="Drip">
+<meta property="og:description" content="PBFT阅读     共识算法即多个网络节点达成一致的算法分为 CFT（Crash Fault Tolerance） 和 BFT（Byzantine Fault Tolerant）CFT：只能容忍节点挂掉，但不能容忍节点恶意返回，例如 paxos算法BFT：拜占庭容错算法，既能容忍节点挂掉，也能容忍拜占庭问题（即节点恶意返回）     BFT 理解拜占庭容错算法：Byzantine Fault T">
+<meta property="og:updated_time" content="2018-06-25T03:11:16.000Z">
+<meta name="twitter:card" content="summary">
+<meta name="twitter:title" content="区块链技术">
+<meta name="twitter:description" content="PBFT阅读     共识算法即多个网络节点达成一致的算法分为 CFT（Crash Fault Tolerance） 和 BFT（Byzantine Fault Tolerant）CFT：只能容忍节点挂掉，但不能容忍节点恶意返回，例如 paxos算法BFT：拜占庭容错算法，既能容忍节点挂掉，也能容忍拜占庭问题（即节点恶意返回）     BFT 理解拜占庭容错算法：Byzantine Fault T">
+    
+    
+        
+          
+              <link rel="shortcut icon" href="/images/favicon.ico">
+          
+        
+        
+          
+            <link rel="icon" type="image/png" href="/images/favicon-192x192.png" sizes="192x192">
+          
+        
+        
+          
+            <link rel="apple-touch-icon" sizes="180x180" href="/images/apple-touch-icon.png">
+          
+        
+    
+    <!-- title -->
+    <title>区块链技术</title>
+    <!-- styles -->
+    <link rel="stylesheet" href="/css/style.css">
+    <!-- rss -->
+    
+    
+</head>
+
+<body>
+    
+      <div id="header-post">
+  <a id="menu-icon" href="#"><i class="fa fa-bars fa-lg"></i></a>
+  <a id="menu-icon-tablet" href="#"><i class="fa fa-bars fa-lg"></i></a>
+  <a id="top-icon-tablet" href="#" onclick="$('html, body').animate({ scrollTop: 0 }, 'fast');" style="display:none;"><i class="fa fa-chevron-up fa-lg"></i></a>
+  <span id="menu">
+    <span id="nav">
+      <ul>
+         
+          <li><a href="/">Home</a></li>
+         
+          <li><a href="/about/">About</a></li>
+         
+          <li><a href="/archives/">Writing</a></li>
+         
+          <li><a href="http://github.com/probberechts">Projects</a></li>
+        
+      </ul>
+    </span>
+    <br/>
+    <span id="actions">
+      <ul>
+        
+        <li><a class="icon" href="/2018/03/12/k8s_free/"><i class="fa fa-chevron-left" aria-hidden="true" onmouseover="$('#i-prev').toggle();" onmouseout="$('#i-prev').toggle();"></i></a></li>
+        
+        
+        <li><a class="icon" href="/2018/02/03/git/"><i class="fa fa-chevron-right" aria-hidden="true" onmouseover="$('#i-next').toggle();" onmouseout="$('#i-next').toggle();"></i></a></li>
+        
+        <li><a class="icon" href="#" onclick="$('html, body').animate({ scrollTop: 0 }, 'fast');"><i class="fa fa-chevron-up" aria-hidden="true" onmouseover="$('#i-top').toggle();" onmouseout="$('#i-top').toggle();"></i></a></li>
+      </ul>
+      <span id="i-prev" class="info" style="display:none;">Previous post</span>
+      <span id="i-next" class="info" style="display:none;">Next post</span>
+      <span id="i-top" class="info" style="display:none;">Back to top</span>
+      <span id="i-share" class="info" style="display:none;">Share post</span>
+    </span>
+    <br/>
+    <div id="share" style="display: none">
+      <ul>
+  <li><a class="icon" href="http://www.facebook.com/sharer.php?u=http://yoursite.com/2018/03/11/blockchain/"><i class="fa fa-facebook " aria-hidden="true"></i></a></li>
+  <li><a class="icon" href="https://twitter.com/share?url=http://yoursite.com/2018/03/11/blockchain/&text=区块链技术"><i class="fa fa-twitter " aria-hidden="true"></i></a></li>
+  <li><a class="icon" href="http://www.linkedin.com/shareArticle?url=http://yoursite.com/2018/03/11/blockchain/&title=区块链技术"><i class="fa fa-linkedin " aria-hidden="true"></i></a></li>
+  <li><a class="icon" href="https://pinterest.com/pin/create/bookmarklet/?url=http://yoursite.com/2018/03/11/blockchain/&is_video=false&description=区块链技术"><i class="fa fa-pinterest " aria-hidden="true"></i></a></li>
+  <li><a class="icon" href="mailto:?subject=区块链技术&body=Check out this article: http://yoursite.com/2018/03/11/blockchain/"><i class="fa fa-envelope " aria-hidden="true"></i></a></li>
+  <li><a class="icon" href="https://getpocket.com/save?url=http://yoursite.com/2018/03/11/blockchain/&title=区块链技术"><i class="fa fa-get-pocket " aria-hidden="true"></i></a></li>
+  <li><a class="icon" href="http://reddit.com/submit?url=http://yoursite.com/2018/03/11/blockchain/&title=区块链技术"><i class="fa fa-reddit " aria-hidden="true"></i></a></li>
+  <li><a class="icon" href="http://www.stumbleupon.com/submit?url=http://yoursite.com/2018/03/11/blockchain/&title=区块链技术"><i class="fa fa-stumbleupon " aria-hidden="true"></i></a></li>
+  <li><a class="icon" href="http://digg.com/submit?url=http://yoursite.com/2018/03/11/blockchain/&title=区块链技术"><i class="fa fa-digg " aria-hidden="true"></i></a></li>
+  <li><a class="icon" href="http://www.tumblr.com/share/link?url=http://yoursite.com/2018/03/11/blockchain/&name=区块链技术&description="><i class="fa fa-tumblr " aria-hidden="true"></i></a></li>
+</ul>
+
+    </div>
+    <div id="toc">
+      <ol class="toc"><li class="toc-item toc-level-1"><a class="toc-link" href="#共识算法"><span class="toc-number">1.</span> <span class="toc-text">共识算法</span></a></li><li class="toc-item toc-level-1"><a class="toc-link" href="#BFT-理解"><span class="toc-number">2.</span> <span class="toc-text">BFT 理解</span></a></li><li class="toc-item toc-level-1"><a class="toc-link" href="#PBFT-理解"><span class="toc-number">3.</span> <span class="toc-text">PBFT 理解</span></a></li><li class="toc-item toc-level-1"><a class="toc-link" href="#Fabric-1-0-与-Fabric-0-6"><span class="toc-number">4.</span> <span class="toc-text">Fabric 1.0 与 Fabric 0.6</span></a></li><li class="toc-item toc-level-1"><a class="toc-link" href="#Fabric-应该会采用-SBFT，Simple-BFT，学习下"><span class="toc-number">5.</span> <span class="toc-text">Fabric 应该会采用 SBFT，Simple BFT，学习下</span></a></li><li class="toc-item toc-level-1"><a class="toc-link" href="#hyperledger-fabric-v1-0-0-alpha-带有-SBFT"><span class="toc-number">6.</span> <span class="toc-text">hyperledger / fabric v1.0.0-alpha 带有 SBFT</span></a></li><li class="toc-item toc-level-1"><a class="toc-link" href="#raft"><span class="toc-number">7.</span> <span class="toc-text">raft</span></a></li><li class="toc-item toc-level-1"><a class="toc-link" href="#零知识证明"><span class="toc-number">8.</span> <span class="toc-text">零知识证明</span></a></li><li class="toc-item toc-level-1"><a class="toc-link" href="#同态加密"><span class="toc-number">9.</span> <span class="toc-text">同态加密</span></a></li><li class="toc-item toc-level-1"><a class="toc-link" href="#环签名"><span class="toc-number">10.</span> <span class="toc-text">环签名</span></a></li><li class="toc-item toc-level-1"><a class="toc-link" href="#区块链隐私数据保护，不可追踪技术"><span class="toc-number">11.</span> <span class="toc-text">区块链隐私数据保护，不可追踪技术</span></a></li><li class="toc-item toc-level-1"><a class="toc-link" href="#PoW-PoS"><span class="toc-number">12.</span> <span class="toc-text">PoW PoS</span></a></li><li class="toc-item toc-level-1"><a class="toc-link" href="#fabric-发送交易的理解，匿名？隐私？"><span class="toc-number">13.</span> <span class="toc-text">fabric 发送交易的理解，匿名？隐私？</span></a></li><li class="toc-item toc-level-1"><a class="toc-link" href="#UTXO"><span class="toc-number">14.</span> <span class="toc-text">UTXO</span></a></li><li class="toc-item toc-level-1"><a class="toc-link" href="#state-machine-replication"><span class="toc-number">15.</span> <span class="toc-text">state machine replication</span></a></li><li class="toc-item toc-level-1"><a class="toc-link" href="#拜占庭问题"><span class="toc-number">16.</span> <span class="toc-text">拜占庭问题</span></a></li><li class="toc-item toc-level-1"><a class="toc-link" href="#UTXO-和-账户余额模型-和-重放攻击-和-双花"><span class="toc-number">17.</span> <span class="toc-text">UTXO 和 账户余额模型 和 重放攻击 和 双花</span></a></li></ol>
+    </div>
+  </span>
+</div>
+
+    
+    <div class="content index width mx-auto px2 my4">
+        
+        <article class="post" itemscope itemtype="http://schema.org/BlogPosting">
+  <header>
+    
+    <h1 class="posttitle" itemprop="name headline">
+        区块链技术
+    </h1>
+
+
+
+    <div class="meta">
+      <span class="author" itemprop="author" itemscope itemtype="http://schema.org/Person">
+        <span itemprop="name">Drip</span>
+      </span>
+      
+    <div class="postdate">
+        <time datetime="2018-03-11T05:30:30.000Z" itemprop="datePublished">2018-03-11</time>
+    </div>
+
+
+      
+
+    </div>
+  </header>
+  
+
+  <div class="content" itemprop="articleBody">
+    <p><a href="http://blog.csdn.net/kojhliang/article/details/71515199" target="_blank" rel="external">PBFT阅读</a>    </p>
+<h1 id="共识算法"><a href="#共识算法" class="headerlink" title="共识算法"></a>共识算法</h1><p>即多个网络节点达成一致的算法<br>分为 CFT（Crash Fault Tolerance） 和 BFT（Byzantine Fault Tolerant）<br>CFT：只能容忍节点挂掉，但不能容忍节点恶意返回，例如 paxos算法<br>BFT：拜占庭容错算法，既能容忍节点挂掉，也能容忍拜占庭问题（即节点恶意返回）    </p>
+<h1 id="BFT-理解"><a href="#BFT-理解" class="headerlink" title="BFT 理解"></a>BFT 理解</h1><p>拜占庭容错算法：Byzantine Fault Tolerant<br>3f+1 个节点中最多能容忍 f 个拜占庭节点（挂掉或者恶意返回）<br>因为最多有 f 个节点没有返回，因此我们肯定可以等待到 2f + 1 个节点的响应<br>而 2f + 1 个节点中最多只有 f 个恶意节点（此时相当于 f 个正常节点响应慢了一些，而 f 个恶意节点都迅速响应的情况）。最终，其中 f + 1 个正常节点数大于恶意节点数，因此我们只要在 2f + 1 个响应中寻找其中大于一般数量的相同响应，即为正常节点的响应。<br>BFT 算法成立有个终于前提：所有正常节点返回的响应是一致的。这个依赖于 state machine 模型，即<strong>正常节点</strong>中，相同的前置状态下，应用相同的操作，应返回确定的结果（无论尝试几次）   </p>
+<h1 id="PBFT-理解"><a href="#PBFT-理解" class="headerlink" title="PBFT 理解"></a>PBFT 理解</h1><p>缺点：无法动态加入节点，是一个封闭的集群<br>英文全称。。。。<br>client 发送的请求里面包括了时间戳，并一起签名，防止恶意的主节点不断的重复发送该请求（主节点为其附上不同的序列号的方式），因为从节点会判断该时间戳的请求是否已经处理过，如果处理过，就会忽略。   </p>
+<p>一个有5个阶段（3个核心阶段）：query、pre-prepare、prepare、commit、reply<br><strong>query</strong>：client 将请求发送给 primary 节点   <strong>（1 次请求）</strong><br><strong>pre-prepare</strong>：primary 节点将请求发送给所有节点（包括自己）。一旦对应节点收到该请求且接受后，对应节点则进入 pre-prepared 状态  <strong>（n 次请求）</strong><br><strong>prepare</strong>：位于 pre-prepared 的节点，向所有节点（包括自己）发送 prepare 请求。一旦对应节点接收到 2f 个与自己 pre-prepared 相同的 prepare 请求后，则对应节点进入 prepared 状态。  <strong>（n * n 次请求）</strong><br><strong>commit</strong>：位于 prepared 的节点，向所有节点（包括自己）发送 commit 请求。一旦对应节点接收到 2f 与自己 prepared 相同的 commit 请求后，则对应节点进入 commited 状态。 <strong>（n * n 次请求）</strong><br><strong>reply</strong>：位于 commited 的节点计算 client 请求后，分别返回至 client  <strong>（n 次请求）</strong>    </p>
+<p>解答：<br><strong>一、为什么在 prepare 节点需要 2f 个相同的 prepare 请求？</strong><br>因为一旦存在 2f 个与自己 pre-prepared 相同的 prepare 请求，其请求值一定是唯一的！一共 2f + 1 个相同值，其中如果为 x 个恶意节点，即有 2f + 1 - x 个正常节点的请求值是一样的。假设存在另一个请求值也存在 2f + 1 个副本，如果其中有 y 个恶意节点，说明有 2f + 1 - y 个正常节点持有另一个请求值。 而我们一共只有 3f + 1 - z 个正常节点<br>2f + 1 - x + 2f + 1 - y &gt; 3f + 1 - z<br>简化为：4f + 2 -x- y &gt; 3f + 1 - z<br>简化为：f + 1 &gt; x + y - z    （该等式一定成立）<br>因为其中： x &lt;= z ， y &lt;= z ，因此 x + y - z &lt;= z &lt;= f<br>综上，如果存在两个不同的请求值，则至少有一个正常节点返回了两种结果，而这于正常节的定义矛盾。   </p>
+<p><strong>二、为什么还需要 commit 阶段？</strong><br>因为那些达到 prepared 状态的节点只知道自己满足了条件，而不知道其他节点的状态，所以需要分别广播，是为了了解现在一共有多少个节点达到了 prepared 状态。因为一旦有 2f + 1 个节点达到了 prepared 状态，则达成问题序号的共识。单个节点进入 commit 阶段并进入 commited 状态，是为了保证至少 f + 1 个正常节点都到了 commit 阶段（prepared 状态），因为 commit 之前的阶段在发送 view change 后会丢失。   </p>
+<p><strong>三、checkpoint protocal</strong><br>每个节点执行客户端请求后，即产生 checkpoint，内容包括：序号 n，执行后的 state digest，并将其广播给其他节点。当某个节点接收到 2f 个 checkout 请求与自己的相同，则为 stable checkpoint。一旦某个节点达到 stable checkpoint，就可以删除之前序号（包括当前序号 n）的所有 log。   </p>
+<h1 id="Fabric-1-0-与-Fabric-0-6"><a href="#Fabric-1-0-与-Fabric-0-6" class="headerlink" title="Fabric 1.0 与 Fabric 0.6"></a>Fabric 1.0 与 Fabric 0.6</h1><p>将 orderer 独立从 peer 中剥离出来，真正的实现了共识算法的剥离。 共识在各个 orderer 节点中进行。<br>共识阶段虽然有不同的算法，不过目的都是把有效的交易加入新生成的区块，并通知所有的节点，使他们的账本保持一致性。共识机制要达成的从根本上讲就是一种保证所有节点都认可的一致性状态时序，Fabric v1.0对所有交易消息进行排序并全序广播相关节点。    </p>
+<h1 id="Fabric-应该会采用-SBFT，Simple-BFT，学习下"><a href="#Fabric-应该会采用-SBFT，Simple-BFT，学习下" class="headerlink" title="Fabric 应该会采用 SBFT，Simple BFT，学习下"></a>Fabric 应该会采用 SBFT，Simple BFT，学习下</h1><h1 id="hyperledger-fabric-v1-0-0-alpha-带有-SBFT"><a href="#hyperledger-fabric-v1-0-0-alpha-带有-SBFT" class="headerlink" title="hyperledger / fabric v1.0.0-alpha 带有 SBFT"></a>hyperledger / fabric v1.0.0-alpha 带有 SBFT</h1><h1 id="raft"><a href="#raft" class="headerlink" title="raft"></a>raft</h1><p><a href="https://raft.github.io/" target="_blank" rel="external">链接</a>   </p>
+<p>另一个可视化：<a href="http://thesecretlivesofdata.com/raft/" target="_blank" rel="external">http://thesecretlivesofdata.com/raft/</a>    </p>
+<h1 id="零知识证明"><a href="#零知识证明" class="headerlink" title="零知识证明"></a>零知识证明</h1><p><a href="https://www.zhihu.com/question/27213029" target="_blank" rel="external">知乎回答</a> </p>
+<h1 id="同态加密"><a href="#同态加密" class="headerlink" title="同态加密"></a>同态加密</h1><p><a href="https://www.zhihu.com/question/27645858" target="_blank" rel="external">知乎链接</a></p>
+<h1 id="环签名"><a href="#环签名" class="headerlink" title="环签名"></a>环签名</h1><h1 id="区块链隐私数据保护，不可追踪技术"><a href="#区块链隐私数据保护，不可追踪技术" class="headerlink" title="区块链隐私数据保护，不可追踪技术"></a>区块链隐私数据保护，不可追踪技术</h1><h1 id="PoW-PoS"><a href="#PoW-PoS" class="headerlink" title="PoW PoS"></a>PoW PoS</h1><p>PoW: Proof of work<br>PoS: Proof of stake</p>
+<h1 id="fabric-发送交易的理解，匿名？隐私？"><a href="#fabric-发送交易的理解，匿名？隐私？" class="headerlink" title="fabric 发送交易的理解，匿名？隐私？"></a>fabric 发送交易的理解，匿名？隐私？</h1><p>fabric sdk 发送交易时，会用发送者的私钥进行签名，签名的内容里面包括该签名者的ECert（CA给他的证书）。而 Endorser 需要在接受到交易后，到交易指定的 channel 中查找该 ECert 对应的组织是否在该通道内（因此：要求一个组织一个CA，即一个组织一个CA根证书）。<br>所以在 fabric 中，交易不是匿名的，因为你发送的交易原文中有你的ECert，拿出里面的公钥就可以解出交易内容，另外因为公钥是不变的，可以查询出该公钥下的所有交易。<br>fabric Endorser 部分代码看文件 “endorser.go”</p>
+<h1 id="UTXO"><a href="#UTXO" class="headerlink" title="UTXO"></a>UTXO</h1><p>fabric 部分在文件 “utxo.go”<br><a href="https://www.zhihu.com/question/59913301" target="_blank" rel="external">知乎链接</a></p>
+<h1 id="state-machine-replication"><a href="#state-machine-replication" class="headerlink" title="state machine replication"></a>state machine replication</h1><h1 id="拜占庭问题"><a href="#拜占庭问题" class="headerlink" title="拜占庭问题"></a>拜占庭问题</h1><p>对于分布式系统，为了使得各节点能够行动一致，采取少数服从多数（因此问题必须设定为“是否同意xxx”，只有这样答案才能确定为“是”与“否”，从而实现少数服从多数）。而对于一般的分布式系统（Zyzzyva 有点例外），节点互相通信来获取其他节点的回答。而拜占庭节点会恶意回答，比如发给一部分节点“是”，而发给另一部分节点“否”，从而使得一部分节点达成一致结果“是”（收到的回答结果以少数服从多数原则），而另一部分节点达成一致结果“否”（收到的回答结果以少数服从多数原则）<br>某个人证明，如果最多存在 f 个拜占庭节点，则总数为 3f+1 的总节点数存在一种算法，无论恶意节点如何捣乱，一定能达成一致，不会分裂。（BFT 需要状态机概念）    </p>
+<p>但 BFT 算法需要两个前提：1. 正常节点存在确定性，相同的状态时应用相同的输入，返回相同的输出。 2. 正常节点的初始化状态一致。    </p>
+<p>BFT 算法简介： 客户端发送请求给所有节点，节点将回答发送给其他节点，每个节点收到 2f+1 个回答后，取其中半数以上的相同答案作为共识结果。（这套算法有个前提是，正常节点的回答一定是一致的，即 客户端/发送请求的主节点 一定不是恶意的）。 这套算法不能直接使用的原因是：分布式系统肯定要选出主节点，而主节点一旦是恶意的，就无法用这套算法了。<br>而PBFT算法等待 2f+1 个相同回应的原因：只要每个节点都能等待到 2f+1 个相同的，则他们相同的值都是相同的。   </p>
+<p><strong>因此 PBFT 等其他基于 BFT 的算法，需要 view 这个概念，即能避免“leader 选举”，因为 leader 选举不是一个确定性的过程。</strong>        </p>
+<p>PBFT 实现算法中：n 是有顺序的，依次 +1，客户端可以并发请求，不同序列号 n 会分别经历各自的三阶段。一旦某个 m Request 到达 commited 阶段，会去查找需要执行的下一个序号 n 是否已经达到 commited 阶段，如果 n Request 已经达到该阶段，就进行执行。一旦执行完成后，继续向下找下一个序列号是否达到 commited 阶段以执行，以此类推。     </p>
+<p>PBFT 的最后阶段，节点返回 reply 给 client，client 取其中 f+1 个相同的值作为请求结果。这里跟 BFT 一致，这是因为 BFT 是一个大致的算法，无法解决主节点是恶意节点的情况，PBFT 中间步骤解决了该问题，最后一步就可以用 BFT 算法。    </p>
+<p>PBFT 中，只有当节点 “接收到一个 Request”，且当前 timer 没有开启的情况下，会开启一个 timer。如果在 timer 结束时仍然没有处理完该 Request，则会请求 view change。<strong>考虑这样一个问题</strong>：如果主节点是恶意节点，它一直不转发客户端的请求的话，其他节点无法接收到 Request，则就无法开启 timer 了么？ <strong>答案</strong>：如果 client 长时间无法接收到请求的响应，它会将该条 Request 广播给所有节点。当非主节点接收到该请求后（此时开启 timer），它会发送给它认为的主节点，timer 超时后，就会触发 view change 请求。 </p>
+<h1 id="UTXO-和-账户余额模型-和-重放攻击-和-双花"><a href="#UTXO-和-账户余额模型-和-重放攻击-和-双花" class="headerlink" title="UTXO 和 账户余额模型 和 重放攻击 和 双花"></a>UTXO 和 账户余额模型 和 重放攻击 和 双花</h1><p><a href="http://www.cocoachina.com/blockchain/20180409/22949.html" target="_blank" rel="external">很好的文档</a><br>首先理解这个概念：一个区块内的所有交易，涉及到同一个对象的操作只有第一个才生效！！！        </p>
+<p>因此如果采用账户形式（相当于粗颗粒），相当于在一个区块内的所有交易中，所有涉及到该账户的交易只能成功一个。     </p>
+<p>而如果采用 UTXO 的形式（相当于细颗粒），客户端在发起交易时可以选择自己所有 UTXO 交易集合中的一部分作为该条交易的输入，而选择另一部分 UTXO 集合作为另一条交易的输入，从而实现一个区块内交易的并发执行。      </p>
+<p>所谓 重放攻击(<strong>非特指同一个区块内的交易问题</strong>)，是指恶意节点重新发送某个客户端的交易请求，因为交易请求是客户端之前真实发出的数据，因此能通过身份验证。<br>在 UTXO 模型中，由于一次交易成功执行之后，该输入的 UTXO 集合已经被标记为 spent，重放的交易请求不会被通过。<br>而在 账户模型 中，可以在交易中加入 nonce 值，该值与用户账户中的 nonce 值一致，每当一笔交易成功执行后，账户的 nonce 值加一，从而导致重放的交易中的 nonce 值小于账户信息中的 nonce 值，重发不会成功。（Fabric 采用 rw set）     </p>
+<p>所谓 双花问题（<strong>同一个区块内的交易问题</strong>），是指用户的客户端（钱包）发送的多条交易中，使用了同一条 UTXO。 解决方法是，采用时间戳，在同一个区块内，只接受时间戳最早的那笔交易使用的 UTXO，后面的全部作废。 账户系统中则等同于重放攻击的解决方法，加上 nonce 或则 rw set。     </p>
+
+  </div>
+</article>
+
+
+
+    </div>
+    
+      <div id="footer-post-container">
+  <div id="footer-post">
+
+    <div id="nav-footer" style="display: none">
+      <ul>
+         
+          <li><a href="/">Home</a></li>
+         
+          <li><a href="/about/">About</a></li>
+         
+          <li><a href="/archives/">Writing</a></li>
+         
+          <li><a href="http://github.com/probberechts">Projects</a></li>
+        
+      </ul>
+    </div>
+
+    <div id="toc-footer" style="display: none">
+      <ol class="toc"><li class="toc-item toc-level-1"><a class="toc-link" href="#共识算法"><span class="toc-number">1.</span> <span class="toc-text">共识算法</span></a></li><li class="toc-item toc-level-1"><a class="toc-link" href="#BFT-理解"><span class="toc-number">2.</span> <span class="toc-text">BFT 理解</span></a></li><li class="toc-item toc-level-1"><a class="toc-link" href="#PBFT-理解"><span class="toc-number">3.</span> <span class="toc-text">PBFT 理解</span></a></li><li class="toc-item toc-level-1"><a class="toc-link" href="#Fabric-1-0-与-Fabric-0-6"><span class="toc-number">4.</span> <span class="toc-text">Fabric 1.0 与 Fabric 0.6</span></a></li><li class="toc-item toc-level-1"><a class="toc-link" href="#Fabric-应该会采用-SBFT，Simple-BFT，学习下"><span class="toc-number">5.</span> <span class="toc-text">Fabric 应该会采用 SBFT，Simple BFT，学习下</span></a></li><li class="toc-item toc-level-1"><a class="toc-link" href="#hyperledger-fabric-v1-0-0-alpha-带有-SBFT"><span class="toc-number">6.</span> <span class="toc-text">hyperledger / fabric v1.0.0-alpha 带有 SBFT</span></a></li><li class="toc-item toc-level-1"><a class="toc-link" href="#raft"><span class="toc-number">7.</span> <span class="toc-text">raft</span></a></li><li class="toc-item toc-level-1"><a class="toc-link" href="#零知识证明"><span class="toc-number">8.</span> <span class="toc-text">零知识证明</span></a></li><li class="toc-item toc-level-1"><a class="toc-link" href="#同态加密"><span class="toc-number">9.</span> <span class="toc-text">同态加密</span></a></li><li class="toc-item toc-level-1"><a class="toc-link" href="#环签名"><span class="toc-number">10.</span> <span class="toc-text">环签名</span></a></li><li class="toc-item toc-level-1"><a class="toc-link" href="#区块链隐私数据保护，不可追踪技术"><span class="toc-number">11.</span> <span class="toc-text">区块链隐私数据保护，不可追踪技术</span></a></li><li class="toc-item toc-level-1"><a class="toc-link" href="#PoW-PoS"><span class="toc-number">12.</span> <span class="toc-text">PoW PoS</span></a></li><li class="toc-item toc-level-1"><a class="toc-link" href="#fabric-发送交易的理解，匿名？隐私？"><span class="toc-number">13.</span> <span class="toc-text">fabric 发送交易的理解，匿名？隐私？</span></a></li><li class="toc-item toc-level-1"><a class="toc-link" href="#UTXO"><span class="toc-number">14.</span> <span class="toc-text">UTXO</span></a></li><li class="toc-item toc-level-1"><a class="toc-link" href="#state-machine-replication"><span class="toc-number">15.</span> <span class="toc-text">state machine replication</span></a></li><li class="toc-item toc-level-1"><a class="toc-link" href="#拜占庭问题"><span class="toc-number">16.</span> <span class="toc-text">拜占庭问题</span></a></li><li class="toc-item toc-level-1"><a class="toc-link" href="#UTXO-和-账户余额模型-和-重放攻击-和-双花"><span class="toc-number">17.</span> <span class="toc-text">UTXO 和 账户余额模型 和 重放攻击 和 双花</span></a></li></ol>
+    </div>
+
+    <div id="actions-footer">
+      <ul>
+        <li id="toc"><a class="icon" href="#" onclick="$('#toc-footer').toggle();return false;"><i class="fa fa-list fa-lg" aria-hidden="true"></i> TOC</a></li>
+        <li id="share"><a class="icon" href="#" onclick="$('#share-footer').toggle();return false;"><i class="fa fa-share-alt fa-lg" aria-hidden="true"></i> Share</a></li>
+        <li id="top" style="display:none"><a class="icon" href="#" onclick="$('html, body').animate({ scrollTop: 0 }, 'fast');"><i class="fa fa-chevron-up fa-lg" aria-hidden="true"></i> Top</a></li>
+        <li id="menu"><a class="icon" href="#" onclick="$('#nav-footer').toggle();return false;"><i class="fa fa-bars fa-lg" aria-hidden="true"></i> Menu</a></li>
+      </ul>
+    </div>
+
+  </div>
+</div>
+
+    
+    <footer id="footer">
+  <div class="footer-left">
+    Copyright &copy; 2018 Landleany
+  </div>
+  <div class="footer-right">
+    <nav>
+      <ul>
+         
+          <li><a href="/">Home</a></li>
+         
+          <li><a href="/about/">About</a></li>
+         
+          <li><a href="/archives/">Writing</a></li>
+         
+          <li><a href="http://github.com/probberechts">Projects</a></li>
+        
+      </ul>
+    </nav>
+  </div>
+</footer>
+
+</body>
+</html>
+<!-- styles -->
+<link rel="stylesheet" href="/lib/font-awesome/css/font-awesome.min.css">
+<link rel="stylesheet" href="/lib/meslo-LG/styles.css">
+<link rel="stylesheet" href="/lib/justified-gallery/justifiedGallery.min.css">
+
+<!-- jquery -->
+<script src="/lib/jquery/jquery.min.js"></script>
+<script src="/lib/justified-gallery/jquery.justifiedGallery.min.js"></script>
+<script src="/js/main.js"></script>
+<!-- search -->
+
+<!-- Google Analytics -->
+
+    <script type="text/javascript">
+        (function(i,s,o,g,r,a,m) {i['GoogleAnalyticsObject']=r;i[r]=i[r]||function() {
+        (i[r].q=i[r].q||[]).push(arguments)},i[r].l=1*new Date();a=s.createElement(o),
+        m=s.getElementsByTagName(o)[0];a.async=1;a.src=g;m.parentNode.insertBefore(a,m)
+        })(window,document,'script','//www.google-analytics.com/analytics.js','ga');
+        ga('create', 'UA-86660611-1', 'auto');
+        ga('send', 'pageview');
+    </script>
+
+<!-- Disqus Comments -->
+
+

@@ -1,0 +1,257 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <!-- so meta -->
+    <meta charset="utf-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="HandheldFriendly" content="True">
+    <meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1" />
+    <meta name="description" content="不错的文档很不错的文档 ScaleScala 是一门多范式（multi-paradigm）的编程语言，设计初衷是要集成面向对象编程和函数式编程的各种特性。Scala 运行在Java虚拟机上，并兼容现有的Java程序。Scala 源代码被编译成Java字节码，所以它可以运行于JVM之上，并可以调用现有的Java类库。    名词解释 producer: 生产者，只指定数据的topic时按照默认的分区">
+<meta property="og:type" content="article">
+<meta property="og:title" content="Kafka">
+<meta property="og:url" content="http://yoursite.com/2018/01/27/kafka/index.html">
+<meta property="og:site_name" content="Drip">
+<meta property="og:description" content="不错的文档很不错的文档 ScaleScala 是一门多范式（multi-paradigm）的编程语言，设计初衷是要集成面向对象编程和函数式编程的各种特性。Scala 运行在Java虚拟机上，并兼容现有的Java程序。Scala 源代码被编译成Java字节码，所以它可以运行于JVM之上，并可以调用现有的Java类库。    名词解释 producer: 生产者，只指定数据的topic时按照默认的分区">
+<meta property="og:updated_time" content="2018-05-22T08:06:29.000Z">
+<meta name="twitter:card" content="summary">
+<meta name="twitter:title" content="Kafka">
+<meta name="twitter:description" content="不错的文档很不错的文档 ScaleScala 是一门多范式（multi-paradigm）的编程语言，设计初衷是要集成面向对象编程和函数式编程的各种特性。Scala 运行在Java虚拟机上，并兼容现有的Java程序。Scala 源代码被编译成Java字节码，所以它可以运行于JVM之上，并可以调用现有的Java类库。    名词解释 producer: 生产者，只指定数据的topic时按照默认的分区">
+    
+    
+        
+          
+              <link rel="shortcut icon" href="/images/favicon.ico">
+          
+        
+        
+          
+            <link rel="icon" type="image/png" href="/images/favicon-192x192.png" sizes="192x192">
+          
+        
+        
+          
+            <link rel="apple-touch-icon" sizes="180x180" href="/images/apple-touch-icon.png">
+          
+        
+    
+    <!-- title -->
+    <title>Kafka</title>
+    <!-- styles -->
+    <link rel="stylesheet" href="/css/style.css">
+    <!-- rss -->
+    
+    
+</head>
+
+<body>
+    
+      <div id="header-post">
+  <a id="menu-icon" href="#"><i class="fa fa-bars fa-lg"></i></a>
+  <a id="menu-icon-tablet" href="#"><i class="fa fa-bars fa-lg"></i></a>
+  <a id="top-icon-tablet" href="#" onclick="$('html, body').animate({ scrollTop: 0 }, 'fast');" style="display:none;"><i class="fa fa-chevron-up fa-lg"></i></a>
+  <span id="menu">
+    <span id="nav">
+      <ul>
+         
+          <li><a href="/">Home</a></li>
+         
+          <li><a href="/about/">About</a></li>
+         
+          <li><a href="/archives/">Writing</a></li>
+         
+          <li><a href="http://github.com/probberechts">Projects</a></li>
+        
+      </ul>
+    </span>
+    <br/>
+    <span id="actions">
+      <ul>
+        
+        <li><a class="icon" href="/2018/01/29/fabric_orderer/"><i class="fa fa-chevron-left" aria-hidden="true" onmouseover="$('#i-prev').toggle();" onmouseout="$('#i-prev').toggle();"></i></a></li>
+        
+        
+        <li><a class="icon" href="/2018/01/24/fabric-ca/"><i class="fa fa-chevron-right" aria-hidden="true" onmouseover="$('#i-next').toggle();" onmouseout="$('#i-next').toggle();"></i></a></li>
+        
+        <li><a class="icon" href="#" onclick="$('html, body').animate({ scrollTop: 0 }, 'fast');"><i class="fa fa-chevron-up" aria-hidden="true" onmouseover="$('#i-top').toggle();" onmouseout="$('#i-top').toggle();"></i></a></li>
+      </ul>
+      <span id="i-prev" class="info" style="display:none;">Previous post</span>
+      <span id="i-next" class="info" style="display:none;">Next post</span>
+      <span id="i-top" class="info" style="display:none;">Back to top</span>
+      <span id="i-share" class="info" style="display:none;">Share post</span>
+    </span>
+    <br/>
+    <div id="share" style="display: none">
+      <ul>
+  <li><a class="icon" href="http://www.facebook.com/sharer.php?u=http://yoursite.com/2018/01/27/kafka/"><i class="fa fa-facebook " aria-hidden="true"></i></a></li>
+  <li><a class="icon" href="https://twitter.com/share?url=http://yoursite.com/2018/01/27/kafka/&text=Kafka"><i class="fa fa-twitter " aria-hidden="true"></i></a></li>
+  <li><a class="icon" href="http://www.linkedin.com/shareArticle?url=http://yoursite.com/2018/01/27/kafka/&title=Kafka"><i class="fa fa-linkedin " aria-hidden="true"></i></a></li>
+  <li><a class="icon" href="https://pinterest.com/pin/create/bookmarklet/?url=http://yoursite.com/2018/01/27/kafka/&is_video=false&description=Kafka"><i class="fa fa-pinterest " aria-hidden="true"></i></a></li>
+  <li><a class="icon" href="mailto:?subject=Kafka&body=Check out this article: http://yoursite.com/2018/01/27/kafka/"><i class="fa fa-envelope " aria-hidden="true"></i></a></li>
+  <li><a class="icon" href="https://getpocket.com/save?url=http://yoursite.com/2018/01/27/kafka/&title=Kafka"><i class="fa fa-get-pocket " aria-hidden="true"></i></a></li>
+  <li><a class="icon" href="http://reddit.com/submit?url=http://yoursite.com/2018/01/27/kafka/&title=Kafka"><i class="fa fa-reddit " aria-hidden="true"></i></a></li>
+  <li><a class="icon" href="http://www.stumbleupon.com/submit?url=http://yoursite.com/2018/01/27/kafka/&title=Kafka"><i class="fa fa-stumbleupon " aria-hidden="true"></i></a></li>
+  <li><a class="icon" href="http://digg.com/submit?url=http://yoursite.com/2018/01/27/kafka/&title=Kafka"><i class="fa fa-digg " aria-hidden="true"></i></a></li>
+  <li><a class="icon" href="http://www.tumblr.com/share/link?url=http://yoursite.com/2018/01/27/kafka/&name=Kafka&description="><i class="fa fa-tumblr " aria-hidden="true"></i></a></li>
+</ul>
+
+    </div>
+    <div id="toc">
+      <ol class="toc"><li class="toc-item toc-level-1"><a class="toc-link" href="#Scale"><span class="toc-number">1.</span> <span class="toc-text">Scale</span></a></li><li class="toc-item toc-level-1"><a class="toc-link" href="#名词解释"><span class="toc-number">2.</span> <span class="toc-text">名词解释</span></a></li><li class="toc-item toc-level-1"><a class="toc-link" href="#分区"><span class="toc-number">3.</span> <span class="toc-text">分区</span></a></li><li class="toc-item toc-level-1"><a class="toc-link" href="#Topic"><span class="toc-number">4.</span> <span class="toc-text">Topic</span></a></li><li class="toc-item toc-level-1"><a class="toc-link" href="#客户端消费时需要提供-broker-list"><span class="toc-number">5.</span> <span class="toc-text">客户端消费时需要提供 broker-list</span></a></li><li class="toc-item toc-level-1"><a class="toc-link" href="#消息中间件的两种模式"><span class="toc-number">6.</span> <span class="toc-text">消息中间件的两种模式</span></a></li><li class="toc-item toc-level-1"><a class="toc-link" href="#消费者组-consumer-group"><span class="toc-number">7.</span> <span class="toc-text">消费者组 consumer group</span></a></li><li class="toc-item toc-level-1"><a class="toc-link" href="#消费者主动拉取数据！！！"><span class="toc-number">8.</span> <span class="toc-text">消费者主动拉取数据！！！</span></a></li><li class="toc-item toc-level-1"><a class="toc-link" href="#消费者可以手动设定Topic下的partition以及偏移量，然后循环拉取数据"><span class="toc-number">9.</span> <span class="toc-text">消费者可以手动设定Topic下的partition以及偏移量，然后循环拉取数据</span></a></li><li class="toc-item toc-level-1"><a class="toc-link" href="#消费者位置"><span class="toc-number">10.</span> <span class="toc-text">消费者位置</span></a></li><li class="toc-item toc-level-1"><a class="toc-link" href="#位移提交"><span class="toc-number">11.</span> <span class="toc-text">位移提交</span></a></li><li class="toc-item toc-level-1"><a class="toc-link" href="#Rebalance"><span class="toc-number">12.</span> <span class="toc-text">Rebalance</span></a></li><li class="toc-item toc-level-1"><a class="toc-link" href="#牢记：一个partition只能被一个consumer消费，但一个consumer可以消费多个consumer，这是为了保证了consumer消费消息的顺序性与消息发放的顺序性一致。"><span class="toc-number">13.</span> <span class="toc-text">牢记：一个partition只能被一个consumer消费，但一个consumer可以消费多个consumer，这是为了保证了consumer消费消息的顺序性与消息发放的顺序性一致。</span></a></li><li class="toc-item toc-level-1"><a class="toc-link" href="#关键：创建消费者的方式！！"><span class="toc-number">14.</span> <span class="toc-text">关键：创建消费者的方式！！</span></a></li><li class="toc-item toc-level-1"><a class="toc-link" href="#partition-assignment-strategy"><span class="toc-number">15.</span> <span class="toc-text">partition.assignment.strategy</span></a></li><li class="toc-item toc-level-1"><a class="toc-link" href="#sarama-库"><span class="toc-number">16.</span> <span class="toc-text">sarama 库</span></a></li></ol>
+    </div>
+  </span>
+</div>
+
+    
+    <div class="content index width mx-auto px2 my4">
+        
+        <article class="post" itemscope itemtype="http://schema.org/BlogPosting">
+  <header>
+    
+    <h1 class="posttitle" itemprop="name headline">
+        Kafka
+    </h1>
+
+
+
+    <div class="meta">
+      <span class="author" itemprop="author" itemscope itemtype="http://schema.org/Person">
+        <span itemprop="name">Drip</span>
+      </span>
+      
+    <div class="postdate">
+        <time datetime="2018-01-27T05:30:30.000Z" itemprop="datePublished">2018-01-27</time>
+    </div>
+
+
+      
+
+    </div>
+  </header>
+  
+
+  <div class="content" itemprop="articleBody">
+    <p><a href="http://www.orchome.com/kafka/index" target="_blank" rel="external">不错的文档</a><br><a href="http://www.dengshenyu.com/%E5%88%86%E5%B8%83%E5%BC%8F%E7%B3%BB%E7%BB%9F/2017/11/14/kafka-consumer.html" target="_blank" rel="external">很不错的文档</a></p>
+<h1 id="Scale"><a href="#Scale" class="headerlink" title="Scale"></a>Scale</h1><p>Scala 是一门多范式（multi-paradigm）的编程语言，设计初衷是要集成面向对象编程和函数式编程的各种特性。<br>Scala 运行在Java虚拟机上，并兼容现有的Java程序。<br>Scala 源代码被编译成Java字节码，所以它可以运行于JVM之上，并可以调用现有的Java类库。   </p>
+<h1 id="名词解释"><a href="#名词解释" class="headerlink" title="名词解释"></a>名词解释</h1><ul>
+<li>producer: 生产者，只指定数据的topic时按照默认的分区选择算法存放至对应分区，也可以指定具体的分区号</li>
+<li>consumer</li>
+<li>topic: 消息的标签</li>
+<li>partition: 对于每一个Topic，Kafka集群维护这一个分区的log。</li>
+<li>broker: 类似放鸡蛋的篮子。</li>
+</ul>
+<h1 id="分区"><a href="#分区" class="headerlink" title="分区"></a>分区</h1><p>Log的分区被分布到集群中的多个服务器上。每个服务器处理它分到的分区。 根据配置每个分区还可以复制到其它服务器作为备份容错。 每个分区有一个leader，零或多个follower。Leader处理此分区的所有的读写请求，而follower被动的复制数据。如果leader宕机，其它的一个follower会被推举为新的leader。 一台服务器可能同时是一个分区的leader，另一个分区的follower。 这样可以平衡负载，避免所有的请求都只让一台或者某几台服务器处理。   </p>
+<h1 id="Topic"><a href="#Topic" class="headerlink" title="Topic"></a>Topic</h1><p>生产者往某个Topic上发布消息。生产者也负责选择发布到Topic上的哪一个分区。最简单的方式从分区列表中轮流选择。也可以根据某种算法依照权重选择分区。开发者负责如何选择分区的算法。</p>
+<h1 id="客户端消费时需要提供-broker-list"><a href="#客户端消费时需要提供-broker-list" class="headerlink" title="客户端消费时需要提供 broker-list"></a>客户端消费时需要提供 broker-list</h1><p>这里只是提供 bootstrap.servers，即初始连接的brokers（不用填全部的brokers，对于动态加入的kafka，可能也无法做到填写全部），客户端会从这些初始的broker上去获取metadata，从而得知topic对应的数据具体在哪一台机器上。</p>
+<h1 id="消息中间件的两种模式"><a href="#消息中间件的两种模式" class="headerlink" title="消息中间件的两种模式"></a>消息中间件的两种模式</h1><ol>
+<li>队列模式： 所有的消费者在一个消费者组中 (即点对点模式)</li>
+<li>订阅-发布模式：所有的消费者在不同的消费者组中</li>
+</ol>
+<h1 id="消费者组-consumer-group"><a href="#消费者组-consumer-group" class="headerlink" title="消费者组 consumer group"></a>消费者组 consumer group</h1><p>什么是consumer group? 一言以蔽之，consumer group是kafka提供的可扩展且具有容错性的消费者机制。既然是一个组，那么组内必然可以有多个消费者或消费者实例(consumer instance)，它们共享一个公共的ID，即group ID。组内的所有消费者协调在一起来消费订阅主题(subscribed topics)的所有分区(partition)。当然，每个分区只能由同一个消费组内的一个consumer来消费。   </p>
+<p>Topic分区中消息只能由消费者组中的唯一一个消费者处理。但同一个Topic可以被多个消费者组处理（每个消费者组自己管理该Topic该分区上的偏移量）。<br>kafka提供了顺序保证和负载均衡。每个partition仅由同一个消费者组中的一个消费者消费到。并确保消费者是该partition的唯一消费者，并按顺序消费数据。每个topic有多个分区，则需要对多个消费者做负载均衡，<code>但请注意，相同的消费者组中不能有比分区更多的消费者，否则多出的消费者一直处于空等待，不会收到消息。(但是可以比分区数量少，因为单个消费者可以消费多个分区)</code></p>
+<h1 id="消费者主动拉取数据！！！"><a href="#消费者主动拉取数据！！！" class="headerlink" title="消费者主动拉取数据！！！"></a>消费者主动拉取数据！！！</h1><h1 id="消费者可以手动设定Topic下的partition以及偏移量，然后循环拉取数据"><a href="#消费者可以手动设定Topic下的partition以及偏移量，然后循环拉取数据" class="headerlink" title="消费者可以手动设定Topic下的partition以及偏移量，然后循环拉取数据"></a>消费者可以手动设定Topic下的partition以及偏移量，然后循环拉取数据</h1><h1 id="消费者位置"><a href="#消费者位置" class="headerlink" title="消费者位置"></a>消费者位置</h1><p>消费者在消费的过程中需要记录自己消费了多少数据，即消费位置信息。在Kafka中这个位置信息有个专门的术语：位移(offset)。很多消息引擎都把这部分信息保存在服务器端(broker端)。这样做的好处当然是实现简单，但会有三个主要的问题：1. broker从此变成有状态的，会影响伸缩性；2. 需要引入应答机制(acknowledgement)来确认消费成功。3. 由于要保存很多consumer的offset信息，必然引入复杂的数据结构，造成资源浪费。而Kafka选择了不同的方式：每个consumer group保存自己的位移信息，那么只需要简单的一个整数表示位置就够了；同时可以引入checkpoint机制定期持久化，简化了应答机制的实现。    </p>
+<h1 id="位移提交"><a href="#位移提交" class="headerlink" title="位移提交"></a>位移提交</h1><p>老版kafka提交至zookeeper，而新版提交至一个特殊的Topic <code>__consumer_offsets</code>。   </p>
+<p>如果设置 <code>enable.auto.commit</code> 为 true（默认），则按 <code>auto.commit.interval.ms</code> 间隔自动提交各个topic下各partition的偏移量。<br>如果设置为 false，则需要手动提交。一旦该消费者挂了，新建的消费者则只能恢复至zookeeper或者<code>__consumer_offsets</code>上最近的提交记录中的偏移量。   </p>
+<h1 id="Rebalance"><a href="#Rebalance" class="headerlink" title="Rebalance"></a>Rebalance</h1><p>rebalance本质上是一种协议，规定了一个consumer group下的所有consumer如何达成一致来分配订阅topic的每个分区。比如某个group下有20个consumer，它订阅了一个具有100个分区的topic。正常情况下，Kafka平均会为每个consumer分配5个分区。这个分配的过程就叫rebalance。<br>什么时候进行 rebalance</p>
+<ul>
+<li>组成员发生变更</li>
+<li>订阅主题数发生变更</li>
+<li>订阅主题的分区数发生变更</li>
+</ul>
+<p># </p>
+<h1 id="牢记：一个partition只能被一个consumer消费，但一个consumer可以消费多个consumer，这是为了保证了consumer消费消息的顺序性与消息发放的顺序性一致。"><a href="#牢记：一个partition只能被一个consumer消费，但一个consumer可以消费多个consumer，这是为了保证了consumer消费消息的顺序性与消息发放的顺序性一致。" class="headerlink" title="牢记：一个partition只能被一个consumer消费，但一个consumer可以消费多个consumer，这是为了保证了consumer消费消息的顺序性与消息发放的顺序性一致。"></a>牢记：一个partition只能被一个consumer消费，但一个consumer可以消费多个consumer，这是为了保证了consumer消费消息的顺序性与消息发放的顺序性一致。</h1><h1 id="关键：创建消费者的方式！！"><a href="#关键：创建消费者的方式！！" class="headerlink" title="关键：创建消费者的方式！！"></a>关键：创建消费者的方式！！</h1><p><strong>第一种方法：</strong>  创建<code>kafkaConsumer</code>（其实默认会创建消费者组），设置<code>kafkaConsumer</code>的<code>bootstrap.servers</code>、<code>key.deserializer</code>、<code>value.deserializer</code>和<code>group.id</code>。然后调用<code>subscribe</code>订阅主题（主题可以正则表达式）。<br><strong>第二种方法：</strong>  创建单个消费者，对于这种情况，我们需要自己给消费者分配消费分区，而不是让消费者订阅（成为消费组）主题。除了需要主动获取分区以及没有分区重平衡，其他的处理逻辑都是一样的。需要注意的是，如果添加了新的分区，这个消费者是感知不到的，需要通过consumer.partitionsFor()来重新获取分区。    </p>
+<blockquote>
+<p>建议多数情况下采用第一种方法（建立消费者组，即使只有单个消费者），好处是：1. 不用指定具体的分区，会自动分配；2. 可以在增加或减少消费者时自动进行分区重平衡。<br>当然，在知道主题和分区的情况下，我们也可以使用单个消费者来进行消费。（更加可控和灵活）</p>
+</blockquote>
+<h1 id="partition-assignment-strategy"><a href="#partition-assignment-strategy" class="headerlink" title="partition.assignment.strategy"></a>partition.assignment.strategy</h1><p>我们已经知道当消费组存在多个消费者时，主题的分区需要按照一定策略分配给消费者。这个策略由PartitionAssignor类决定，默认有两种策略：   </p>
+<p>一、范围（Range）：对于每个主题，每个消费者负责一定的连续范围分区。假如消费者C1和消费者C2订阅了两个主题，这两个主题都有3个分区，那么使用这个策略会导致消费者C1负责每个主题的分区0和分区1（下标基于0开始），消费者C2负责分区2。可以看到，如果消费者数量不能整除分区数，那么第一个消费者会多出几个分区（由主题数决定）。<br>二、轮询（RoundRobin）：对于所有订阅的主题分区，按顺序一一的分配给消费者。用上面的例子来说，消费者C1负责第一个主题的分区0、分区2，以及第二个主题的分区1；其他分区则由消费者C2负责。可以看到，这种策略更加均衡，所有消费者之间的分区数的差值最多为1。<br><code>partition.assignment.strategy</code>设置了分配策略，默认为org.apache.kafka.clients.consumer.RangeAssignor（使用范围策略），你可以设置为org.apache.kafka.clients.consumer.RoundRobinAssignor（使用轮询策略），或者自己实现一个分配策略然后将partition.assignment.strategy指向该实现类。  </p>
+<h1 id="sarama-库"><a href="#sarama-库" class="headerlink" title="sarama 库"></a>sarama 库</h1><p>Sarama’s Consumer type does not currently support automatic consumer-group rebalancing and offset tracking.<br>For Zookeeper-based tracking (Kafka 0.8.2 and earlier), the <a href="https://github.com/wvanbergen/kafka" target="_blank" rel="external">https://github.com/wvanbergen/kafka</a> library builds on Sarama to add this support. For Kafka-based tracking (Kafka 0.9 and later), the <a href="https://github.com/bsm/sarama-cluster" target="_blank" rel="external">https://github.com/bsm/sarama-cluster</a> library builds on Sarama to add this support.<br>fabric 使用 sarama 库，目前不直接提供 offset 的追踪，需要客户端自己实现，例如 fabric 将 offset 记录在 block 中。</p>
+
+  </div>
+</article>
+
+
+
+    </div>
+    
+      <div id="footer-post-container">
+  <div id="footer-post">
+
+    <div id="nav-footer" style="display: none">
+      <ul>
+         
+          <li><a href="/">Home</a></li>
+         
+          <li><a href="/about/">About</a></li>
+         
+          <li><a href="/archives/">Writing</a></li>
+         
+          <li><a href="http://github.com/probberechts">Projects</a></li>
+        
+      </ul>
+    </div>
+
+    <div id="toc-footer" style="display: none">
+      <ol class="toc"><li class="toc-item toc-level-1"><a class="toc-link" href="#Scale"><span class="toc-number">1.</span> <span class="toc-text">Scale</span></a></li><li class="toc-item toc-level-1"><a class="toc-link" href="#名词解释"><span class="toc-number">2.</span> <span class="toc-text">名词解释</span></a></li><li class="toc-item toc-level-1"><a class="toc-link" href="#分区"><span class="toc-number">3.</span> <span class="toc-text">分区</span></a></li><li class="toc-item toc-level-1"><a class="toc-link" href="#Topic"><span class="toc-number">4.</span> <span class="toc-text">Topic</span></a></li><li class="toc-item toc-level-1"><a class="toc-link" href="#客户端消费时需要提供-broker-list"><span class="toc-number">5.</span> <span class="toc-text">客户端消费时需要提供 broker-list</span></a></li><li class="toc-item toc-level-1"><a class="toc-link" href="#消息中间件的两种模式"><span class="toc-number">6.</span> <span class="toc-text">消息中间件的两种模式</span></a></li><li class="toc-item toc-level-1"><a class="toc-link" href="#消费者组-consumer-group"><span class="toc-number">7.</span> <span class="toc-text">消费者组 consumer group</span></a></li><li class="toc-item toc-level-1"><a class="toc-link" href="#消费者主动拉取数据！！！"><span class="toc-number">8.</span> <span class="toc-text">消费者主动拉取数据！！！</span></a></li><li class="toc-item toc-level-1"><a class="toc-link" href="#消费者可以手动设定Topic下的partition以及偏移量，然后循环拉取数据"><span class="toc-number">9.</span> <span class="toc-text">消费者可以手动设定Topic下的partition以及偏移量，然后循环拉取数据</span></a></li><li class="toc-item toc-level-1"><a class="toc-link" href="#消费者位置"><span class="toc-number">10.</span> <span class="toc-text">消费者位置</span></a></li><li class="toc-item toc-level-1"><a class="toc-link" href="#位移提交"><span class="toc-number">11.</span> <span class="toc-text">位移提交</span></a></li><li class="toc-item toc-level-1"><a class="toc-link" href="#Rebalance"><span class="toc-number">12.</span> <span class="toc-text">Rebalance</span></a></li><li class="toc-item toc-level-1"><a class="toc-link" href="#牢记：一个partition只能被一个consumer消费，但一个consumer可以消费多个consumer，这是为了保证了consumer消费消息的顺序性与消息发放的顺序性一致。"><span class="toc-number">13.</span> <span class="toc-text">牢记：一个partition只能被一个consumer消费，但一个consumer可以消费多个consumer，这是为了保证了consumer消费消息的顺序性与消息发放的顺序性一致。</span></a></li><li class="toc-item toc-level-1"><a class="toc-link" href="#关键：创建消费者的方式！！"><span class="toc-number">14.</span> <span class="toc-text">关键：创建消费者的方式！！</span></a></li><li class="toc-item toc-level-1"><a class="toc-link" href="#partition-assignment-strategy"><span class="toc-number">15.</span> <span class="toc-text">partition.assignment.strategy</span></a></li><li class="toc-item toc-level-1"><a class="toc-link" href="#sarama-库"><span class="toc-number">16.</span> <span class="toc-text">sarama 库</span></a></li></ol>
+    </div>
+
+    <div id="actions-footer">
+      <ul>
+        <li id="toc"><a class="icon" href="#" onclick="$('#toc-footer').toggle();return false;"><i class="fa fa-list fa-lg" aria-hidden="true"></i> TOC</a></li>
+        <li id="share"><a class="icon" href="#" onclick="$('#share-footer').toggle();return false;"><i class="fa fa-share-alt fa-lg" aria-hidden="true"></i> Share</a></li>
+        <li id="top" style="display:none"><a class="icon" href="#" onclick="$('html, body').animate({ scrollTop: 0 }, 'fast');"><i class="fa fa-chevron-up fa-lg" aria-hidden="true"></i> Top</a></li>
+        <li id="menu"><a class="icon" href="#" onclick="$('#nav-footer').toggle();return false;"><i class="fa fa-bars fa-lg" aria-hidden="true"></i> Menu</a></li>
+      </ul>
+    </div>
+
+  </div>
+</div>
+
+    
+    <footer id="footer">
+  <div class="footer-left">
+    Copyright &copy; 2018 Landleany
+  </div>
+  <div class="footer-right">
+    <nav>
+      <ul>
+         
+          <li><a href="/">Home</a></li>
+         
+          <li><a href="/about/">About</a></li>
+         
+          <li><a href="/archives/">Writing</a></li>
+         
+          <li><a href="http://github.com/probberechts">Projects</a></li>
+        
+      </ul>
+    </nav>
+  </div>
+</footer>
+
+</body>
+</html>
+<!-- styles -->
+<link rel="stylesheet" href="/lib/font-awesome/css/font-awesome.min.css">
+<link rel="stylesheet" href="/lib/meslo-LG/styles.css">
+<link rel="stylesheet" href="/lib/justified-gallery/justifiedGallery.min.css">
+
+<!-- jquery -->
+<script src="/lib/jquery/jquery.min.js"></script>
+<script src="/lib/justified-gallery/jquery.justifiedGallery.min.js"></script>
+<script src="/js/main.js"></script>
+<!-- search -->
+
+<!-- Google Analytics -->
+
+    <script type="text/javascript">
+        (function(i,s,o,g,r,a,m) {i['GoogleAnalyticsObject']=r;i[r]=i[r]||function() {
+        (i[r].q=i[r].q||[]).push(arguments)},i[r].l=1*new Date();a=s.createElement(o),
+        m=s.getElementsByTagName(o)[0];a.async=1;a.src=g;m.parentNode.insertBefore(a,m)
+        })(window,document,'script','//www.google-analytics.com/analytics.js','ga');
+        ga('create', 'UA-86660611-1', 'auto');
+        ga('send', 'pageview');
+    </script>
+
+<!-- Disqus Comments -->
+
+

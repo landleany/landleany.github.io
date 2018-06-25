@@ -12,7 +12,7 @@
 <meta property="og:url" content="http://yoursite.com/2017/10/21/js/index.html">
 <meta property="og:site_name" content="Drip">
 <meta property="og:description" content="this 的用法单纯在函数中调用123function test() &amp;#123;    this.x = 1; // this表示全局&amp;#125; 做为对象的方法被调用12var o = &amp;#123;&amp;#125;o.m = function() &amp;#123;console.log(this)&amp;#125; // this表示o这个对象 作为构造函数被创建的对象1234function test()">
-<meta property="og:updated_time" content="2017-12-28T02:30:38.000Z">
+<meta property="og:updated_time" content="2018-03-15T06:37:32.000Z">
 <meta name="twitter:card" content="summary">
 <meta name="twitter:title" content="前端基础&#x2F;趋势">
 <meta name="twitter:description" content="this 的用法单纯在函数中调用123function test() &amp;#123;    this.x = 1; // this表示全局&amp;#125; 做为对象的方法被调用12var o = &amp;#123;&amp;#125;o.m = function() &amp;#123;console.log(this)&amp;#125; // this表示o这个对象 作为构造函数被创建的对象1234function test()">
@@ -67,10 +67,10 @@
     <span id="actions">
       <ul>
         
-        <li><a class="icon" href="/2017/10/22/golang/"><i class="fa fa-chevron-left" aria-hidden="true" onmouseover="$('#i-prev').toggle();" onmouseout="$('#i-prev').toggle();"></i></a></li>
+        <li><a class="icon" href="/2017/10/21/dva/"><i class="fa fa-chevron-left" aria-hidden="true" onmouseover="$('#i-prev').toggle();" onmouseout="$('#i-prev').toggle();"></i></a></li>
         
         
-        <li><a class="icon" href="/2017/10/21/dva/"><i class="fa fa-chevron-right" aria-hidden="true" onmouseover="$('#i-next').toggle();" onmouseout="$('#i-next').toggle();"></i></a></li>
+        <li><a class="icon" href="/2017/10/19/beego/"><i class="fa fa-chevron-right" aria-hidden="true" onmouseover="$('#i-next').toggle();" onmouseout="$('#i-next').toggle();"></i></a></li>
         
         <li><a class="icon" href="#" onclick="$('html, body').animate({ scrollTop: 0 }, 'fast');"><i class="fa fa-chevron-up" aria-hidden="true" onmouseover="$('#i-top').toggle();" onmouseout="$('#i-top').toggle();"></i></a></li>
       </ul>
@@ -96,7 +96,7 @@
 
     </div>
     <div id="toc">
-      <ol class="toc"><li class="toc-item toc-level-1"><a class="toc-link" href="#this-的用法"><span class="toc-number">1.</span> <span class="toc-text">this 的用法</span></a></li><li class="toc-item toc-level-1"><a class="toc-link" href="#css-display-inline-block-inline-block区别"><span class="toc-number">2.</span> <span class="toc-text">css: [display] inline, block, inline-block区别</span></a></li><li class="toc-item toc-level-1"><a class="toc-link" href="#css-position"><span class="toc-number">3.</span> <span class="toc-text">css: [position]</span></a></li><li class="toc-item toc-level-1"><a class="toc-link" href="#CSS-绝对定位-absolute-fixed"><span class="toc-number">4.</span> <span class="toc-text">CSS 绝对定位 (absolute, fixed)</span></a></li><li class="toc-item toc-level-1"><a class="toc-link" href="#CSS-相对定位-relative-还是会占据文档流的空间的"><span class="toc-number">5.</span> <span class="toc-text">CSS 相对定位 (relative) 还是会占据文档流的空间的</span></a></li><li class="toc-item toc-level-1"><a class="toc-link" href="#JSON"><span class="toc-number">6.</span> <span class="toc-text">JSON</span></a></li><li class="toc-item toc-level-1"><a class="toc-link" href="#Array"><span class="toc-number">7.</span> <span class="toc-text">Array</span></a></li></ol>
+      <ol class="toc"><li class="toc-item toc-level-1"><a class="toc-link" href="#this-的用法"><span class="toc-number">1.</span> <span class="toc-text">this 的用法</span></a></li><li class="toc-item toc-level-1"><a class="toc-link" href="#css-display-inline-block-inline-block区别"><span class="toc-number">2.</span> <span class="toc-text">css: [display] inline, block, inline-block区别</span></a></li><li class="toc-item toc-level-1"><a class="toc-link" href="#事件产生的-event-如果要被回调调用时，一定要提前调用-event-persist-保存下来"><span class="toc-number">3.</span> <span class="toc-text">事件产生的 event 如果要被回调调用时，一定要提前调用 event.persist() 保存下来</span></a></li><li class="toc-item toc-level-1"><a class="toc-link" href="#css-position"><span class="toc-number">4.</span> <span class="toc-text">css: [position]</span></a></li><li class="toc-item toc-level-1"><a class="toc-link" href="#CSS-绝对定位-absolute-fixed"><span class="toc-number">5.</span> <span class="toc-text">CSS 绝对定位 (absolute, fixed)</span></a></li><li class="toc-item toc-level-1"><a class="toc-link" href="#CSS-相对定位-relative-还是会占据文档流的空间的"><span class="toc-number">6.</span> <span class="toc-text">CSS 相对定位 (relative) 还是会占据文档流的空间的</span></a></li><li class="toc-item toc-level-1"><a class="toc-link" href="#JSON"><span class="toc-number">7.</span> <span class="toc-text">JSON</span></a></li><li class="toc-item toc-level-1"><a class="toc-link" href="#Array"><span class="toc-number">8.</span> <span class="toc-text">Array</span></a></li><li class="toc-item toc-level-1"><a class="toc-link" href="#forEach-是原地，map-是新数组"><span class="toc-number">9.</span> <span class="toc-text">forEach 是原地，map 是新数组</span></a></li><li class="toc-item toc-level-1"><a class="toc-link" href="#fetch"><span class="toc-number">10.</span> <span class="toc-text">fetch</span></a></li><li class="toc-item toc-level-1"><a class="toc-link" href="#用-await-可以获得-Promise-中的值"><span class="toc-number">11.</span> <span class="toc-text">用 await 可以获得 Promise 中的值</span></a></li><li class="toc-item toc-level-1"><a class="toc-link" href="#babel-6-xx-中-export-default-导出的对象，require-“xxx”-default-获取"><span class="toc-number">12.</span> <span class="toc-text">babel 6.xx 中 export default 导出的对象，require(“xxx”).default 获取</span></a></li><li class="toc-item toc-level-1"><a class="toc-link" href="#Node-js-采用-commonjs-模块规范"><span class="toc-number">13.</span> <span class="toc-text">Node.js 采用 commonjs 模块规范</span></a></li><li class="toc-item toc-level-1"><a class="toc-link" href="#学习一下-commonjs"><span class="toc-number">14.</span> <span class="toc-text">学习一下 commonjs</span></a></li><li class="toc-item toc-level-1"><a class="toc-link" href="#协议，域名，端口相同即为同源"><span class="toc-number">15.</span> <span class="toc-text">协议，域名，端口相同即为同源</span></a></li><li class="toc-item toc-level-1"><a class="toc-link" href="#CORS-跨域资源共享-Cross-Origin-Resource-Sharin"><span class="toc-number">16.</span> <span class="toc-text">CORS:跨域资源共享, Cross-Origin Resource Sharin</span></a></li><li class="toc-item toc-level-1"><a class="toc-link" href="#ajax-和-fetch-都是使用-XMLHttpRequest-对象与服务端通信"><span class="toc-number">17.</span> <span class="toc-text">ajax 和 fetch 都是使用 XMLHttpRequest 对象与服务端通信</span></a></li><li class="toc-item toc-level-1"><a class="toc-link" href="#ES5-的时候根本就没有官方的模块化标准，因此才有了“野路子”的-Commonjs-和-AMD-等标准"><span class="toc-number">18.</span> <span class="toc-text">ES5 的时候根本就没有官方的模块化标准，因此才有了“野路子”的 Commonjs 和 AMD 等标准</span></a></li><li class="toc-item toc-level-1"><a class="toc-link" href="#ES5-是-2009年-完成的，ES6-ES2015，-ES7-ES2016"><span class="toc-number">19.</span> <span class="toc-text">ES5 是 2009年 完成的，ES6 = ES2015， ES7 = ES2016</span></a></li><li class="toc-item toc-level-1"><a class="toc-link" href="#学习一下-Object-中的方法"><span class="toc-number">20.</span> <span class="toc-text">学习一下 Object 中的方法</span></a></li><li class="toc-item toc-level-1"><a class="toc-link" href="#You-Dont-Know-JS"><span class="toc-number">21.</span> <span class="toc-text">You Dont Know JS</span></a></li></ol>
     </div>
   </span>
 </div>
@@ -134,8 +134,8 @@
 <p>做为对象的方法被调用<br><figure class="highlight js"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div></pre></td><td class="code"><pre><div class="line"><span class="keyword">var</span> o = &#123;&#125;</div><div class="line">o.m = <span class="function"><span class="keyword">function</span>(<span class="params"></span>) </span>&#123;<span class="built_in">console</span>.log(<span class="keyword">this</span>)&#125; <span class="comment">// this表示o这个对象</span></div></pre></td></tr></table></figure></p>
 <p>作为构造函数被创建的对象<br><figure class="highlight js"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div></pre></td><td class="code"><pre><div class="line"><span class="function"><span class="keyword">function</span> <span class="title">test</span>(<span class="params"></span>) </span>&#123;</div><div class="line">    <span class="keyword">this</span>.x = <span class="number">1</span></div><div class="line">&#125;</div><div class="line"><span class="keyword">var</span> o = <span class="keyword">new</span> test() <span class="comment">// this表示o这个对象</span></div></pre></td></tr></table></figure></p>
 <p>apply, call, bind<br>apply 基本上等于 call，只是前者的函数参数需要用数组，后者不用<br>bind 则不执行，而是返回bind this之后的函数</p>
-<h1 id="css-display-inline-block-inline-block区别"><a href="#css-display-inline-block-inline-block区别" class="headerlink" title="css: [display] inline, block, inline-block区别"></a>css: [display] inline, block, inline-block区别</h1><p>inline: 内联元素，和其他元素在一行上；高、行高以及外边距内边距不可改变；宽度就是文字或者图片的宽度，不可改变；内联元素只能容纳文本或者其他内联元素<br>block: 块级元素，此元素前后会带有换行符<br>inline-block: 可以在同一行的block哦，可以代替float<br><a href="http://zh.learnlayout.com/" target="_blank" rel="external">学习css布局</a></p>
-<h1 id="css-position"><a href="#css-position" class="headerlink" title="css: [position]"></a>css: [position]</h1><ul>
+<h1 id="css-display-inline-block-inline-block区别"><a href="#css-display-inline-block-inline-block区别" class="headerlink" title="css: [display] inline, block, inline-block区别"></a>css: [display] inline, block, inline-block区别</h1><p>inline: 内联元素，和其他元素在一行上；高、行高以及外边距内边距不可改变；宽度就是文字或者图片的宽度，不可改变；内联元素只能容纳文本或者其他内联元素<br>block: 块级元素，此元素前后会带有换行符<br>inline-block: 可以在同一行的block哦，可以代替float<br><a href="http://zh.learnlayout.com/" target="_blank" rel="external">学习css布局</a><br>inline-block 的多个div顶部对齐加上：vertical-align: top;</p>
+<h1 id="事件产生的-event-如果要被回调调用时，一定要提前调用-event-persist-保存下来"><a href="#事件产生的-event-如果要被回调调用时，一定要提前调用-event-persist-保存下来" class="headerlink" title="事件产生的 event 如果要被回调调用时，一定要提前调用 event.persist() 保存下来"></a>事件产生的 event 如果要被回调调用时，一定要提前调用 event.persist() 保存下来</h1><h1 id="css-position"><a href="#css-position" class="headerlink" title="css: [position]"></a>css: [position]</h1><ul>
 <li>static (默认，占据文档流)</li>
 <li>relative （占据文档流）</li>
 <li>absolute (不影响父级大小)</li>
@@ -144,6 +144,193 @@
 <h1 id="CSS-绝对定位-absolute-fixed"><a href="#CSS-绝对定位-absolute-fixed" class="headerlink" title="CSS 绝对定位 (absolute, fixed)"></a>CSS 绝对定位 (absolute, fixed)</h1><p>绝对定位使元素的位置与文档流无关，因此不占据空间。这一点与相对定位不同，相对定位实际上被看作普通流定位模型的一部分，因为元素的位置相对于它在普通流中的位置。<br>普通流中其它元素的布局就像绝对定位的元素不存在一样：</p>
 <h1 id="CSS-相对定位-relative-还是会占据文档流的空间的"><a href="#CSS-相对定位-relative-还是会占据文档流的空间的" class="headerlink" title="CSS 相对定位 (relative) 还是会占据文档流的空间的"></a>CSS 相对定位 (relative) 还是会占据文档流的空间的</h1><h1 id="JSON"><a href="#JSON" class="headerlink" title="JSON"></a>JSON</h1><p>JSON.parse(str) ==&gt; obj<br>JSON.stringify(obj)  =&gt;  str<br>JSON.stringify() 会返回undefined<br>JSON.stringify(“str”) 会返回 ‘“str”‘  表示字符串类型<br>JSON.stringify(12) 会返回 “12”  表示数字类型</p>
 <h1 id="Array"><a href="#Array" class="headerlink" title="Array"></a>Array</h1><p>Array.prototype 可以增加新属性或方法</p>
+<h1 id="forEach-是原地，map-是新数组"><a href="#forEach-是原地，map-是新数组" class="headerlink" title="forEach 是原地，map 是新数组"></a>forEach 是原地，map 是新数组</h1><h1 id="fetch"><a href="#fetch" class="headerlink" title="fetch"></a>fetch</h1><p><a href="https://developer.mozilla.org/zh-CN/docs/Web/API/Fetch_API/Using_Fetch" target="_blank" rel="external">链接</a></p>
+<h1 id="用-await-可以获得-Promise-中的值"><a href="#用-await-可以获得-Promise-中的值" class="headerlink" title="用 await 可以获得 Promise 中的值"></a>用 await 可以获得 Promise 中的值</h1><p>promise.then(onFulfilled, onRejected)，一般我们好像就只传第一个函数哦，切记这里可以传入两个处理函数。另外 promise.catch 处理里面跑出的 error。<br>使用 await 时，因为可能跑出异常，最好放到 try catch 中</p>
+<h1 id="babel-6-xx-中-export-default-导出的对象，require-“xxx”-default-获取"><a href="#babel-6-xx-中-export-default-导出的对象，require-“xxx”-default-获取" class="headerlink" title="babel 6.xx 中 export default 导出的对象，require(“xxx”).default 获取"></a>babel 6.xx 中 export default 导出的对象，require(“xxx”).default 获取</h1><p>(链接)[<a href="https://stackoverflow.com/questions/33704714/cant-require-default-export-value-in-babel-6-x/33705077" target="_blank" rel="external">https://stackoverflow.com/questions/33704714/cant-require-default-export-value-in-babel-6-x/33705077</a>]<br>Babel 5.xx 中，如果遇到一个模块文件中只有一个export 且为 export default 的话，会执行下面的语句：<br><figure class="highlight js"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div><div class="line">7</div></pre></td><td class="code"><pre><div class="line"><span class="meta">"use strict"</span>;</div><div class="line"><span class="built_in">Object</span>.defineProperty(exports, <span class="string">"__esModule"</span>, &#123;</div><div class="line">  value: <span class="literal">true</span></div><div class="line">&#125;);</div><div class="line">exports[<span class="string">"default"</span>] = <span class="function"><span class="keyword">function</span> (<span class="params"></span>) </span>&#123;&#125;;</div><div class="line"><span class="comment">// 多了下面这句</span></div><div class="line"><span class="built_in">module</span>.exports = exports[<span class="string">"default"</span>];</div></pre></td></tr></table></figure></p>
+<p>而在 Babel 6.xxx 中，会执行下面的语句：<br><figure class="highlight js"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div></pre></td><td class="code"><pre><div class="line"><span class="meta">'use strict'</span>;</div><div class="line"><span class="built_in">Object</span>.defineProperty(exports, <span class="string">"__esModule"</span>, &#123;</div><div class="line">    value: <span class="literal">true</span></div><div class="line">&#125;);</div><div class="line">exports.default = <span class="function"><span class="keyword">function</span> (<span class="params"></span>) </span>&#123;&#125;;</div></pre></td></tr></table></figure></p>
+<h1 id="Node-js-采用-commonjs-模块规范"><a href="#Node-js-采用-commonjs-模块规范" class="headerlink" title="Node.js 采用 commonjs 模块规范"></a>Node.js 采用 commonjs 模块规范</h1><h1 id="学习一下-commonjs"><a href="#学习一下-commonjs" class="headerlink" title="学习一下 commonjs"></a>学习一下 commonjs</h1><ol>
+<li>Node.js 采用 commonjs 模块规范：根据CommonJS规范，一个单独的文件就是一个模块。加载模块使用require方法，该方法读取一个文件并执行，最后返回文件内部的exports对象。</li>
+<li>commonjs 是服务端js模块的规范，加载模块是同步的，也就是说，只有加载完成，才能执行后面的操作。AMD规范则是非同步加载模块，允许指定回调函数。由于Node.js主要用于服务器编程，模块文件一般都已经存在于本地硬盘，所以加载起来比较快，不用考虑非同步加载的方式，所以CommonJS规范比较适用。</li>
+<li>CommonJS规范规定，每个模块内部，module变量代表当前模块。这个变量是一个对象，它的exports属性（即module.exports）是对外的接口。加载某个模块，其实是加载该模块的module.exports属性。</li>
+<li>为了方便，Node为每个模块提供一个exports变量，指向module.exports。这等同在每个模块头部，有一行这样的命令。 相当于每个文件开头默认加入了“var exports = module.exports;<br>”</li>
+<li><a href="http://javascript.ruanyifeng.com/nodejs/module.html#toc0" target="_blank" rel="external">http://javascript.ruanyifeng.com/nodejs/module.html#toc0</a></li>
+</ol>
+<h1 id="协议，域名，端口相同即为同源"><a href="#协议，域名，端口相同即为同源" class="headerlink" title="协议，域名，端口相同即为同源"></a>协议，域名，端口相同即为同源</h1><p><a href="https://segmentfault.com/a/1190000006095018" target="_blank" rel="external">jsonp, ajax, fetch, xhr 等的跨域方法，以及 fetch 使用教程</a></p>
+<h1 id="CORS-跨域资源共享-Cross-Origin-Resource-Sharin"><a href="#CORS-跨域资源共享-Cross-Origin-Resource-Sharin" class="headerlink" title="CORS:跨域资源共享, Cross-Origin Resource Sharin"></a>CORS:跨域资源共享, Cross-Origin Resource Sharin</h1><p>一种跨域通信标准，当浏览器发现 XMLHttpRequest 对象的请求是跨域时，会在请求 header 里面添加 origin: ‘your url’ 字段，而当服务器同样支持 CORS 时，它首先判断该 url 是否在白名单中，如果不支持则返回不带任何 CORS 头信息的响应（此时浏览器会抛出跨域错误），否则返回包含 Access-Control-Allow-Origin 字段的响应，则浏览器能够正常获取数据。 以上是一种“标准”！   </p>
+<p>CORS请求默认不发送Cookie和HTTP认证信息，需设置 XMLHttpRequest 的 withCredentials 字段</p>
+<h1 id="ajax-和-fetch-都是使用-XMLHttpRequest-对象与服务端通信"><a href="#ajax-和-fetch-都是使用-XMLHttpRequest-对象与服务端通信" class="headerlink" title="ajax 和 fetch 都是使用 XMLHttpRequest 对象与服务端通信"></a>ajax 和 fetch 都是使用 XMLHttpRequest 对象与服务端通信</h1><p>ajax 之前也是使用 XMLHttpRequest 对象与服务器通信的，只不过那时的浏览器可能还不支持 CORS，因此 ajax 只支持同源访问。 目前几乎所有的浏览器都支持 CORS 策略，即使用 XMLHttpRequest 对象请求时，浏览器会自动检查是否跨域，如果跨域会增加 orgin 字段，甚至会预先请求（这些对用户都是不可见的），因此现在的 ajax 请求肯定也支持跨域。<br>fetch 出来的时候已经有 CORS 标准了，因此肯定也支持跨域。   </p>
+<h1 id="ES5-的时候根本就没有官方的模块化标准，因此才有了“野路子”的-Commonjs-和-AMD-等标准"><a href="#ES5-的时候根本就没有官方的模块化标准，因此才有了“野路子”的-Commonjs-和-AMD-等标准" class="headerlink" title="ES5 的时候根本就没有官方的模块化标准，因此才有了“野路子”的 Commonjs 和 AMD 等标准"></a>ES5 的时候根本就没有官方的模块化标准，因此才有了“野路子”的 Commonjs 和 AMD 等标准</h1><p>但 ES6 中，提出了官方的标准，即 import , export, export default </p>
+<h1 id="ES5-是-2009年-完成的，ES6-ES2015，-ES7-ES2016"><a href="#ES5-是-2009年-完成的，ES6-ES2015，-ES7-ES2016" class="headerlink" title="ES5 是 2009年 完成的，ES6 = ES2015， ES7 = ES2016"></a>ES5 是 2009年 完成的，ES6 = ES2015， ES7 = ES2016</h1><h1 id="学习一下-Object-中的方法"><a href="#学习一下-Object-中的方法" class="headerlink" title="学习一下 Object 中的方法"></a>学习一下 Object 中的方法</h1><h1 id="You-Dont-Know-JS"><a href="#You-Dont-Know-JS" class="headerlink" title="You Dont Know JS"></a>You Dont Know JS</h1><p><a href="https://github.com/getify/You-Dont-Know-JS/blob/master/this%20%26%20object%20prototypes/ch2.md" target="_blank" rel="external">这本书</a><br>《this &amp; Object Prototypes》</p>
+<ol>
+<li>this 并不指向 function，它是一个 runtime determined 的参数，跟 call-site 相关，与该函数被调用的时机，上下文相关。</li>
+<li>call-site: 函数被调用时的位置，不是定义的位置</li>
+<li><em>this</em> 判断的6条规则：</li>
+<li><strong>default binding</strong>，即 this 绑定 global object，注意在 strict mode 中无效，此时 this 为 undefined。 </li>
+<li><strong>implicit binding</strong>，即函数的 call-site 是否有个上下文对象或者拥有（只要是调用时拥有该函数即可）该函数的对象。 </li>
+<li><strong>implicitly lost</strong>，当你把一个对象内部的函数赋给一个global变量，再用global变量运行，此时又退回至 <strong>default binding</strong>，这是一个常见的场景，比如传参（implicit assignment），setTimeout(obj.foo, 100) 此时就发生了 <strong>implicitly lost</strong>，即 callback 函数非常容易丢失它们的 this binding</li>
+<li><strong>explicit binding</strong>，对应 <strong>implicit binding</strong>，无需为了 bind 特定的 obj 而将函数赋值给该 obj 对象。而是采用显式 binding：foo.call(obj), foo.apply(obj)</li>
+<li><strong>hard binding</strong>，foo.bind(obj)</li>
+<li><strong>API call “contexts”</strong>，一些 api 提供显式的参数表示其 explicit bind 的 this 值。例如，[1,2,3].forEach(foo, obj)，这里的 obj 就是 api 提供的接口绑定 this 为 obj</li>
+<li>当在 bind，apply，call 中传入 null 或者 undefined 时，实际并不会绑定这些值为 this，而是转为使用 <strong>default binding</strong> 规则，当你不是很关系 this 具体值的时候，可以这样做。比如当你需要用列表传入参数时（ES6之前），可以用 <code>foo.apply(null, [2, 3])</code>；或者当你想要构造偏函数时，可以用 <code>goo = foo.bind(null, 2); goo(3)</code></li>
+<li>ES6 引进的箭头函数不遵循前面的规则（注意：普通的匿名函数仍遵循以上规则）！它的 this 是永远绑定在运行时定义它时所在的作用域内的   this 上的。 implicit/explicit/hard binding 对它都无效！</li>
+<li>js 有六种基本类型：string、number、boolean、null、undefined、object，但是由于历史原因，<code>typeof null 返回 object</code>，其实 null 的类型就是自己。因此“js里的所有东西都是对象”是错误的。</li>
+<li>内置的 object 子类型：String、Number、Boolean、Object、Function、Array、Date、RegExp、Error，它们其实就是 built-in functions，类型都是 object。注意：typeof 这些类型的对象，返回 “object”，但是可以用 “对象 instanceof String” 判断是不是这些 object 子类型。当你对 string 类型的对象进行操作时，引擎会自动将其 wrapp 转化成 String 对象，例如：<code>&quot;stan&quot;.length/.charAt(3)</code>。该原则同样适用于 number/Number，boolean/Boolean</li>
+<li>用 <code>.</code> <code>[&quot;&quot;]</code> 获取对象属性。在对象中，属性的类型一定是<strong>string</strong>，你传入的所有值都会被转化为string对象，包括 Array 的 index ！当你传入的是 object 对象，则相当于 stringify(obj) =&gt; 例如 <code>[object Object]</code></li>
+<li>object 中定义的函数不是 method，就是普通的 function，只是 call-site 有可能是 object 上下文，其他没什么区别</li>
+<li>判断一个 对象内部是否存在对应的 property，可以用 <code>&#39;a&#39; in obj</code> (会查询整个原型链) 或者 <code>obj.hasOwnPropery(&#39;a&#39;)</code> (只查询当前对象自己的属性)</li>
+<li><code>Object.create(null)</code> 创建出来的对象不会连接到 Object.prototype，因此，<code>obj.hasOwnPropery</code> 会失败，因此更加稳健的方法是 <code>Object.prototype.hasOwnPropery.call(obj, &#39;a&#39;)</code></li>
+<li>[] 是 Array 的字面符定义方式，也可以往里面加其他属性，但是如果你加的属性不能被隐式转换为正整数，则length属性值（恒为最大下标值 +1 ）不会改变。</li>
+<li>遍历Array，最好不要用 for … in ，而是用 length</li>
+<li>浅复制：Object.assign</li>
+<li>Object.getOwnPropertyDescriptor 查看自己属性的 Descriptor 详情</li>
+<li>Object.definePropery 可以新增或者修改某个属性的特征：value，writable，configurable，enumberable。其中 configurable 表示该属性能否被 Object.definePropery 方法修改以及能否被 delete （因此有 true -&gt; false 之后无法撤销）</li>
+<li>enumerable 可以控制 <code>for ... in</code> 是否列出该属性，注意：<code>for ... in</code> 不同于 <code>in</code>，但是都会去查找原型链上的属性。</li>
+<li>Object.preventExtensions(..)，可以让一个对象无法添加新的属性。</li>
+<li>Object.seal 就是先调用 Object.preventExtensions，然后设置所有已有的属性的 configurable 为 false</li>
+<li>Object.freese 就是先调用 Object.seal，然后设置所有已有属性的 writable 为 false。这个是<strong>最高等级的控制</strong></li>
+<li>getters/setters 方法：可以在 Object.defineProperty 中定义 get: function( ){}。当设置了 get/set方法后，属性特征 writable 和 value 都会被忽略。</li>
+<li>Object.key() 不会返回原型链上的 enumberable 属性。对应 Object.getOwnPropertyNames() ，它返回自己（不包括原型链）的所有属性列表。而for … in 返回包括原型链上的 enumberable 属性。  </li>
+<li>ES6 定义了 <code>for ... of</code> 表达式，用于迭代 Array 的 value 或者 object （如何设置了迭代器）</li>
+<li>鉴于 class 只是一种设计模式，JS 提供了模拟 class 的 functiona, instanceof, new 等操作符</li>
+<li>所有的 object 都有一个内部属性， [Prototype]</li>
+<li>如果 foo 自己没有属性 a，但是它的原型链上有 a，且 writable 为 false 且 没有 set 函数，则调用 foo.a = 1 不会生效（在 strict mode 下会报错）</li>
+<li>如果 foo 自己没有属性 a，但是它的原型链上有 a，且 writable 为 true，则调用 foo.a = 1，会在 foo <strong>自己的属性表</strong>中增加一项 a (无法改变原型链上的属性值)，此时发生 <code>shadowed property</code></li>
+<li>如果 foo 自己没有属性 a，但是它的原型链上有 a，且有 set 函数，则调用 foo.a = 1，只会调用原型链上的该属性的 set 方法，并不会在 foo 上添加该属性。</li>
+<li>根据上面几条，虽然在有些情况下，我们不能用 <code>=</code> 创建新的属性，但是 <code>Object.defineProperty</code> 仍然可以用来添加新的属性，不受原型链上的影响。</li>
+<li>shadow property 有时会隐式发生，注意 <code>foo.a++</code> 相当于 <code>foo.a = foo.a + 1</code>，因此如果原型链上有属性 a，则会将其值 +1 后写入 foo 自己的属性表（如果根据前面规则可以写入的话）</li>
+<li>js 中其实没有真正意义上的 class，所谓的 “class” 即是 “Function” 而已，因此他们也是 object。<code>foo = new Foo()</code> 相当于创建了 foo 和 Foo 这两个 object 的 link （类似于 Object.create ）</li>
+<li>当我们定义 object 子类型（其实就是 function，包括内置的那些 String，Array，Object 等）时，引擎自动加上 <code>prototype</code> 属性，该对象内部包括两个属性： constructor 默认指向当前的函数； _ <em>proto</em> _  指向 Object</li>
+<li>Object.create(null) 一个常见的用途是创建对象存放数据，该方法就是返回一个新的对象，其 _ <em>proto</em> _ 指向参数</li>
+<li>正常普通的原型链的顶部是 Object.prototype 对象，而这个对象包含了一些常见的方法。比如 <code>.isPrototypeOf</code></li>
+<li>“class” 机制归功于 js 中的所有 function 有一个公共，不可枚举的属性： <strong>prototype</strong> 。Foo.prototype。同时该属性对象中有一个公共的，不可枚举的属性 .constructor，指向该函数自身。该属性对象中的 _ <em>proto</em> _ 指向 Object.prototype</li>
+<li>每一个 new 出来的对象，该对象的 _ <em>proto</em> _ 会指向该函数的 <strong>prototype</strong></li>
+<li>Object.getPrototypeOf，Object.setPrototypeOf</li>
+<li>JS 模拟 class 的 method： Foo.prototype.methodA = function() {…}</li>
+<li>JS 模拟 “继承”： Bar.prototype = Object.create(Foo.prototype); Bar.prototype.xxx = xxx</li>
+<li><code>instanceof</code> 表达式返回左侧对象的原型链上是否有右侧函数的<strong>prototype</strong>。需要右侧对象是个callable对象，比如函数。</li>
+<li>接上条，如果右侧不是一个函数而是一个对象，则要使用 Object.prototype.isPrototypeOf.call(a, b) 或者 a.isPrototypeOf(b) </li>
+<li>牢记 JS 的 “class” 是 link，是 delegate，而不是 copy</li>
+<li>建议采用 <code>Delegation Theory (OLOO: object link other object)</code>，而不是 <code>Class Theory</code> ，即不需要定义 “Class function”，而是定义成普通的object， 用 Object.create(obj)  来创建新的对象使用 obj 的定义的功能[<a href="https://github.com/getify/You-Dont-Know-JS/blob/master/this%20%26%20object%20prototypes/ch6.md" target="_blank" rel="external">https://github.com/getify/You-Dont-Know-JS/blob/master/this%20%26%20object%20prototypes/ch6.md</a>]</li>
+<li>换个思路，多使用 OLOO，很多开源框架就是用的 OLOO。We didn’t need a base Controller class to “share” behavior between the two, because delegation is a powerful enough mechanism to give us the functionality we need. We also, as noted before, don’t need to instantiate our classes to work with them, because there are no classes, just the objects themselves. Furthermore, there’s no need for composition as delegation gives the two objects the ability to cooperate differentially as needed.</li>
+<li>ES6 中才可以 var a = { foo(){} } object 中的函数简写方式。</li>
+<li>function Foo() {}; Foo._ <em>proto</em> _ === Function.prototype 为 true</li>
+<li>duck typing: if (foo.something) foo.something(“xx”)</li>
+<li>ES6 中基本类型增加了 symbol</li>
+<li>注意 <code>typeof function(){} === &#39;function&#39;</code> 但其实 function 不是基本类型，而是 callable object。</li>
+<li>undefiend 不等于 undeclared，undefined 是指变量已经在 scope 中定义，但这是还没有赋值，默认值为 undefined。</li>
+<li>一般情况下，使用 undeclared 变量会抛错，但是 <code>typeof</code> 运算符加了保护，比如 <code>typeof a</code> 如果 a 没有定义，则返回 undefined。这个特性很有用，例如： if (typeof DEBUG !== “undefined”) {/<em>  </em>/} ；或者检查浏览器是否支持新特性：if (typeof atob === ‘undefined’) {/<em>  </em>/}。 </li>
+<li>接上条，safe check （不抛出错误的检查）还有另一种方法： window.xxx === undefined 或 window[‘xxx’] === undefined 。但这个方法的局限在于 <strong>只能检查 global 变量</strong>，还是 typeof 适用范围广</li>
+<li>delete 不会改变 Array 的 length</li>
+<li>string 是不可变的，不能通过下标更改字符。因此它的很多方法都是返回一个新的字符串</li>
+<li>string 可以借用 Array 中那些不改变原数组（而是返回新数组）的方法，例如：str = “stan”; Array.prototype.join.call(str, ‘-‘); Array.prototype.map.call(str, ()=&gt;{})</li>
+<li>接上条，如果 string 想借用 Array 中改变原数组的方法，有个 hack 方法： str.split(‘’).reverse().join(‘’)</li>
+<li>JS 没有真正的<strong>整数类型</strong>，都叫 number，没有小数点就算上整数</li>
+<li>因为有些浮点数无法精确表示，因此存在误差，ES6 中定义了 Number.EPSILON 作为可以容忍的机器精度误差。同时还有 Number.MIN_VALUE 、 Number.MAX_VALUE</li>
+<li>由于整数的表示方式，存在最大/最小可以表示的整数: Number.MAX_SAFE_INTEGER / Number.MIN_SAFE_INTEGER，分别为 2^53 - 1， -2^53 + 1 。 可以用 Number.isSafeInteger() 判断是否在该范围内。</li>
+<li>判断为整数：Number.isInteger(2.3) 或者 2.3 % 1 === 0</li>
+<li><code>void</code> 操作符可以将一个表达式的返回值替代为 <code>undefined</code></li>
+<li><code>NaN</code> 并不是 <code>Not a Number</code>，而是 <code>invalid number</code>，<code>typeof NaN === &#39;number&#39;</code>，它是 Number set 中的一个哨位，当进行数字运算时发生错误，返回一个表示错误的数字，即 NaN，其类型还是 number</li>
+<li>isNaN(); NaN !== NaN。然后 window.isNaN 有个 bug，即 isNaN(‘stan’) === true；因此 ES6 中，推出了替代方案：<code>Number.isNaN()</code></li>
+<li>JS 中当计算时，类似于 NaN，<code>1 / 0</code>返回为 <code>Infinity (aka. Number.POSITIVE_INFINITY)</code>，而 <code>-1 / 0</code> 返回<code>-Infinity (aka. Number.NEGATIVE_INFINITY)</code></li>
+<li>null / undefined / string / number / boolean / symbol 传值, object / function 传引用。为了能够传递 Array 的 value，可以用 <code>Array.prototype.slice</code>。相反的，如果 string 想要传引用，可以用 object wrap 一下。注意：直接用 String 或 Number 不行（不可改），<code>var a = new Number(1); a + 1 返回一个新的 Number 对象</code> (内部：先unbox，相加，在box一个新对象)</li>
+<li>建议：不要使用 new String() / new Number() ，而是使用 primitive 类型，让引擎来在必要的时候自动 wrap</li>
+<li>注意：var b = new Boolean(false); if (!b) { /<em> 不会进来，需要使用 unboxing <code>b.valueOf()</code>获取内部的bool` </em>/}。再次证明：最好不要直接使用这些类型，而是让引擎自动 wrap。</li>
+<li>尽量用字面量定义 array ，<code>a = [1,2,3]</code>。如果采用 Array，则有两种模式（很容易用错）：1、传入单个参数：<code>a = new Array(5)</code>，此时表示 length 为 5 的数组，但其中都是 <code>empty slot</code>。 2、<code>a = new Array(5, 6)</code> 等价于 <code>a = [5, 6]</code> </li>
+<li>对于 <code>a = new Array(100)</code> 创建的数组，其实为稀疏数组，等同于先创建一个空数组，然后设置其长度为100，使用这种数组可能会遇到一些问题。浏览器显示为 <code>[empty x 100]</code>，尽量不要使用。</li>
+<li>接上条，如果想要定义长度为100，且被 undefined 填充的正常数组（非 empty array），可以 <code>a = Array.apply(null, {length: 100})</code> 。 其实是一种 hack 的方法：使用 apply 的方式调用 Array 这个函数，因为不在意 this binding，所以设置为 null，第二个参数其实应该是个数组形式（或者 array-like ）表示的需要传入Array的参数，这里有个 trick （因为 apply 函数内部，会读取这个参数的 length，然后 loop 读取其下标对应的值传入 Array 函数） ，我们用一个 object: {length: 100} 模拟一个 array，效果就是，这个数组的长度为 100 ，且 obj[index] 永远返回 undefined。</li>
+<li>new Error(“desc”) 还会获取当前的调用栈，所以需要这个类型</li>
+<li>ES5 的对象属性名都是字符串，这容易造成属性名的冲突。比如，你使用了一个他人提供的对象，但又想为这个对象添加新的方法（mixin 模式），新方法的名字就有可能与现有方法产生冲突。如果有一种机制，保证每个属性的名字都是独一无二的就好了，这样就从根本上防止属性名的冲突。这就是 ES6 引入Symbol的原因。Symbol 值通过Symbol函数生成。这就是说，对象的属性名现在可以有两种类型，一种是原来就有的字符串，另一种就是新增的 Symbol 类型。凡是属性名属于 Symbol 类型，就都是独一无二的，可以保证不会与其他属性名产生冲突。Symbol 作为属性名，该属性不会出现在for…in、for…of循环中，也不会被Object.keys()、Object.getOwnPropertyNames()、JSON.stringify()返回。但是，它也不是私有属性，有一个Object.getOwnPropertySymbols方法，可以获取指定对象的所有 Symbol 属性名。</li>
+<li>变量查找有两种类型：LHS（Left Hand Side） 和 RHS (Right Hand Side) 。 例如：a = b; 查询变量 a 是 LHS lookup，而查询 b 是 RHS lookup。</li>
+<li>如果 LHS 查询没有查到对应变量，且当前未处于 strict mode （ES5引入），则会在 global scope 中创建该变量。而 RHS 查询没有查到对应变量名，则会抛出 ReferenceError （Scope resolution 失败）。</li>
+<li>Scope look-up stops once it finds the first match. 但是 Global 变量其实都属于 global object （对于浏览器来说是 window）的属性。因此可以通过 window.a 直接获取 global 变量。</li>
+<li>The lexical scope look-up process only applies to first-class identifiers. 因此对于 a.b.c ，只查询变量a，然后获取该变量的属性。</li>
+<li>JS 采用的是 Lexical Scope，即 Scope 在定义时就确定了。对应的又 Dynamic Scope （Bash）</li>
+<li>JS 提供两种 “欺骗” Lexical Scope 的方式，一种是 eval: eval 接收一个字符串参数，然后在当前运行点运行（非 strict mode 下时，与硬编码的代码无异。而在 strict mode 下时，eval 在自己的 Scope 中！）。另一种是 with。</li>
+<li>eval 和 with 的引入虽然可以 tricky 实现修改 Lexical Scope，但是严重降低效率。因为 JS 发现使用它们之后，很多静态的优化措施无法施行。</li>
+<li>babel 默认添加 ‘use strict’ 至 js文件头部</li>
+<li>function scope：即利用定义函数（function declare）的方式隐藏一些变量和内部函数。但是一般定义函数的做法有两个问题：1. 会暴露函数名 2. 必须显式调用该函数。 有一个解决办法：利用 function expression，即 (function foo(){…})()，此时 foo 只暴露在 {…} 中！ </li>
+<li>区分 function declare 和 function expression 的方法： function 是否出现在行首，行首则为 function declare。因此 setTimeout(function foo(){…}) 也是 function expression。</li>
+<li>() 括号包住 function ，可以使其成为 function expression</li>
+<li>只有 function expression 可以是匿名的，当然也可以是不匿名，不匿名的话，函数体内就可以调用自己。只能使用 deprecated 的 arguments.callee 来访问自己。因此创建 function expression 时，最好加上 function name，因为这样既不会暴露出来(污染 scope)，也方便需要调用自己的时候，同时也方便 debug。</li>
+<li>JS 的 block scope 只有在 ES6 推出了 let / const 之后才真正存在</li>
+<li>ES6 前，只有 function scope 是唯一好用的scope，其中定义的 var 变量属于其 scope</li>
+<li>同时 let / const  定义的变量没有 hoist，即不能像 var 一样先使用在定义</li>
+<li>var 定义的变量 attach to enclosing scope （包裹它的 scope ）：function’s scope or global scope</li>
+<li>var a = 1; 在 compiler 看来是两部分：var a; a = 1; 然后 var a 会发生 hoist，即这句会自动提升到 scope 的最前面。</li>
+<li>重复的 var 会被忽略</li>
+<li>在 block 中定义的 function 会 hoist to the enclosing scope，即上层 scope，类似 var</li>
+<li>function foo() {…} 会 hoist 至 scope 首部（比 var 更前），包括其定义。 而 var foo = function() {…} 只有 var foo hoist 至 scope 首部，赋值函数部分仍在远处。</li>
+<li>闭包：函数仍然可以访问其定义时所在的 scope，这个 scope 就是闭包</li>
+<li>有将函数作为返回值返回的地方，就可能存在闭包。 （所以一般动态语言会有闭包）</li>
+<li>闭包：when the function is executed outside its lexical scope</li>
+<li><p>最容易犯闭包的错误的是： for(var i =0; i &lt; 5; i++) {setTimeout(()=&gt; console.log(i)), i}; 解决办法是创建 block：1. for(let i=0; i &lt; 5; i++) { 此时是 block，且每次循环会重新定义i}; 2. for(var i=0; i&lt; 5; i++) {let j = i; 等同上一种}; 3. for(var i=0; i&lt;5; i++) { (function(j){setTimeout(xxx)})(i)}; 即创建 function scope</p>
+</li>
+<li><p>Object(“sdafs”) =&gt; new String(“sdafs”)</p>
+</li>
+<li>Object(23) =&gt; new Number(23) 通用的boxing 方法，根据类型选择对应的boxing子类型</li>
+<li>同上，new Object(23) =&gt; new Number(23) 通用的boxing 方法，根据类型选择对应的boxing子类型</li>
+<li>new Number(“23”) 和 Number(“23”) 是不一样的！前面是生成一个Number对象，而后面是类型转化。适用于其他自类型，例如String</li>
+<li>看1，2条，但 Object(…) 不是类型转化，而是 boxing，加上 new 也一样</li>
+<li>当一个 non-string 类型转化为 string 类型时，引擎调用 [toString] 方法。基本类型内置的[toString]功能：null -&gt; ‘null’，undefined -&gt; ‘undefined’，true -&gt; ‘true’，number 除了很大很小的使用指数形式表示，其他就是简单的十进制表示。</li>
+<li>null 和 undefined 没有对应的 wrapper object，所以不能用 null.toString() 调用内置的 [toString] 方法，而要使用 null + ‘’， undefined  + ‘’ </li>
+<li>Object.prototype.toString(…) 输出参数的 [[Class]]</li>
+<li>Array 的 toString 返回逗号连接的元素的字符串表示。（不用自己调用join了）</li>
+<li>哪些是非 JSON-safe 的对象：undefined，function，symbol，有环引用的object，如果它们存在 array 中，则会被 JSON.stringify 忽略，用 null 替代输出（因为需要保留位置）。如果它们存在 object 中或直接是一个对象，则直接忽略</li>
+<li>补充上条：如果 JSON stringify 一个有环引用的对象，会直接抛出错误</li>
+<li>通过定义 toJSON 方法，可以为 object 设置一个返回 JSON-safe 的object对象的函数（手动过滤掉那些不需要 JSON stringify 的属性），而不是设置返回 JSON 字符串的函数</li>
+<li>接上条，如果不想定义 toJSON 方法，可以设置第二个参数 JSON.stringify(obj, replacer, indent)</li>
+<li>当一个 non-number 类型转化为 number 类型时，引擎调用 [toNumber] 方法。基本类型内置的[toNumber]功能：true -&gt; 1, false -&gt; 0, undefined -&gt; NaN, null -&gt; 0</li>
+<li>与 toString 不同，我们不能显式定义 toNumber 方法，而是先要将对象转化为基本类型（再利用基本类型的 [toNumber] 转化为数字），因此需要定义 valueOf 或 toString 方法先转化为基本类型，如果都没有则为 NaN</li>
+<li>[toBoolean] falsy list： undefined，null，false，+0，-0，NaN，‘’ ，其余都是 true list</li>
+<li>类似与 12 + ‘’ -&gt; ‘12’ 这类隐式转换， a = ‘12’; +a -&gt; 12 </li>
+<li>因为 Date 对象有 valueOf 方法，返回其内部的 unix 毫秒，因此 var a = new Date(); +a （或者常用 +new Date()）可以获得 unix 毫秒。或者用 ES5 中的 Date.now() 或者更加通用的 a.getTime()</li>
+<li>JS 中位运算的操作数都必须是32位，因此 2 | 1 其实两边的数字都会被隐式的转换为32位数字。借助该特性，可以使用 0 | a 来将 a 转为32位数字（截断），等同与 ~~a （但这个优先级更高）</li>
+<li>注意： parse（分析） 并不是类型转换的一种，parseInt(字符串参数) 可以忍受  non-numeric 字符，而类型转换不行。注意：parseInt 接受字符串参数，因此非字符串的参数会发生隐式类型转换。</li>
+<li>二元操作符 + 有两种含义：数字相加 和 字符串拼接（优先）。两边的操作数中只要出现字符串，那就是字符串拼接（非字符串的操作数隐式转字符串）。只有两边都是数字的时候才是数字相加。</li>
+<li>注意区别：1 + undefined == NaN;   ‘1’ + undefined == ‘1undefined’; </li>
+<li>JS 中得 || 和 &amp;&amp; 并不像其他语言中一样返回逻辑值，而是返回操作数中得某一个。Python 也是这样。</li>
+<li>object 隐式转基本类型，先尝试 valueOf，再尝试 toString</li>
+<li>== 和 === 得区别就是：比较时是否允许类型转换</li>
+<li>‘’, ‘\n’, ‘ ‘ 它们隐式转换为数字 0</li>
+<li>null == undefined 为 true</li>
+<li>使用 == 判断要注意：两边不要出现 true 或 false，出现 0, ‘’, [] 要小心</li>
+<li>接上条：a = ‘32’ if(a) {…进入这里}; 但 if(a == true) {…不会进入这里，因此两边都转 number，32 不等于 1}，所以千万不要去 == true / false，而是直接隐式转 bool  </li>
+<li>&lt; 判断规则：如果是 object，则转成基本类型。然后判断两个操作数中出现非 string 得类型，则两边转 number 比较大小。如果两个操作数都是 string 类型，则比较字符序。</li>
+<li>== 判断规则（优先转 number）：如果两个操作数都是 object，则直接比较引用对象是否相同。如果操作数中有 number，则都转 number。如果操作数有 bool，都转 number （没写错）！ 而 null == undefined 为 true（这个是定义好的！）。如果一个为 object，另一个是基本类型，则 object 先转基本类型，再按之前的规则。</li>
+<li>JS 中没有 strict 大小比较运算法（不同于 === ，JS 中有 strict 等于），因此 &lt; 运算中不可避免隐式类型转换</li>
+<li>隐式和显式转字符串的区别：a 是一个 object，则 a + ‘’ 会先去找其 valueOf，没找到再找 toString， 而 String(a) 则直接找 toString</li>
+<li><blockquote>
+<p>= 是 &lt; 得结果取反。例如：a = [], b = [], a &lt; b 为 false, a == b 为 false, a &gt; b 为 false, 因此 a &lt;= b 为 true (&lt;= 不等同与 &lt; 或 == ） </p>
+</blockquote>
+</li>
+<li>statement 是句子，expression 是表达式</li>
+<li>其实 statement 也有返回值（Statement Completion Values），一般常见的就是浏览器中返回的 undefined。可以用 ES7 中的 a = do {…statement} 获取返回值 </li>
+<li>block statement 的 completion value 就是块中最后一个表达式的值。a = do {if(true) {b = 33}}; a 即为 33</li>
+<li>callback 有个致命的缺点（inverse of controller）：因为你将 callback function 传入至该异步函数中，也就是你将该 callback 的控制权交给了那个异步函数（可能不是你写的这个函数，第三方库），你无法控制它执行的正确性。</li>
+<li>callback 的另一个缺点是，为了 callback function 的鲁棒性，我们必须在每个 callback 定义中实现 input 的检查，这就会带来代码的重复！（而利用 async function，我们可以先获取返回值，然后做统一的检查，最后在调用 “callback”）</li>
+<li>拯救 callback： 1. 有些 API 提供 error handler，例如 xxxfunc(data, sucFunc, errFunc)，Promise 就是用这个模式  2. 另一些 API 传递第一个 err 参数给 callback，例如 xxxfunc(data, function(err, data) {if (err) {…}})</li>
+<li>Zalgo: 形容无法区分其是 async 还是 sync 的函数。例如有些 API 的内部实现：首先检查参数是否合理，然后调用IO接口。所以如果当参数不合理，立马返回错误，则此时它是一个 sync 函数；而当参数合理，其调用IO接口（网络请求…），则此时它是一个 async 函数。 正确的设计这类 API，必须保证无论何时，它都要表现为一致的表现，即 async，（调用 process.nextTick 或 setTimeout 处理错误返回） 。 这类错误就是，使用 callback 可能会导致的 【calling too early】</li>
+<li>Promise 的机制是发送信号。 p = new Promise(function(reslove, reject) { … }) 首先内部的函数立即执行，resolve 和 reject 是该机制传入的两个信号发射器函数，特点是还可以附带数据。 而 p.then(sucFunc, failFunc) 是注册两个对应 resolve 信号的回调。</li>
+<li>“duck typing” – “If it looks like a duck, and quacks like a duck, it must be a duck”  通过检查是否存在某些方法，来判断是否是同一种“类型”。</li>
+<li>Promise 的类型判断就是使用 duck typing，因此很多第三方库会自己实现一个 Promise 方法，因此我们无法使用 p instanceof Promise 来判断其是否是 类Promise 对象。</li>
+<li>ES 标准已经霸道确定了：无论任何对象（过去，现在，未来）都不能拥有 then 属性，除非它是类 Promise 对象。（因此 Promise 的判断使用 duck typing 的原因）</li>
+<li>使用 Promise 替代 callback 的一个好处是没有 Zalgo 问题（calling too early），因此即使 promise 已经 resolved，then 里面注册的函数也不会被同步调用，仍是异步的，类似 nextTick 和 setTimeout(xx, 0)</li>
+<li>Promise 添加超时： Promise.race([timeout(), foo()]).then()</li>
+<li>Promise 中定义的函数块中，多次 resolve 或 同时 resolve 和 reject，都不会报错，但只对一个调用生效。</li>
+<li>Promise 只能 resolve 一次，且第一次 resolve 传入的值无法被后面的resolve调用所修改，即 resolved promise 对象是一个不可修改的常量</li>
+<li><p>Promise.resolve 的作用：1. 传入一个即不是 Promise 也不是 thenable 的对象，返回一个 resolved 的 Promise 对象，且其 resolved 的值即为传入的值。 2. 传入一个真的 Promise 对象，立即返回该对象。 3. 传入一个非 Promise ，但 thenable 对象，会将其转化为一个真正的 Promise 对象。因此常用来转化不确定是不是 Promise 的对象，也可以用来将其他库的 Promise 对象转化为 ES6 标准的 Promise 对象。 我猜测 polyfill 如下：</p>
+<figure class="highlight js"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div></pre></td><td class="code"><pre><div class="line"><span class="function"><span class="keyword">function</span> <span class="title">Transfer</span>(<span class="params">a</span>) </span>&#123;</div><div class="line">  <span class="keyword">return</span> <span class="keyword">new</span> <span class="built_in">Promise</span>(<span class="function">(<span class="params">resolve</span>) =&gt;</span> &#123;</div><div class="line">    a.then(resolve);</div><div class="line">  &#125;);</div><div class="line">&#125;</div></pre></td></tr></table></figure>
+</li>
+<li><p>任何在 then 中注册的函数的返回值都被包装成 resolved 的 Promise 对象。内部其实就是返回Promise.resolve(原始返回值)</p>
+</li>
+<li>Promise 中 then 里传入的第二个参数 reject 函数，除了 reject 信号可以触发，运行过程中 throw error 也可以触发。如果 then 不传入第二个 reject 函数，默认自动会添加一个函数，该函数内部之间 throw err </li>
+<li>js 中任何对象都可以 throw 出来，但 throw new Error(‘xxx’) 还能拿到栈信息</li>
+<li>Promise 中 then 里传入第一个 resolve 函数如果不是正常的函数，则会使用默认的函数，该函数内部之间返回传入的值</li>
+<li>Promise.reject 不像 Promise.resolve: 如果我们传递 Promise/thenable/neither 对象进去，该原始对象直接被 then 中注册的 reject 函数接收到（即 non-Promise 对象不会被转化为 Promise 对象）。 但要注意： reject 函数中返回的值还是会被包装成 Promise 对象！！！</li>
+<li>Promise 要提供 reject 和 catch 的一个原因是， try … catch 无法捕捉到异步函数回调中发生的错误！</li>
+<li>Promise 的 catch 也是返回 Promise 对象</li>
+<li></li>
+</ol>
 
   </div>
 </article>
@@ -170,7 +357,7 @@
     </div>
 
     <div id="toc-footer" style="display: none">
-      <ol class="toc"><li class="toc-item toc-level-1"><a class="toc-link" href="#this-的用法"><span class="toc-number">1.</span> <span class="toc-text">this 的用法</span></a></li><li class="toc-item toc-level-1"><a class="toc-link" href="#css-display-inline-block-inline-block区别"><span class="toc-number">2.</span> <span class="toc-text">css: [display] inline, block, inline-block区别</span></a></li><li class="toc-item toc-level-1"><a class="toc-link" href="#css-position"><span class="toc-number">3.</span> <span class="toc-text">css: [position]</span></a></li><li class="toc-item toc-level-1"><a class="toc-link" href="#CSS-绝对定位-absolute-fixed"><span class="toc-number">4.</span> <span class="toc-text">CSS 绝对定位 (absolute, fixed)</span></a></li><li class="toc-item toc-level-1"><a class="toc-link" href="#CSS-相对定位-relative-还是会占据文档流的空间的"><span class="toc-number">5.</span> <span class="toc-text">CSS 相对定位 (relative) 还是会占据文档流的空间的</span></a></li><li class="toc-item toc-level-1"><a class="toc-link" href="#JSON"><span class="toc-number">6.</span> <span class="toc-text">JSON</span></a></li><li class="toc-item toc-level-1"><a class="toc-link" href="#Array"><span class="toc-number">7.</span> <span class="toc-text">Array</span></a></li></ol>
+      <ol class="toc"><li class="toc-item toc-level-1"><a class="toc-link" href="#this-的用法"><span class="toc-number">1.</span> <span class="toc-text">this 的用法</span></a></li><li class="toc-item toc-level-1"><a class="toc-link" href="#css-display-inline-block-inline-block区别"><span class="toc-number">2.</span> <span class="toc-text">css: [display] inline, block, inline-block区别</span></a></li><li class="toc-item toc-level-1"><a class="toc-link" href="#事件产生的-event-如果要被回调调用时，一定要提前调用-event-persist-保存下来"><span class="toc-number">3.</span> <span class="toc-text">事件产生的 event 如果要被回调调用时，一定要提前调用 event.persist() 保存下来</span></a></li><li class="toc-item toc-level-1"><a class="toc-link" href="#css-position"><span class="toc-number">4.</span> <span class="toc-text">css: [position]</span></a></li><li class="toc-item toc-level-1"><a class="toc-link" href="#CSS-绝对定位-absolute-fixed"><span class="toc-number">5.</span> <span class="toc-text">CSS 绝对定位 (absolute, fixed)</span></a></li><li class="toc-item toc-level-1"><a class="toc-link" href="#CSS-相对定位-relative-还是会占据文档流的空间的"><span class="toc-number">6.</span> <span class="toc-text">CSS 相对定位 (relative) 还是会占据文档流的空间的</span></a></li><li class="toc-item toc-level-1"><a class="toc-link" href="#JSON"><span class="toc-number">7.</span> <span class="toc-text">JSON</span></a></li><li class="toc-item toc-level-1"><a class="toc-link" href="#Array"><span class="toc-number">8.</span> <span class="toc-text">Array</span></a></li><li class="toc-item toc-level-1"><a class="toc-link" href="#forEach-是原地，map-是新数组"><span class="toc-number">9.</span> <span class="toc-text">forEach 是原地，map 是新数组</span></a></li><li class="toc-item toc-level-1"><a class="toc-link" href="#fetch"><span class="toc-number">10.</span> <span class="toc-text">fetch</span></a></li><li class="toc-item toc-level-1"><a class="toc-link" href="#用-await-可以获得-Promise-中的值"><span class="toc-number">11.</span> <span class="toc-text">用 await 可以获得 Promise 中的值</span></a></li><li class="toc-item toc-level-1"><a class="toc-link" href="#babel-6-xx-中-export-default-导出的对象，require-“xxx”-default-获取"><span class="toc-number">12.</span> <span class="toc-text">babel 6.xx 中 export default 导出的对象，require(“xxx”).default 获取</span></a></li><li class="toc-item toc-level-1"><a class="toc-link" href="#Node-js-采用-commonjs-模块规范"><span class="toc-number">13.</span> <span class="toc-text">Node.js 采用 commonjs 模块规范</span></a></li><li class="toc-item toc-level-1"><a class="toc-link" href="#学习一下-commonjs"><span class="toc-number">14.</span> <span class="toc-text">学习一下 commonjs</span></a></li><li class="toc-item toc-level-1"><a class="toc-link" href="#协议，域名，端口相同即为同源"><span class="toc-number">15.</span> <span class="toc-text">协议，域名，端口相同即为同源</span></a></li><li class="toc-item toc-level-1"><a class="toc-link" href="#CORS-跨域资源共享-Cross-Origin-Resource-Sharin"><span class="toc-number">16.</span> <span class="toc-text">CORS:跨域资源共享, Cross-Origin Resource Sharin</span></a></li><li class="toc-item toc-level-1"><a class="toc-link" href="#ajax-和-fetch-都是使用-XMLHttpRequest-对象与服务端通信"><span class="toc-number">17.</span> <span class="toc-text">ajax 和 fetch 都是使用 XMLHttpRequest 对象与服务端通信</span></a></li><li class="toc-item toc-level-1"><a class="toc-link" href="#ES5-的时候根本就没有官方的模块化标准，因此才有了“野路子”的-Commonjs-和-AMD-等标准"><span class="toc-number">18.</span> <span class="toc-text">ES5 的时候根本就没有官方的模块化标准，因此才有了“野路子”的 Commonjs 和 AMD 等标准</span></a></li><li class="toc-item toc-level-1"><a class="toc-link" href="#ES5-是-2009年-完成的，ES6-ES2015，-ES7-ES2016"><span class="toc-number">19.</span> <span class="toc-text">ES5 是 2009年 完成的，ES6 = ES2015， ES7 = ES2016</span></a></li><li class="toc-item toc-level-1"><a class="toc-link" href="#学习一下-Object-中的方法"><span class="toc-number">20.</span> <span class="toc-text">学习一下 Object 中的方法</span></a></li><li class="toc-item toc-level-1"><a class="toc-link" href="#You-Dont-Know-JS"><span class="toc-number">21.</span> <span class="toc-text">You Dont Know JS</span></a></li></ol>
     </div>
 
     <div id="actions-footer">

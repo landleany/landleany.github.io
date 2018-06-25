@@ -12,7 +12,7 @@
 <meta property="og:url" content="http://yoursite.com/2017/11/11/fabric_1/index.html">
 <meta property="og:site_name" content="Drip">
 <meta property="og:description" content="继续start.go的serve函数，peerServer对象在ChaincodeSupport服务之后，又注册了Admin，Endorser服务：123pb.RegisterAdminServer(peerServer.Server(), core.NewAdminServer())serverEndorser := endorser.NewEndorserServer()pb.Register">
-<meta property="og:updated_time" content="2017-11-13T02:30:56.000Z">
+<meta property="og:updated_time" content="2018-04-18T14:51:06.000Z">
 <meta name="twitter:card" content="summary">
 <meta name="twitter:title" content="peer的Admin和Endorser服务">
 <meta name="twitter:description" content="继续start.go的serve函数，peerServer对象在ChaincodeSupport服务之后，又注册了Admin，Endorser服务：123pb.RegisterAdminServer(peerServer.Server(), core.NewAdminServer())serverEndorser := endorser.NewEndorserServer()pb.Register">
@@ -96,7 +96,7 @@
 
     </div>
     <div id="toc">
-      <ol class="toc"><li class="toc-item toc-level-1"><a class="toc-link" href="#Admin"><span class="toc-number">1.</span> <span class="toc-text">Admin</span></a></li><li class="toc-item toc-level-1"><a class="toc-link" href="#Endorser"><span class="toc-number">2.</span> <span class="toc-text">Endorser</span></a></li><li class="toc-item toc-level-1"><a class="toc-link" href="#背书服务原型和实现"><span class="toc-number">3.</span> <span class="toc-text">背书服务原型和实现</span></a></li></ol>
+      <ol class="toc"><li class="toc-item toc-level-1"><a class="toc-link" href="#Admin"><span class="toc-number">1.</span> <span class="toc-text">Admin</span></a></li><li class="toc-item toc-level-1"><a class="toc-link" href="#Endorser"><span class="toc-number">2.</span> <span class="toc-text">Endorser</span></a></li><li class="toc-item toc-level-1"><a class="toc-link" href="#背书服务原型和实现"><span class="toc-number">3.</span> <span class="toc-text">背书服务原型和实现</span></a></li><li class="toc-item toc-level-1"><a class="toc-link" href="#chaincode-安装时传入的-path"><span class="toc-number">4.</span> <span class="toc-text">chaincode 安装时传入的 path</span></a></li><li class="toc-item toc-level-1"><a class="toc-link" href="#有时候-chaincode-的问题，可以通过删除-chaincode-的镜像来解决"><span class="toc-number">5.</span> <span class="toc-text">有时候 chaincode 的问题，可以通过删除 chaincode 的镜像来解决</span></a></li></ol>
     </div>
   </span>
 </div>
@@ -143,7 +143,8 @@
 </ol>
 <p>Endorser服务的核心实现中，只有一个核心函数ProcessProposal，endorser.go中其余的函数都是相互配合供ProcessProposal调用，处理客户端发来的SignedProposal数据，返回ProposalResponse数据，完成最终的任务<br>按图索骥，我们接下来顺着ProcessProposal函数来看看Endorser函数到底是如何处理从客户端传来的SignedProposal数据，然后包装何种数据到ProposalResponse并将之返回。<br><figure class="highlight go"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div></pre></td><td class="code"><pre><div class="line"><span class="comment">//ProcessProposal函数中调用</span></div><div class="line">prop, hdr, hdrExt, err := validation.ValidateProposalMessage(signedProp)</div></pre></td></tr></table></figure></p>
 <p>首先，第一步，ProcessProposal函数使用ValidateProposalMessage对所接收的signedProp数据进行了验证，并返回signedProp中的一些字段Unmarshal过后的数据。这个函数还是比较绕的，而且写在此处不是太顺理成章，因为涉及到数据验证，所以最起码要知道接收的都有哪些数据或哪种数据是合法的，你才能验证，而这又涉及到了客户端的操作，我们还没讲到。在将来讲到客户端相关操作的时候，可以于此对看。<br>验证过程涉及到了MSP。MSP将在相关主题文章中详述，在此撇开一笔简单介绍：MSP又是一个比较大的概念，是Membership Service Provider的缩写，个人习惯直译为成员关系服务提供者。类似于一个运行的fabric系统网络中，有众多的参与者，而MSP就是为了管理这些参与者，辨识验证哪些人有资格，哪些人没资格，既维护某一个参与者的权限，也维护参与者之间的关系。<br>回到本文主线，ValidateProposalMessage在/fabric/core/common/validation/msgvalidation.go中定义，调用了同文件中的辅助验证函数和/fabric/protos/utils下的工具函数（putils.XXX一类的函数，下文用putils表示）对SignedProposal按结构进行逐步验证。/fabric/protos/utils下的工具函数基本都是对protos中所定义的数据原型的Unmarshal操作，如proputils.go中的GetProposal函数，就是尝试着将传入的[]byte格式的数据Unmarshal成/fabric/protos/peer/proposal.pb.go中定义的Proposal结构数据。  </p>
-
+<h1 id="chaincode-安装时传入的-path"><a href="#chaincode-安装时传入的-path" class="headerlink" title="chaincode 安装时传入的 path"></a>chaincode 安装时传入的 path</h1><p>path 指安装到 peer 上时的相对路径，同时如果没有传入包的内容（sdk），sdk 会去 gopath / src 下的该路径上寻找包的内容</p>
+<h1 id="有时候-chaincode-的问题，可以通过删除-chaincode-的镜像来解决"><a href="#有时候-chaincode-的问题，可以通过删除-chaincode-的镜像来解决" class="headerlink" title="有时候 chaincode 的问题，可以通过删除 chaincode 的镜像来解决"></a>有时候 chaincode 的问题，可以通过删除 chaincode 的镜像来解决</h1>
   </div>
 </article>
 
@@ -169,7 +170,7 @@
     </div>
 
     <div id="toc-footer" style="display: none">
-      <ol class="toc"><li class="toc-item toc-level-1"><a class="toc-link" href="#Admin"><span class="toc-number">1.</span> <span class="toc-text">Admin</span></a></li><li class="toc-item toc-level-1"><a class="toc-link" href="#Endorser"><span class="toc-number">2.</span> <span class="toc-text">Endorser</span></a></li><li class="toc-item toc-level-1"><a class="toc-link" href="#背书服务原型和实现"><span class="toc-number">3.</span> <span class="toc-text">背书服务原型和实现</span></a></li></ol>
+      <ol class="toc"><li class="toc-item toc-level-1"><a class="toc-link" href="#Admin"><span class="toc-number">1.</span> <span class="toc-text">Admin</span></a></li><li class="toc-item toc-level-1"><a class="toc-link" href="#Endorser"><span class="toc-number">2.</span> <span class="toc-text">Endorser</span></a></li><li class="toc-item toc-level-1"><a class="toc-link" href="#背书服务原型和实现"><span class="toc-number">3.</span> <span class="toc-text">背书服务原型和实现</span></a></li><li class="toc-item toc-level-1"><a class="toc-link" href="#chaincode-安装时传入的-path"><span class="toc-number">4.</span> <span class="toc-text">chaincode 安装时传入的 path</span></a></li><li class="toc-item toc-level-1"><a class="toc-link" href="#有时候-chaincode-的问题，可以通过删除-chaincode-的镜像来解决"><span class="toc-number">5.</span> <span class="toc-text">有时候 chaincode 的问题，可以通过删除 chaincode 的镜像来解决</span></a></li></ol>
     </div>
 
     <div id="actions-footer">

@@ -1,0 +1,267 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <!-- so meta -->
+    <meta charset="utf-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="HandheldFriendly" content="True">
+    <meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1" />
+    <meta name="description" content="HTML 中 is 属性There is no is attribute in HTML.It is a proposed extension that appears in the Custom Elements specification (which evolved from the Polymer spec mentioned below).It allows you to say tha">
+<meta property="og:type" content="article">
+<meta property="og:title" content="前端笔记-Vue">
+<meta property="og:url" content="http://yoursite.com/2018/02/01/vue/index.html">
+<meta property="og:site_name" content="Drip">
+<meta property="og:description" content="HTML 中 is 属性There is no is attribute in HTML.It is a proposed extension that appears in the Custom Elements specification (which evolved from the Polymer spec mentioned below).It allows you to say tha">
+<meta property="og:updated_time" content="2018-02-05T12:32:48.000Z">
+<meta name="twitter:card" content="summary">
+<meta name="twitter:title" content="前端笔记-Vue">
+<meta name="twitter:description" content="HTML 中 is 属性There is no is attribute in HTML.It is a proposed extension that appears in the Custom Elements specification (which evolved from the Polymer spec mentioned below).It allows you to say tha">
+    
+    
+        
+          
+              <link rel="shortcut icon" href="/images/favicon.ico">
+          
+        
+        
+          
+            <link rel="icon" type="image/png" href="/images/favicon-192x192.png" sizes="192x192">
+          
+        
+        
+          
+            <link rel="apple-touch-icon" sizes="180x180" href="/images/apple-touch-icon.png">
+          
+        
+    
+    <!-- title -->
+    <title>前端笔记-Vue</title>
+    <!-- styles -->
+    <link rel="stylesheet" href="/css/style.css">
+    <!-- rss -->
+    
+    
+</head>
+
+<body>
+    
+      <div id="header-post">
+  <a id="menu-icon" href="#"><i class="fa fa-bars fa-lg"></i></a>
+  <a id="menu-icon-tablet" href="#"><i class="fa fa-bars fa-lg"></i></a>
+  <a id="top-icon-tablet" href="#" onclick="$('html, body').animate({ scrollTop: 0 }, 'fast');" style="display:none;"><i class="fa fa-chevron-up fa-lg"></i></a>
+  <span id="menu">
+    <span id="nav">
+      <ul>
+         
+          <li><a href="/">Home</a></li>
+         
+          <li><a href="/about/">About</a></li>
+         
+          <li><a href="/archives/">Writing</a></li>
+         
+          <li><a href="http://github.com/probberechts">Projects</a></li>
+        
+      </ul>
+    </span>
+    <br/>
+    <span id="actions">
+      <ul>
+        
+        <li><a class="icon" href="/2018/02/03/git/"><i class="fa fa-chevron-left" aria-hidden="true" onmouseover="$('#i-prev').toggle();" onmouseout="$('#i-prev').toggle();"></i></a></li>
+        
+        
+        <li><a class="icon" href="/2018/01/29/fabric_orderer/"><i class="fa fa-chevron-right" aria-hidden="true" onmouseover="$('#i-next').toggle();" onmouseout="$('#i-next').toggle();"></i></a></li>
+        
+        <li><a class="icon" href="#" onclick="$('html, body').animate({ scrollTop: 0 }, 'fast');"><i class="fa fa-chevron-up" aria-hidden="true" onmouseover="$('#i-top').toggle();" onmouseout="$('#i-top').toggle();"></i></a></li>
+      </ul>
+      <span id="i-prev" class="info" style="display:none;">Previous post</span>
+      <span id="i-next" class="info" style="display:none;">Next post</span>
+      <span id="i-top" class="info" style="display:none;">Back to top</span>
+      <span id="i-share" class="info" style="display:none;">Share post</span>
+    </span>
+    <br/>
+    <div id="share" style="display: none">
+      <ul>
+  <li><a class="icon" href="http://www.facebook.com/sharer.php?u=http://yoursite.com/2018/02/01/vue/"><i class="fa fa-facebook " aria-hidden="true"></i></a></li>
+  <li><a class="icon" href="https://twitter.com/share?url=http://yoursite.com/2018/02/01/vue/&text=前端笔记-Vue"><i class="fa fa-twitter " aria-hidden="true"></i></a></li>
+  <li><a class="icon" href="http://www.linkedin.com/shareArticle?url=http://yoursite.com/2018/02/01/vue/&title=前端笔记-Vue"><i class="fa fa-linkedin " aria-hidden="true"></i></a></li>
+  <li><a class="icon" href="https://pinterest.com/pin/create/bookmarklet/?url=http://yoursite.com/2018/02/01/vue/&is_video=false&description=前端笔记-Vue"><i class="fa fa-pinterest " aria-hidden="true"></i></a></li>
+  <li><a class="icon" href="mailto:?subject=前端笔记-Vue&body=Check out this article: http://yoursite.com/2018/02/01/vue/"><i class="fa fa-envelope " aria-hidden="true"></i></a></li>
+  <li><a class="icon" href="https://getpocket.com/save?url=http://yoursite.com/2018/02/01/vue/&title=前端笔记-Vue"><i class="fa fa-get-pocket " aria-hidden="true"></i></a></li>
+  <li><a class="icon" href="http://reddit.com/submit?url=http://yoursite.com/2018/02/01/vue/&title=前端笔记-Vue"><i class="fa fa-reddit " aria-hidden="true"></i></a></li>
+  <li><a class="icon" href="http://www.stumbleupon.com/submit?url=http://yoursite.com/2018/02/01/vue/&title=前端笔记-Vue"><i class="fa fa-stumbleupon " aria-hidden="true"></i></a></li>
+  <li><a class="icon" href="http://digg.com/submit?url=http://yoursite.com/2018/02/01/vue/&title=前端笔记-Vue"><i class="fa fa-digg " aria-hidden="true"></i></a></li>
+  <li><a class="icon" href="http://www.tumblr.com/share/link?url=http://yoursite.com/2018/02/01/vue/&name=前端笔记-Vue&description="><i class="fa fa-tumblr " aria-hidden="true"></i></a></li>
+</ul>
+
+    </div>
+    <div id="toc">
+      <ol class="toc"><li class="toc-item toc-level-1"><a class="toc-link" href="#HTML-中-is-属性"><span class="toc-number">1.</span> <span class="toc-text">HTML 中 is 属性</span></a></li><li class="toc-item toc-level-1"><a class="toc-link" href="#camelCase-vs-kebab-case"><span class="toc-number">2.</span> <span class="toc-text">camelCase vs. kebab-case</span></a></li><li class="toc-item toc-level-1"><a class="toc-link" href="#事件修饰符"><span class="toc-number">3.</span> <span class="toc-text">事件修饰符</span></a></li><li class="toc-item toc-level-1"><a class="toc-link" href="#升级-node-版本"><span class="toc-number">4.</span> <span class="toc-text">升级 node 版本</span></a></li><li class="toc-item toc-level-1"><a class="toc-link" href="#vscode-vue-配置"><span class="toc-number">5.</span> <span class="toc-text">vscode vue 配置</span></a></li><li class="toc-item toc-level-1"><a class="toc-link" href="#yarn-命令的用法"><span class="toc-number">6.</span> <span class="toc-text">yarn 命令的用法</span></a></li><li class="toc-item toc-level-1"><a class="toc-link" href="#升级-node-版本-1"><span class="toc-number">7.</span> <span class="toc-text">升级 node 版本</span></a></li><li class="toc-item toc-level-1"><a class="toc-link" href="#尽量用-Number-，不要用-parseInt-parseFloat"><span class="toc-number">8.</span> <span class="toc-text">尽量用 Number()，不要用 parseInt, parseFloat</span></a></li><li class="toc-item toc-level-1"><a class="toc-link" href="#插槽"><span class="toc-number">9.</span> <span class="toc-text">插槽 </span></a></li><li class="toc-item toc-level-1"><a class="toc-link" href="#CSS-in-JS"><span class="toc-number">10.</span> <span class="toc-text">CSS-in-JS</span></a></li><li class="toc-item toc-level-1"><a class="toc-link" href="#vue-标签及说明"><span class="toc-number">11.</span> <span class="toc-text">vue 标签及说明</span></a></li><li class="toc-item toc-level-1"><a class="toc-link" href="#v-for"><span class="toc-number">12.</span> <span class="toc-text">v-for</span></a></li><li class="toc-item toc-level-1"><a class="toc-link" href="#只要想要传入-js-的表达式，就必须要用-v-bind"><span class="toc-number">13.</span> <span class="toc-text">只要想要传入 js 的表达式，就必须要用 v-bind</span></a></li><li class="toc-item toc-level-1"><a class="toc-link" href="#vue-对于-class，style-的-特殊处理，v-bind"><span class="toc-number">14.</span> <span class="toc-text">vue 对于 class，style 的 特殊处理，v-bind</span></a></li><li class="toc-item toc-level-1"><a class="toc-link" href="#模板"><span class="toc-number">15.</span> <span class="toc-text"> 模板</span></a></li><li class="toc-item toc-level-1"><a class="toc-link" href="#key"><span class="toc-number">16.</span> <span class="toc-text">key</span></a></li><li class="toc-item toc-level-1"><a class="toc-link" href="#html-不区分大小写！所以标签的-attr-都是用-分隔的名称"><span class="toc-number">17.</span> <span class="toc-text">html 不区分大小写！所以标签的 attr 都是用 - 分隔的名称</span></a></li><li class="toc-item toc-level-1"><a class="toc-link" href="#vue-最大的特色就是-语法，v-xx-标签"><span class="toc-number">18.</span> <span class="toc-text">vue 最大的特色就是 语法，v-xx 标签</span></a></li><li class="toc-item toc-level-1"><a class="toc-link" href="#若要使用-require-导入模块"><span class="toc-number">19.</span> <span class="toc-text">若要使用 require 导入模块</span></a></li></ol>
+    </div>
+  </span>
+</div>
+
+    
+    <div class="content index width mx-auto px2 my4">
+        
+        <article class="post" itemscope itemtype="http://schema.org/BlogPosting">
+  <header>
+    
+    <h1 class="posttitle" itemprop="name headline">
+        前端笔记-Vue
+    </h1>
+
+
+
+    <div class="meta">
+      <span class="author" itemprop="author" itemscope itemtype="http://schema.org/Person">
+        <span itemprop="name">Drip</span>
+      </span>
+      
+    <div class="postdate">
+        <time datetime="2018-02-01T05:30:30.000Z" itemprop="datePublished">2018-02-01</time>
+    </div>
+
+
+      
+
+    </div>
+  </header>
+  
+
+  <div class="content" itemprop="articleBody">
+    <h1 id="HTML-中-is-属性"><a href="#HTML-中-is-属性" class="headerlink" title="HTML 中 is 属性"></a>HTML 中 is 属性</h1><p>There is no is attribute in HTML.<br>It is a proposed extension that appears in the Custom Elements specification (which evolved from the Polymer spec mentioned below).<br>It allows you to say that an existing, standard element is really a custom element.   </p>
+<figure class="highlight html"><table><tr><td class="gutter"><pre><div class="line">1</div></pre></td><td class="code"><pre><div class="line"><span class="tag">&lt;<span class="name">button</span> <span class="attr">is</span>=<span class="string">"fancy-button"</span> <span class="attr">disabled</span>&gt;</span>Fancy button!<span class="tag">&lt;/<span class="name">button</span>&gt;</span></div></pre></td></tr></table></figure>
+<h1 id="camelCase-vs-kebab-case"><a href="#camelCase-vs-kebab-case" class="headerlink" title="camelCase vs. kebab-case"></a>camelCase vs. kebab-case</h1><p>HTML 特性是不区分大小写的。所以，当使用的不是字符串模板时，camelCase (驼峰式命名) 的 prop 需要转换为相对应的 kebab-case (短横线分隔式命名)：<br><figure class="highlight js"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div></pre></td><td class="code"><pre><div class="line">Vue.component(<span class="string">'child'</span>, &#123;</div><div class="line">  <span class="comment">// 在 JavaScript 中使用 camelCase</span></div><div class="line">  props: [<span class="string">'myMessage'</span>],</div><div class="line">  template: <span class="string">'&lt;span&gt;&#123;&#123; myMessage &#125;&#125;&lt;/span&gt;'</span></div><div class="line">&#125;)</div></pre></td></tr></table></figure></p>
+<figure class="highlight html"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div></pre></td><td class="code"><pre><div class="line"><span class="comment">&lt;!-- 在 HTML 中使用 kebab-case --&gt;</span></div><div class="line"><span class="tag">&lt;<span class="name">child</span> <span class="attr">my-message</span>=<span class="string">"hello!"</span>&gt;</span><span class="tag">&lt;/<span class="name">child</span>&gt;</span></div></pre></td></tr></table></figure>
+<h1 id="事件修饰符"><a href="#事件修饰符" class="headerlink" title="事件修饰符"></a>事件修饰符</h1><p><code>event.preventDefault</code> 阻止组件的默认的行为，但继续传播冒泡<br><code>event.stopPropagation</code> 停止冒泡<br><a href="https://developer.mozilla.org/zh-CN/docs/Web/API/Event/stopPropagation" target="_blank" rel="external">具体看</a></p>
+<h1 id="升级-node-版本"><a href="#升级-node-版本" class="headerlink" title="升级 node 版本"></a>升级 node 版本</h1><figure class="highlight bash"><table><tr><td class="gutter"><pre><div class="line">1</div></pre></td><td class="code"><pre><div class="line">sudo n stable</div></pre></td></tr></table></figure>
+<h1 id="vscode-vue-配置"><a href="#vscode-vue-配置" class="headerlink" title="vscode vue 配置"></a>vscode vue 配置</h1><ol>
+<li>安装 vue-eslint-parser, <code>yarn add -D vue-eslint-parser</code>   </li>
+<li>在 .eslintrc中添加 <code>parser: &#39;vue-eslint-parser&#39;</code></li>
+<li><p>在 vscode 中使用 </p>
+<figure class="highlight js"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div><div class="line">7</div><div class="line">8</div><div class="line">9</div></pre></td><td class="code"><pre><div class="line"><span class="string">"eslint.validata"</span>: [</div><div class="line">  <span class="string">"javascript"</span>,</div><div class="line">  <span class="string">"javascriptreact"</span>,</div><div class="line">  &#123;</div><div class="line">    <span class="string">"language"</span>: <span class="string">"vue"</span>,</div><div class="line">    <span class="string">"autoFix"</span>: <span class="literal">true</span></div><div class="line">  &#125;</div><div class="line">],</div><div class="line"><span class="string">"eslint.autoFixOnSave"</span>: <span class="literal">true</span>,</div></pre></td></tr></table></figure>
+<h1 id="yarn-命令的用法"><a href="#yarn-命令的用法" class="headerlink" title="yarn 命令的用法"></a>yarn 命令的用法</h1><ul>
+<li>yarn add 安装包至dependence</li>
+<li>yarn add -D 至 devdependence</li>
+<li>yarn global add 全局安装</li>
+<li>yarn install 安装所有依赖包</li>
+</ul>
+</li>
+</ol>
+<p><a href="https://yarnpkg.com/lang/zh-hans/docs/cli/add/" target="_blank" rel="external">其他详见</a></p>
+<h1 id="升级-node-版本-1"><a href="#升级-node-版本-1" class="headerlink" title="升级 node 版本"></a>升级 node 版本</h1><figure class="highlight bash"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div></pre></td><td class="code"><pre><div class="line">n stable <span class="comment"># 升级到最新的稳定版本</span></div><div class="line">n 9.5.0  <span class="comment"># 升级到9.5.0</span></div><div class="line">n ls     <span class="comment"># 列出所有版本</span></div></pre></td></tr></table></figure>
+<h1 id="尽量用-Number-，不要用-parseInt-parseFloat"><a href="#尽量用-Number-，不要用-parseInt-parseFloat" class="headerlink" title="尽量用 Number()，不要用 parseInt, parseFloat"></a>尽量用 Number()，不要用 parseInt, parseFloat</h1><p>Number(“12A”)  =&gt;  NaN<br>parseInt(“12A”)  =&gt; 12<br>判断是否为 NaN，要用 isNaN</p>
+<h1 id="插槽"><a href="#插槽" class="headerlink" title="插槽 "></a>插槽 <slot></slot></h1><p><a href="https://cn.vuejs.org/v2/guide/components.html#%E5%8D%95%E4%B8%AA%E6%8F%92%E6%A7%BD" target="_blank" rel="external">链接</a><br>即<strong>内容分发</strong>: 一种方式来混合父组件的内容与子组件自己的模板，使用特殊的 <slot> 元素作为原始内容的插槽。</slot></p>
+<h1 id="CSS-in-JS"><a href="#CSS-in-JS" class="headerlink" title="CSS-in-JS"></a>CSS-in-JS</h1><p><a href="http://www.ruanyifeng.com/blog/2017/04/css_in_js.html" target="_blank" rel="external">链接</a><br>关注点分离(传统前端开发方式)、关注点混合(React，用 js 控制 html 和 css )</p>
+<h1 id="vue-标签及说明"><a href="#vue-标签及说明" class="headerlink" title="vue 标签及说明"></a>vue 标签及说明</h1><ul>
+<li><code>v-on</code> 对于静态渲染，可以提高效率</li>
+<li><code>v-html</code></li>
+<li><code>v-bind:xxx=&quot;表达式&quot;</code>，缩写是 <code>:xxx=&quot;表达式&quot;</code> </li>
+<li><code>v-if</code>, <code>v-else</code>,<code>v-else-fi</code></li>
+<li><code>v-on:click=&quot;xxx&quot;</code>，缩写是 <code>@click=&quot;xxx&quot;</code></li>
+<li><code>v-model=&quot;变量&quot;</code>，用于<strong>表单</strong>输入双向绑定</li>
+<li><code>v-show</code> 不同于 <code>v-if</code>，控制 display属性，元素实际是存在的</li>
+<li><code>v-for=&quot;item in items&quot;</code></li>
+</ul>
+<h1 id="v-for"><a href="#v-for" class="headerlink" title="v-for"></a>v-for</h1><p>v-for=”item in items”，也可以换成 v-for=”item of items”，这样更符合js的迭代器语法。<br>重温下：in 和 of 的区别：<br>in 是 key，可以用于迭代对象和普通object。对于一个列表，in 返回的对象是 string 类型的 0,1,2,3 …<br>of 才是迭代器中的对象，非迭代对象没有该方法</p>
+<h1 id="只要想要传入-js-的表达式，就必须要用-v-bind"><a href="#只要想要传入-js-的表达式，就必须要用-v-bind" class="headerlink" title="只要想要传入 js 的表达式，就必须要用 v-bind"></a>只要想要传入 js 的表达式，就必须要用 v-bind</h1><h1 id="vue-对于-class，style-的-特殊处理，v-bind"><a href="#vue-对于-class，style-的-特殊处理，v-bind" class="headerlink" title="vue 对于 class，style 的 特殊处理，v-bind"></a>vue 对于 class，style 的 特殊处理，v-bind</h1><p>如果想要动态的调整 class，即用变量控制 class，则肯定是要用 v-bind<br>vue 提供了三种 class 的配置方式：   </p>
+<ol>
+<li>:class=”{classA: true, classB: false}”，即对象语法。</li>
+<li>:class=”[‘classA’, ‘classB’]”，即数组语法。</li>
+<li>:class=”[{classA: true}, {classB: false}]”，混合语法</li>
+</ol>
+<h1 id="模板"><a href="#模板" class="headerlink" title=" 模板"></a><template> 模板</template></h1><p>可以把<template></template>当做是不可见的包裹块来用，可加上 v-if 这类的控制语句。</p>
+<h1 id="key"><a href="#key" class="headerlink" title="key"></a>key</h1><p>如果重新渲染后，控件的内容还在上面，可以加上 key 来解决。原因是为了提高性能，不会渲染它觉得是一样的控件。</p>
+<h1 id="html-不区分大小写！所以标签的-attr-都是用-分隔的名称"><a href="#html-不区分大小写！所以标签的-attr-都是用-分隔的名称" class="headerlink" title="html 不区分大小写！所以标签的 attr 都是用 - 分隔的名称"></a>html 不区分大小写！所以标签的 attr 都是用 - 分隔的名称</h1><h1 id="vue-最大的特色就是-语法，v-xx-标签"><a href="#vue-最大的特色就是-语法，v-xx-标签" class="headerlink" title="vue 最大的特色就是 语法，v-xx 标签"></a>vue 最大的特色就是<template> 语法，v-xx 标签</template></h1><p>比如 v-model 很好用，不用再像 react 用的 jsx 语法，自己来手动实现一个双向绑定功能了。另外它将<strong>控制语句</strong>全部写在标签中，而表达式{}部分只放数据。<br>对比 react 使用的 jsx 语法，控制语句只能写在表达式{}中，这样会显得有些乱吧…<br>其实，vue 也提供直接手写 render 函数的功能，我们只要在 render 函数里面写 jsx 语法就行了（前提装上 babel-loader），这样就接近 react 的习惯了，但是就不能用那些 vue 替我们封装好的 v-xxx 标签。</p>
+<h1 id="若要使用-require-导入模块"><a href="#若要使用-require-导入模块" class="headerlink" title="若要使用 require 导入模块"></a>若要使用 require 导入模块</h1><p>该模块不能用 <code>export default</code>，而要用 <code>module.exports=</code></p>
+
+  </div>
+</article>
+
+
+
+    </div>
+    
+      <div id="footer-post-container">
+  <div id="footer-post">
+
+    <div id="nav-footer" style="display: none">
+      <ul>
+         
+          <li><a href="/">Home</a></li>
+         
+          <li><a href="/about/">About</a></li>
+         
+          <li><a href="/archives/">Writing</a></li>
+         
+          <li><a href="http://github.com/probberechts">Projects</a></li>
+        
+      </ul>
+    </div>
+
+    <div id="toc-footer" style="display: none">
+      <ol class="toc"><li class="toc-item toc-level-1"><a class="toc-link" href="#HTML-中-is-属性"><span class="toc-number">1.</span> <span class="toc-text">HTML 中 is 属性</span></a></li><li class="toc-item toc-level-1"><a class="toc-link" href="#camelCase-vs-kebab-case"><span class="toc-number">2.</span> <span class="toc-text">camelCase vs. kebab-case</span></a></li><li class="toc-item toc-level-1"><a class="toc-link" href="#事件修饰符"><span class="toc-number">3.</span> <span class="toc-text">事件修饰符</span></a></li><li class="toc-item toc-level-1"><a class="toc-link" href="#升级-node-版本"><span class="toc-number">4.</span> <span class="toc-text">升级 node 版本</span></a></li><li class="toc-item toc-level-1"><a class="toc-link" href="#vscode-vue-配置"><span class="toc-number">5.</span> <span class="toc-text">vscode vue 配置</span></a></li><li class="toc-item toc-level-1"><a class="toc-link" href="#yarn-命令的用法"><span class="toc-number">6.</span> <span class="toc-text">yarn 命令的用法</span></a></li><li class="toc-item toc-level-1"><a class="toc-link" href="#升级-node-版本-1"><span class="toc-number">7.</span> <span class="toc-text">升级 node 版本</span></a></li><li class="toc-item toc-level-1"><a class="toc-link" href="#尽量用-Number-，不要用-parseInt-parseFloat"><span class="toc-number">8.</span> <span class="toc-text">尽量用 Number()，不要用 parseInt, parseFloat</span></a></li><li class="toc-item toc-level-1"><a class="toc-link" href="#插槽"><span class="toc-number">9.</span> <span class="toc-text">插槽 </span></a></li><li class="toc-item toc-level-1"><a class="toc-link" href="#CSS-in-JS"><span class="toc-number">10.</span> <span class="toc-text">CSS-in-JS</span></a></li><li class="toc-item toc-level-1"><a class="toc-link" href="#vue-标签及说明"><span class="toc-number">11.</span> <span class="toc-text">vue 标签及说明</span></a></li><li class="toc-item toc-level-1"><a class="toc-link" href="#v-for"><span class="toc-number">12.</span> <span class="toc-text">v-for</span></a></li><li class="toc-item toc-level-1"><a class="toc-link" href="#只要想要传入-js-的表达式，就必须要用-v-bind"><span class="toc-number">13.</span> <span class="toc-text">只要想要传入 js 的表达式，就必须要用 v-bind</span></a></li><li class="toc-item toc-level-1"><a class="toc-link" href="#vue-对于-class，style-的-特殊处理，v-bind"><span class="toc-number">14.</span> <span class="toc-text">vue 对于 class，style 的 特殊处理，v-bind</span></a></li><li class="toc-item toc-level-1"><a class="toc-link" href="#模板"><span class="toc-number">15.</span> <span class="toc-text"> 模板</span></a></li><li class="toc-item toc-level-1"><a class="toc-link" href="#key"><span class="toc-number">16.</span> <span class="toc-text">key</span></a></li><li class="toc-item toc-level-1"><a class="toc-link" href="#html-不区分大小写！所以标签的-attr-都是用-分隔的名称"><span class="toc-number">17.</span> <span class="toc-text">html 不区分大小写！所以标签的 attr 都是用 - 分隔的名称</span></a></li><li class="toc-item toc-level-1"><a class="toc-link" href="#vue-最大的特色就是-语法，v-xx-标签"><span class="toc-number">18.</span> <span class="toc-text">vue 最大的特色就是 语法，v-xx 标签</span></a></li><li class="toc-item toc-level-1"><a class="toc-link" href="#若要使用-require-导入模块"><span class="toc-number">19.</span> <span class="toc-text">若要使用 require 导入模块</span></a></li></ol>
+    </div>
+
+    <div id="actions-footer">
+      <ul>
+        <li id="toc"><a class="icon" href="#" onclick="$('#toc-footer').toggle();return false;"><i class="fa fa-list fa-lg" aria-hidden="true"></i> TOC</a></li>
+        <li id="share"><a class="icon" href="#" onclick="$('#share-footer').toggle();return false;"><i class="fa fa-share-alt fa-lg" aria-hidden="true"></i> Share</a></li>
+        <li id="top" style="display:none"><a class="icon" href="#" onclick="$('html, body').animate({ scrollTop: 0 }, 'fast');"><i class="fa fa-chevron-up fa-lg" aria-hidden="true"></i> Top</a></li>
+        <li id="menu"><a class="icon" href="#" onclick="$('#nav-footer').toggle();return false;"><i class="fa fa-bars fa-lg" aria-hidden="true"></i> Menu</a></li>
+      </ul>
+    </div>
+
+  </div>
+</div>
+
+    
+    <footer id="footer">
+  <div class="footer-left">
+    Copyright &copy; 2018 Landleany
+  </div>
+  <div class="footer-right">
+    <nav>
+      <ul>
+         
+          <li><a href="/">Home</a></li>
+         
+          <li><a href="/about/">About</a></li>
+         
+          <li><a href="/archives/">Writing</a></li>
+         
+          <li><a href="http://github.com/probberechts">Projects</a></li>
+        
+      </ul>
+    </nav>
+  </div>
+</footer>
+
+</body>
+</html>
+<!-- styles -->
+<link rel="stylesheet" href="/lib/font-awesome/css/font-awesome.min.css">
+<link rel="stylesheet" href="/lib/meslo-LG/styles.css">
+<link rel="stylesheet" href="/lib/justified-gallery/justifiedGallery.min.css">
+
+<!-- jquery -->
+<script src="/lib/jquery/jquery.min.js"></script>
+<script src="/lib/justified-gallery/jquery.justifiedGallery.min.js"></script>
+<script src="/js/main.js"></script>
+<!-- search -->
+
+<!-- Google Analytics -->
+
+    <script type="text/javascript">
+        (function(i,s,o,g,r,a,m) {i['GoogleAnalyticsObject']=r;i[r]=i[r]||function() {
+        (i[r].q=i[r].q||[]).push(arguments)},i[r].l=1*new Date();a=s.createElement(o),
+        m=s.getElementsByTagName(o)[0];a.async=1;a.src=g;m.parentNode.insertBefore(a,m)
+        })(window,document,'script','//www.google-analytics.com/analytics.js','ga');
+        ga('create', 'UA-86660611-1', 'auto');
+        ga('send', 'pageview');
+    </script>
+
+<!-- Disqus Comments -->
+
+
