@@ -1,0 +1,270 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <!-- so meta -->
+    <meta charset="utf-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="HandheldFriendly" content="True">
+    <meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1" />
+    <meta name="description" content="react-router 中的 history采用 github: mjackson/history 这个库讲解history 一个管理js应用session会话历史的js库。它将不同环境（浏览器，node…）的变量统一成了一个简易的API来管理历史堆栈、导航、确认跳转、以及sessions间的持续状态。常用的三种history12345678// HTML5 history, 推荐import">
+<meta property="og:type" content="article">
+<meta property="og:title" content="react 技术栈">
+<meta property="og:url" content="http://yoursite.com/2018/06/25/react/index.html">
+<meta property="og:site_name" content="Drip">
+<meta property="og:description" content="react-router 中的 history采用 github: mjackson/history 这个库讲解history 一个管理js应用session会话历史的js库。它将不同环境（浏览器，node…）的变量统一成了一个简易的API来管理历史堆栈、导航、确认跳转、以及sessions间的持续状态。常用的三种history12345678// HTML5 history, 推荐import">
+<meta property="og:updated_time" content="2018-07-28T13:09:38.000Z">
+<meta name="twitter:card" content="summary">
+<meta name="twitter:title" content="react 技术栈">
+<meta name="twitter:description" content="react-router 中的 history采用 github: mjackson/history 这个库讲解history 一个管理js应用session会话历史的js库。它将不同环境（浏览器，node…）的变量统一成了一个简易的API来管理历史堆栈、导航、确认跳转、以及sessions间的持续状态。常用的三种history12345678// HTML5 history, 推荐import">
+    
+    
+        
+          
+              <link rel="shortcut icon" href="/images/favicon.ico">
+          
+        
+        
+          
+            <link rel="icon" type="image/png" href="/images/favicon-192x192.png" sizes="192x192">
+          
+        
+        
+          
+            <link rel="apple-touch-icon" sizes="180x180" href="/images/apple-touch-icon.png">
+          
+        
+    
+    <!-- title -->
+    <title>react 技术栈</title>
+    <!-- styles -->
+    <link rel="stylesheet" href="/css/style.css">
+    <!-- rss -->
+    
+    
+</head>
+
+<body>
+    
+      <div id="header-post">
+  <a id="menu-icon" href="#"><i class="fa fa-bars fa-lg"></i></a>
+  <a id="menu-icon-tablet" href="#"><i class="fa fa-bars fa-lg"></i></a>
+  <a id="top-icon-tablet" href="#" onclick="$('html, body').animate({ scrollTop: 0 }, 'fast');" style="display:none;"><i class="fa fa-chevron-up fa-lg"></i></a>
+  <span id="menu">
+    <span id="nav">
+      <ul>
+         
+          <li><a href="/">Home</a></li>
+         
+          <li><a href="/about/">About</a></li>
+         
+          <li><a href="/archives/">Writing</a></li>
+         
+          <li><a href="http://github.com/probberechts">Projects</a></li>
+        
+      </ul>
+    </span>
+    <br/>
+    <span id="actions">
+      <ul>
+        
+        <li><a class="icon" href="/2018/06/29/zookeeper/"><i class="fa fa-chevron-left" aria-hidden="true" onmouseover="$('#i-prev').toggle();" onmouseout="$('#i-prev').toggle();"></i></a></li>
+        
+        
+        <li><a class="icon" href="/2018/06/22/network/"><i class="fa fa-chevron-right" aria-hidden="true" onmouseover="$('#i-next').toggle();" onmouseout="$('#i-next').toggle();"></i></a></li>
+        
+        <li><a class="icon" href="#" onclick="$('html, body').animate({ scrollTop: 0 }, 'fast');"><i class="fa fa-chevron-up" aria-hidden="true" onmouseover="$('#i-top').toggle();" onmouseout="$('#i-top').toggle();"></i></a></li>
+      </ul>
+      <span id="i-prev" class="info" style="display:none;">Previous post</span>
+      <span id="i-next" class="info" style="display:none;">Next post</span>
+      <span id="i-top" class="info" style="display:none;">Back to top</span>
+      <span id="i-share" class="info" style="display:none;">Share post</span>
+    </span>
+    <br/>
+    <div id="share" style="display: none">
+      <ul>
+  <li><a class="icon" href="http://www.facebook.com/sharer.php?u=http://yoursite.com/2018/06/25/react/"><i class="fa fa-facebook " aria-hidden="true"></i></a></li>
+  <li><a class="icon" href="https://twitter.com/share?url=http://yoursite.com/2018/06/25/react/&text=react 技术栈"><i class="fa fa-twitter " aria-hidden="true"></i></a></li>
+  <li><a class="icon" href="http://www.linkedin.com/shareArticle?url=http://yoursite.com/2018/06/25/react/&title=react 技术栈"><i class="fa fa-linkedin " aria-hidden="true"></i></a></li>
+  <li><a class="icon" href="https://pinterest.com/pin/create/bookmarklet/?url=http://yoursite.com/2018/06/25/react/&is_video=false&description=react 技术栈"><i class="fa fa-pinterest " aria-hidden="true"></i></a></li>
+  <li><a class="icon" href="mailto:?subject=react 技术栈&body=Check out this article: http://yoursite.com/2018/06/25/react/"><i class="fa fa-envelope " aria-hidden="true"></i></a></li>
+  <li><a class="icon" href="https://getpocket.com/save?url=http://yoursite.com/2018/06/25/react/&title=react 技术栈"><i class="fa fa-get-pocket " aria-hidden="true"></i></a></li>
+  <li><a class="icon" href="http://reddit.com/submit?url=http://yoursite.com/2018/06/25/react/&title=react 技术栈"><i class="fa fa-reddit " aria-hidden="true"></i></a></li>
+  <li><a class="icon" href="http://www.stumbleupon.com/submit?url=http://yoursite.com/2018/06/25/react/&title=react 技术栈"><i class="fa fa-stumbleupon " aria-hidden="true"></i></a></li>
+  <li><a class="icon" href="http://digg.com/submit?url=http://yoursite.com/2018/06/25/react/&title=react 技术栈"><i class="fa fa-digg " aria-hidden="true"></i></a></li>
+  <li><a class="icon" href="http://www.tumblr.com/share/link?url=http://yoursite.com/2018/06/25/react/&name=react 技术栈&description="><i class="fa fa-tumblr " aria-hidden="true"></i></a></li>
+</ul>
+
+    </div>
+    <div id="toc">
+      <ol class="toc"><li class="toc-item toc-level-1"><a class="toc-link" href="#react-router-中的-history"><span class="toc-number">1.</span> <span class="toc-text">react-router 中的 history</span></a></li><li class="toc-item toc-level-1"><a class="toc-link" href="#react-router-v4"><span class="toc-number">2.</span> <span class="toc-text">react-router v4</span></a></li><li class="toc-item toc-level-1"><a class="toc-link" href="#React-Redux"><span class="toc-number">3.</span> <span class="toc-text">React-Redux</span></a></li><li class="toc-item toc-level-1"><a class="toc-link" href="#redux"><span class="toc-number">4.</span> <span class="toc-text">redux</span></a></li><li class="toc-item toc-level-1"><a class="toc-link" href="#redux-actions"><span class="toc-number">5.</span> <span class="toc-text">redux-actions</span></a></li><li class="toc-item toc-level-1"><a class="toc-link" href="#redux-actions-总结"><span class="toc-number">6.</span> <span class="toc-text">redux-actions 总结</span></a></li><li class="toc-item toc-level-1"><a class="toc-link" href="#function-generator-这样定义-generator"><span class="toc-number">7.</span> <span class="toc-text">function* generator() 这样定义 generator</span></a></li><li class="toc-item toc-level-1"><a class="toc-link" href="#yarn-add-whatwg-fetch"><span class="toc-number">8.</span> <span class="toc-text">yarn add whatwg-fetch</span></a></li><li class="toc-item toc-level-1"><a class="toc-link" href="#middleware"><span class="toc-number">9.</span> <span class="toc-text">middleware</span></a></li><li class="toc-item toc-level-1"><a class="toc-link" href="#yarn-create-react-app-my-app"><span class="toc-number">10.</span> <span class="toc-text">yarn create react-app my-app</span></a></li><li class="toc-item toc-level-1"><a class="toc-link" href="#注意，用-react-app-create-出来的项目"><span class="toc-number">11.</span> <span class="toc-text">注意，用 react-app create 出来的项目</span></a></li><li class="toc-item toc-level-1"><a class="toc-link" href="#react-中-router-解决方案"><span class="toc-number">12.</span> <span class="toc-text">react 中 router 解决方案</span></a></li><li class="toc-item toc-level-1"><a class="toc-link" href="#redux-saga-中-effects"><span class="toc-number">13.</span> <span class="toc-text">redux-saga 中 effects</span></a></li><li class="toc-item toc-level-1"><a class="toc-link" href="#redux-thunk-与-redux-saga-比较"><span class="toc-number">14.</span> <span class="toc-text">redux-thunk 与 redux-saga 比较</span></a></li><li class="toc-item toc-level-1"><a class="toc-link" href="#webpack"><span class="toc-number">15.</span> <span class="toc-text">webpack</span></a></li><li class="toc-item toc-level-1"><a class="toc-link" href="#react-中的-组件作用"><span class="toc-number">16.</span> <span class="toc-text">react 中的  组件作用</span></a></li><li class="toc-item toc-level-1"><a class="toc-link" href="#normalize-css-是必须要的"><span class="toc-number">17.</span> <span class="toc-text">normalize.css 是必须要的</span></a></li><li class="toc-item toc-level-1"><a class="toc-link" href="#React-项目中必须-import-React-from-‘react’"><span class="toc-number">18.</span> <span class="toc-text">React 项目中必须 import React from ‘react’</span></a></li><li class="toc-item toc-level-1"><a class="toc-link" href="#配置项目代码的格式化工具"><span class="toc-number">19.</span> <span class="toc-text">配置项目代码的格式化工具</span></a></li><li class="toc-item toc-level-1"><a class="toc-link" href="#如果需要引入-scss-文件，需要安装-node-sass（需要编译）-和-sass-loader"><span class="toc-number">20.</span> <span class="toc-text">如果需要引入 .scss 文件，需要安装 node-sass（需要编译） 和 sass-loader</span></a></li></ol>
+    </div>
+  </span>
+</div>
+
+    
+    <div class="content index width mx-auto px2 my4">
+        
+        <article class="post" itemscope itemtype="http://schema.org/BlogPosting">
+  <header>
+    
+    <h1 class="posttitle" itemprop="name headline">
+        react 技术栈
+    </h1>
+
+
+
+    <div class="meta">
+      <span class="author" itemprop="author" itemscope itemtype="http://schema.org/Person">
+        <span itemprop="name">Drip</span>
+      </span>
+      
+    <div class="postdate">
+        <time datetime="2018-06-25T05:30:30.000Z" itemprop="datePublished">2018-06-25</time>
+    </div>
+
+
+      
+
+    </div>
+  </header>
+  
+
+  <div class="content" itemprop="articleBody">
+    <h1 id="react-router-中的-history"><a href="#react-router-中的-history" class="headerlink" title="react-router 中的 history"></a>react-router 中的 history</h1><p>采用 <code>github: mjackson/history</code> 这个库<br><a href="https://zhuanlan.zhihu.com/p/20799258?refer=jscss" target="_blank" rel="external">讲解</a><br><code>history</code> 一个管理js应用session会话历史的js库。它将不同环境（浏览器，node…）的变量统一成了一个简易的API来管理历史堆栈、导航、确认跳转、以及sessions间的持续状态。<br>常用的三种history<br><figure class="highlight js"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div><div class="line">7</div><div class="line">8</div></pre></td><td class="code"><pre><div class="line"><span class="comment">// HTML5 history, 推荐</span></div><div class="line"><span class="keyword">import</span> createHistory <span class="keyword">from</span> <span class="string">'history/lib/createBrowserHistory'</span></div><div class="line"></div><div class="line"><span class="comment">// Hash history, 旧版本浏览器支持</span></div><div class="line"><span class="keyword">import</span> createHistory <span class="keyword">from</span> <span class="string">'history/lib/createHashHistory'</span></div><div class="line"></div><div class="line"><span class="comment">// 内存 history （如：node环境）</span></div><div class="line"><span class="keyword">import</span> createHistory <span class="keyword">from</span> <span class="string">'history/lib/createMemoryHistory'</span></div></pre></td></tr></table></figure></p>
+<p>以 <code>BrowserHistory</code> 为例，其实它使用的是 html5 的 <code>history</code> 全局对象，调用 <code>histroy.pushState(state, title, url)</code> 可以更改浏览器的地址栏，以及加入浏览器系统的地址堆栈，但是不会强制刷新页面（而使用 <code>window.location.href=&#39;&#39;</code> 会刷新页面）。目的就是新地址能加入历史地址堆栈而不刷新页面，而是通过监听地址栏的变化而渲染不同的组件，从而实现 <code>单页应用</code>。    </p>
+<h1 id="react-router-v4"><a href="#react-router-v4" class="headerlink" title="react-router v4"></a>react-router v4</h1><p>最新版的React Router(v4)有以下几个发行包，可能从之前版本用过来的同学会有一些疑惑，我到底该用哪一个啊？   </p>
+<ul>
+<li><p>react-router<br>React Router 的核心公用组件和方法。具体如下： MemoryRouter Prompt Redirect Route Router StaticRouter Switch matchPath withRouter</p>
+</li>
+<li><p>react-router-dom<br>React Router for WEB，一般我们前端就用这个包来进行WEB开发了，提供包括上述react-router相关的组件和方法以外还有如下接口：<br>BrowserRouter HashRouter Link NavLink</p>
+</li>
+<li><p>react-router-native<br>React Router 给react-native提供额外路由相关支持，包括：NativeRouter Link DeepLinking AndroidBackButton，感兴趣的同学可以访问这里 <a href="https://reacttraining.com/react-router/native/guides/quick-start" target="_blank" rel="external">https://reacttraining.com/react-router/native/guides/quick-start</a> 研究下。</p>
+</li>
+<li><p>react-router-redux<br>最新的版本还在测试版本中，如果你项目里面同时用到了react-router 和 redux，然后想把各种路由状态存储在app的状态里面，就可以用这个库了。这个库也辅助的，操作路由切换，如: dispatch( push(‘/xx’) )</p>
+</li>
+<li><p>react-router-config<br>该包主要提供如下接口：matchRoutes、renderRoutes，官方说明 <a href="https://github.com/ReactTraining/react-router/tree/master/packages/react-router-config" target="_blank" rel="external">https://github.com/ReactTraining/react-router/tree/master/packages/react-router-config</a></p>
+</li>
+</ul>
+<p>综上，再也不用纠结该用哪个包了，每个包都有些什么了，如果不是做native相关的就用 react-router-dom，如果你是做react-native相关的应用就毫不犹豫的选择用 react-router-native来构建你的应用路由咯。</p>
+<h1 id="React-Redux"><a href="#React-Redux" class="headerlink" title="React-Redux"></a>React-Redux</h1><p>这个是 redux 的作者写的一个方便 react 用户使用的库。提供：</p>
+<ul>
+<li>connect</li>
+<li>mapStateToProps</li>
+<li>mapDispatchToProps</li>
+<li><provider store="{store}"> 需要给组件提供 store，前面几项函数才能有 store [redux 库提供] 可用</provider></li>
+</ul>
+<h1 id="redux"><a href="#redux" class="headerlink" title="redux"></a>redux</h1><p>import { createStore, applyMiddleware } from ‘redux’<br>应用中不要创建多个 store！相反，使用 combineReducers 来把多个 reducer 创建成一个根 reducer    </p>
+<h1 id="redux-actions"><a href="#redux-actions" class="headerlink" title="redux-actions"></a>redux-actions</h1><p>import { createAction, createActions } from ‘redux-actions’<br><code>createActions</code> 提供快捷的创建多个 action 的高阶函数<br><code>createAction</code> 创建单个 action 函数<br><a href="https://redux-actions.js.org/api-reference/" target="_blank" rel="external">api</a>      </p>
+<h1 id="redux-actions-总结"><a href="#redux-actions-总结" class="headerlink" title="redux-actions 总结"></a>redux-actions 总结</h1><p><code>createAction(type, payload_creator)</code> 返回一个函数，该函数将接受的参数传给 <code>payload_creator(arg)</code> 函数，将该函数的返回值和 <code>type</code> 合并成为一个 <code>action</code>，即 <code>{type, payload}</code> ，其实这个函数用处不大，一般用于 <code>store.dispatch(foo(arg))</code>，其中 <code>foo</code> 为 <code>createActions</code> 返回的函数。（我们一般都手写 actions object，而非调用 action creator）     </p>
+<p>继续介绍下 <code>reducer</code>，<code>(state, action) =&gt; (new_state)</code> , <code>(state, {type, payload}) =&gt; (new_state)</code><br><code>handleAction(type, reducer, init_state)</code> 该函数返回一个新的 <code>reducer(action)</code>，这个 <code>reducer</code> 内部会检查传入的 <code>action</code> 中的 <code>type</code> 是否等于 <code>handleAction</code> 中传入的 <code>type</code>，如果相等才调用 <code>handleAction</code> 中传入的旧 <code>reducer</code>     </p>
+<p><code>handleActions(reducer_map, init_state)</code> 其中 <code>reducer_map</code> 为 <code>{type1: reducer1, type2: reducer2, ...}</code> 的 object。该函数返回一个新的 <code>reducer(state, action)</code>，这个 <code>reducer</code> 内部会检查传入的 <code>action</code> 的 <code>type</code>，等于 <code>reducer_map</code> 中某个 <code>key</code> 才会调用其对应的 <code>reudcer</code>      </p>
+<p><code>combineReducers(reducer_map)</code>，其中 <code>reducer_map</code> 为 <code>{key1: reducer1, key2: reducer2, ...}</code> 的 object。该函数返回一个新的 <code>reducer(state, action)</code>，它将 <code>map</code> 中所有的 <code>reducer</code> 产生的 <code>state</code> 合并到一个大的 <code>state</code> 中，<code>{key1: state1, key2: state2, ...}</code>， 它会检查 <code>action</code> 的 <code>type</code>，找到对应的 <code>reducer</code> 进行处理，然后将结果更新到新的 state 中的 <strong>一部分</strong>，例如 <code>{key1: state1, key2: new_state2, ...}</code>    </p>
+<h1 id="function-generator-这样定义-generator"><a href="#function-generator-这样定义-generator" class="headerlink" title="function* generator() 这样定义 generator"></a>function* generator() 这样定义 generator</h1><p>调用会返回一个对象 <code>{value, done}</code><br>基于 generator 的异步执行，首先要求 value 返回一个 thenable 对象，然后在 value.then() 中继续执行 generator 的 next() 方法 [即用 then 交回执行权]<br><code>yield [promise1, promise2];</code> 或者 <code>yield {1: promise1, 2: promise2}</code> 可以同时等待其完成，猜测执行器使用了 <code>Promise.all</code> 方法</p>
+<h1 id="yarn-add-whatwg-fetch"><a href="#yarn-add-whatwg-fetch" class="headerlink" title="yarn add whatwg-fetch"></a>yarn add whatwg-fetch</h1><h1 id="middleware"><a href="#middleware" class="headerlink" title="middleware"></a>middleware</h1><p>中间件就是一个函数，对store.dispatch方法进行了改造，在发出 Action 和执行 Reducer 这两步之间，添加了其他功能。<br><figure class="highlight js"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div></pre></td><td class="code"><pre><div class="line"><span class="keyword">const</span> store = createStore(</div><div class="line">  reducer,</div><div class="line">  initial_state,</div><div class="line">  applyMiddleware(logger)</div><div class="line">);</div></pre></td></tr></table></figure></p>
+<h1 id="yarn-create-react-app-my-app"><a href="#yarn-create-react-app-my-app" class="headerlink" title="yarn create react-app my-app"></a>yarn create react-app my-app</h1><p>采用这个方法创建一个 react app，也可以用于测试 ES6 代码<br>然后调用 <code>yarn run eject</code> 将内部的配置暴露出来，方便手动配置<br>最后重新 <code>yarn</code> 安装依赖即可   </p>
+<h1 id="注意，用-react-app-create-出来的项目"><a href="#注意，用-react-app-create-出来的项目" class="headerlink" title="注意，用 react-app create 出来的项目"></a>注意，用 react-app create 出来的项目</h1><p>css-loader 默认没有开启模块化处理，需要加上<br><figure class="highlight js"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div></pre></td><td class="code"><pre><div class="line"><span class="comment">// webpack.config.dev.js</span></div><div class="line">options: &#123;</div><div class="line">    modules: <span class="literal">true</span>,</div><div class="line">    localIdentName: <span class="string">"[name]__[local]___[hash:base64:5]"</span>,</div><div class="line">&#125;,</div></pre></td></tr></table></figure></p>
+<figure class="highlight js"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div></pre></td><td class="code"><pre><div class="line"><span class="comment">// webpack.config.prod.js</span></div><div class="line">options: &#123;</div><div class="line">    modules: <span class="literal">true</span>,</div><div class="line">&#125;,</div></pre></td></tr></table></figure>
+<h1 id="react-中-router-解决方案"><a href="#react-中-router-解决方案" class="headerlink" title="react 中 router 解决方案"></a>react 中 router 解决方案</h1><p>推荐直接使用 <code>react-router-redux</code>，目前更名为 <code>connected-react-router</code>      </p>
+<p><code>yarn add react-router-redux@next</code> 必须加 next，否则是 4.x       </p>
+<p>其 5.x 版本基于 <code>react-router v4</code>       </p>
+<p>其提供 <code>ConnectedRouter</code> (类似于 react-router-dom 中的 Router 组件，但会从 context 中获取 store，可以配合 redux 进行路由), <code>routerReducer</code> （需要被 combineReducers，key 可以为 ‘router’ ） , <code>routerMiddleware</code>,<code>push</code>(提供 action creator)       </p>
+<p><code>ConnectedRouter</code> 需要用户自己提供 <code>history</code>，这点灵活了，但是也比直接使用 <code>react-router-dom</code> 中的 <code>BrowserRouter</code> 麻烦一点      </p>
+<h1 id="redux-saga-中-effects"><a href="#redux-saga-中-effects" class="headerlink" title="redux-saga 中 effects"></a>redux-saga 中 effects</h1><p>文档中的 effect 可以是：promise、effectHelp（takeEvery…）、iterator、array、take/put/all/race/call/cps/fork/join/…     </p>
+<figure class="highlight js"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div></pre></td><td class="code"><pre><div class="line"><span class="comment">// Non declarative effect</span></div><div class="line">is.promise(effect) ? resolvePromise(effect, currCb) : is.helper(effect) ? runForkEffect(wrapHelper(effect), effectId, currCb) : is.iterator(effect) ? resolveIterator(effect, effectId, name, currCb)</div><div class="line"></div><div class="line"><span class="comment">// declarative effects</span></div><div class="line">: is.array(effect) ? runParallelEffect(effect, effectId, currCb) : (data = asEffect.take(effect)) ? runTakeEffect(data, currCb) : (data = asEffect.put(effect)) ? runPutEffect(data, currCb) : (data = asEffect.all(effect)) ? runAllEffect(data, effectId, currCb) : (data = asEffect.race(effect)) ? runRaceEffect(data, effectId, currCb) : (data = asEffect.call(effect)) ? runCallEffect(data, effectId, currCb) : (data = asEffect.cps(effect)) ? runCPSEffect(data, currCb) : (data = asEffect.fork(effect)) ? runForkEffect(data, effectId, currCb) : (data = asEffect.join(effect)) ? runJoinEffect(data, currCb) : (data = asEffect.cancel(effect)) ? runCancelEffect(data, currCb) : (data = asEffect.select(effect)) ? runSelectEffect(data, currCb) : (data = asEffect.actionChannel(effect)) ? runChannelEffect(data, currCb) : (data = asEffect.flush(effect)) ? runFlushEffect(data, currCb) : (data = asEffect.cancelled(effect)) ? runCancelledEffect(data, currCb) : (data = asEffect.getContext(effect)) ? runGetContextEffect(data, currCb) : (data = asEffect.setContext(effect)) ? runSetContextEffect(data, currCb) : <span class="comment">/* anything else returned as is */</span>currCb(effect)</div></pre></td></tr></table></figure>
+<h1 id="redux-thunk-与-redux-saga-比较"><a href="#redux-thunk-与-redux-saga-比较" class="headerlink" title="redux-thunk 与 redux-saga 比较"></a>redux-thunk 与 redux-saga 比较</h1><p><a href="https://juejin.im/post/59e083c8f265da43111f3a1f" target="_blank" rel="external">saga 原理</a><br><a href="https://juejin.im/post/59e6cd68f265da43163c2821#heading-0" target="_blank" rel="external">链接</a><br>saga 解决了：业务逻辑是放在 reducer 层 还是 action 层的问题，直接独立一个新的层 saga ！<br>saga 同时提供了异步函数的可控性，可测试性<br>saga 提供通道的概念，是一种响应式的编程理念，需要先设置监听（利用 channel 的 watch），然后用 action 触发<br>saga effect 可以是 generator，注意 function* gen() {} 并不是 generator，而是 Function，gen() 返回的对象才是 generator（必须有 next 方法）。<br>saga run 方法传入的必须是 Function，而不是 generator     </p>
+<h1 id="webpack"><a href="#webpack" class="headerlink" title="webpack"></a>webpack</h1><p><a href="https://segmentfault.com/a/1190000006178770" target="_blank" rel="external">入门教程</a><br><figure class="highlight js"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div><div class="line">7</div><div class="line">8</div><div class="line">9</div><div class="line">10</div><div class="line">11</div><div class="line">12</div><div class="line">13</div><div class="line">14</div><div class="line">15</div><div class="line">16</div><div class="line">17</div><div class="line">18</div><div class="line">19</div><div class="line">20</div><div class="line">21</div><div class="line">22</div><div class="line">23</div><div class="line">24</div><div class="line">25</div><div class="line">26</div><div class="line">27</div><div class="line">28</div><div class="line">29</div><div class="line">30</div><div class="line">31</div><div class="line">32</div><div class="line">33</div><div class="line">34</div><div class="line">35</div><div class="line">36</div></pre></td><td class="code"><pre><div class="line">modules: &#123;</div><div class="line">    rules: [</div><div class="line">        &#123;</div><div class="line">            test: <span class="string">"正则表达式"</span>,  <span class="comment">// 匹配文件名，一般匹配后缀</span></div><div class="line">            loader: <span class="string">"css-loader"</span>, <span class="comment">// loader</span></div><div class="line">            include: [], <span class="comment">// 查找的文件夹</span></div><div class="line">            exclude: [], <span class="comment">// 去除的文件夹</span></div><div class="line">            option: &#123;&#125;, <span class="comment">// loader 的相关配置</span></div><div class="line">        &#125;,</div><div class="line">        &#123;</div><div class="line">            <span class="comment">// oneOf, 从上向下匹配第一项 loader 并执行</span></div><div class="line">            oneOf: [&#123;</div><div class="line">                test: <span class="string">"xxx"</span>,</div><div class="line">                loader: <span class="string">"xxx"</span>,</div><div class="line">                ...</div><div class="line">            &#125;, &#123;</div><div class="line">                test: <span class="string">"yyy"</span>,</div><div class="line">                loader: <span class="string">"yyy"</span>,</div><div class="line">                ...</div><div class="line">            &#125;], <span class="comment">//</span></div><div class="line">        &#125;,</div><div class="line">        &#123;</div><div class="line">            test: <span class="string">"hsdfsdf"</span>,</div><div class="line">            <span class="comment">// 对同一文件应用多个 loaders </span></div><div class="line">            use: [</div><div class="line">                &#123;</div><div class="line">                    loader: <span class="string">"loader1"</span>,</div><div class="line">                &#125;, &#123;</div><div class="line">                    loader: <span class="string">"loader2"</span>,</div><div class="line">                &#125;</div><div class="line">            ], </div><div class="line"></div><div class="line">        &#125;,</div><div class="line"></div><div class="line">    ],</div><div class="line">&#125;</div></pre></td></tr></table></figure></p>
+<h1 id="react-中的-组件作用"><a href="#react-中的-组件作用" class="headerlink" title="react 中的  组件作用"></a>react 中的 <fragment> 组件作用</fragment></h1><p>React 中一个常见模式是为一个组件返回多个元素。Fragments 可以让你聚合一个子元素列表，并且不在DOM中增加额外节点。       </p>
+<h1 id="normalize-css-是必须要的"><a href="#normalize-css-是必须要的" class="headerlink" title="normalize.css 是必须要的"></a>normalize.css 是必须要的</h1><h1 id="React-项目中必须-import-React-from-‘react’"><a href="#React-项目中必须-import-React-from-‘react’" class="headerlink" title="React 项目中必须 import React from ‘react’"></a>React 项目中必须 import React from ‘react’</h1><p>即使在代码中没有使用到 <code>React</code> 这个对象，而且我们也不能命名为 <code>react / xxx 其他名字</code>。<br>React Must Be in Scope（React必须在作用域中）<br>由于JSX编译需调用React.createElement,因此React库还必须始终在JSX代码的作用域中。      </p>
+<h1 id="配置项目代码的格式化工具"><a href="#配置项目代码的格式化工具" class="headerlink" title="配置项目代码的格式化工具"></a>配置项目代码的格式化工具</h1><p>首先你使用的编辑器需要安装 eslint 插件<br>然后在项目工程下 <code>eslint --init</code><br>选择 <code>Use a popular style guide</code>  -&gt; <code>airbnb</code><br>然后在自动生成的 <code>.eslintrc.json</code> 中添加 <code>&quot;parser&quot;: &quot;babel-eslint&quot;,</code><br>最后可以添加一些额外的规则，例如下面所示：<br>注意： 右侧的[value] 表示 0 : off 1 : warning 2 : error         </p>
+<figure class="highlight"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div><div class="line">7</div><div class="line">8</div><div class="line">9</div><div class="line">10</div><div class="line">11</div><div class="line">12</div><div class="line">13</div><div class="line">14</div><div class="line">15</div><div class="line">16</div><div class="line">17</div><div class="line">18</div><div class="line">19</div><div class="line">20</div><div class="line">21</div><div class="line">22</div><div class="line">23</div><div class="line">24</div><div class="line">25</div><div class="line">26</div><div class="line">27</div><div class="line">28</div><div class="line">29</div><div class="line">30</div><div class="line">31</div></pre></td><td class="code"><pre><div class="line">"rules": &#123;</div><div class="line">    "generator-star-spacing": [0],</div><div class="line">    "consistent-return": [0],</div><div class="line">    "react/forbid-prop-types": [0],</div><div class="line">    "react/jsx-filename-extension": [1, &#123; "extensions": [".jsx"] &#125;],</div><div class="line">    "global-require": [1],</div><div class="line">    "import/prefer-default-export": [0],</div><div class="line">    "react/jsx-no-bind": [0],</div><div class="line">    "react/prop-types": [0],</div><div class="line">    "react/prefer-stateless-function": [0],</div><div class="line">    "no-else-return": [0],</div><div class="line">    "no-restricted-syntax": [0],</div><div class="line">    "import/no-extraneous-dependencies": [0],</div><div class="line">    "no-use-before-define": [0],</div><div class="line">    "jsx-a11y/no-static-element-interactions": [0],</div><div class="line">    "no-nested-ternary": [0],</div><div class="line">    "arrow-body-style": [0],</div><div class="line">    "import/extensions": [0],</div><div class="line">    "no-bitwise": [0],</div><div class="line">    "no-cond-assign": [0],</div><div class="line">    "import/no-unresolved": [0],</div><div class="line">    "require-yield": [1],</div><div class="line">    "jsx-a11y/anchor-is-valid":[1],</div><div class="line">    "max-len": [ "error", &#123;"code": 200&#125;],</div><div class="line">    "react/no-array-index-key": [0]</div><div class="line">  &#125;,</div><div class="line">  "parserOptions": &#123;</div><div class="line">    "ecmaFeatures": &#123;</div><div class="line">      "experimentalObjectRestSpread": true</div><div class="line">    &#125;</div><div class="line">  &#125;</div></pre></td></tr></table></figure>
+<p>eslint 优先读取 .eslintrc.js/json/yaml，如果没有才读取 package.json 中配置的 eslintConfig      </p>
+<h1 id="如果需要引入-scss-文件，需要安装-node-sass（需要编译）-和-sass-loader"><a href="#如果需要引入-scss-文件，需要安装-node-sass（需要编译）-和-sass-loader" class="headerlink" title="如果需要引入 .scss 文件，需要安装 node-sass（需要编译） 和 sass-loader"></a>如果需要引入 .scss 文件，需要安装 node-sass（需要编译） 和 sass-loader</h1>
+  </div>
+</article>
+
+
+
+    </div>
+    
+      <div id="footer-post-container">
+  <div id="footer-post">
+
+    <div id="nav-footer" style="display: none">
+      <ul>
+         
+          <li><a href="/">Home</a></li>
+         
+          <li><a href="/about/">About</a></li>
+         
+          <li><a href="/archives/">Writing</a></li>
+         
+          <li><a href="http://github.com/probberechts">Projects</a></li>
+        
+      </ul>
+    </div>
+
+    <div id="toc-footer" style="display: none">
+      <ol class="toc"><li class="toc-item toc-level-1"><a class="toc-link" href="#react-router-中的-history"><span class="toc-number">1.</span> <span class="toc-text">react-router 中的 history</span></a></li><li class="toc-item toc-level-1"><a class="toc-link" href="#react-router-v4"><span class="toc-number">2.</span> <span class="toc-text">react-router v4</span></a></li><li class="toc-item toc-level-1"><a class="toc-link" href="#React-Redux"><span class="toc-number">3.</span> <span class="toc-text">React-Redux</span></a></li><li class="toc-item toc-level-1"><a class="toc-link" href="#redux"><span class="toc-number">4.</span> <span class="toc-text">redux</span></a></li><li class="toc-item toc-level-1"><a class="toc-link" href="#redux-actions"><span class="toc-number">5.</span> <span class="toc-text">redux-actions</span></a></li><li class="toc-item toc-level-1"><a class="toc-link" href="#redux-actions-总结"><span class="toc-number">6.</span> <span class="toc-text">redux-actions 总结</span></a></li><li class="toc-item toc-level-1"><a class="toc-link" href="#function-generator-这样定义-generator"><span class="toc-number">7.</span> <span class="toc-text">function* generator() 这样定义 generator</span></a></li><li class="toc-item toc-level-1"><a class="toc-link" href="#yarn-add-whatwg-fetch"><span class="toc-number">8.</span> <span class="toc-text">yarn add whatwg-fetch</span></a></li><li class="toc-item toc-level-1"><a class="toc-link" href="#middleware"><span class="toc-number">9.</span> <span class="toc-text">middleware</span></a></li><li class="toc-item toc-level-1"><a class="toc-link" href="#yarn-create-react-app-my-app"><span class="toc-number">10.</span> <span class="toc-text">yarn create react-app my-app</span></a></li><li class="toc-item toc-level-1"><a class="toc-link" href="#注意，用-react-app-create-出来的项目"><span class="toc-number">11.</span> <span class="toc-text">注意，用 react-app create 出来的项目</span></a></li><li class="toc-item toc-level-1"><a class="toc-link" href="#react-中-router-解决方案"><span class="toc-number">12.</span> <span class="toc-text">react 中 router 解决方案</span></a></li><li class="toc-item toc-level-1"><a class="toc-link" href="#redux-saga-中-effects"><span class="toc-number">13.</span> <span class="toc-text">redux-saga 中 effects</span></a></li><li class="toc-item toc-level-1"><a class="toc-link" href="#redux-thunk-与-redux-saga-比较"><span class="toc-number">14.</span> <span class="toc-text">redux-thunk 与 redux-saga 比较</span></a></li><li class="toc-item toc-level-1"><a class="toc-link" href="#webpack"><span class="toc-number">15.</span> <span class="toc-text">webpack</span></a></li><li class="toc-item toc-level-1"><a class="toc-link" href="#react-中的-组件作用"><span class="toc-number">16.</span> <span class="toc-text">react 中的  组件作用</span></a></li><li class="toc-item toc-level-1"><a class="toc-link" href="#normalize-css-是必须要的"><span class="toc-number">17.</span> <span class="toc-text">normalize.css 是必须要的</span></a></li><li class="toc-item toc-level-1"><a class="toc-link" href="#React-项目中必须-import-React-from-‘react’"><span class="toc-number">18.</span> <span class="toc-text">React 项目中必须 import React from ‘react’</span></a></li><li class="toc-item toc-level-1"><a class="toc-link" href="#配置项目代码的格式化工具"><span class="toc-number">19.</span> <span class="toc-text">配置项目代码的格式化工具</span></a></li><li class="toc-item toc-level-1"><a class="toc-link" href="#如果需要引入-scss-文件，需要安装-node-sass（需要编译）-和-sass-loader"><span class="toc-number">20.</span> <span class="toc-text">如果需要引入 .scss 文件，需要安装 node-sass（需要编译） 和 sass-loader</span></a></li></ol>
+    </div>
+
+    <div id="actions-footer">
+      <ul>
+        <li id="toc"><a class="icon" href="#" onclick="$('#toc-footer').toggle();return false;"><i class="fa fa-list fa-lg" aria-hidden="true"></i> TOC</a></li>
+        <li id="share"><a class="icon" href="#" onclick="$('#share-footer').toggle();return false;"><i class="fa fa-share-alt fa-lg" aria-hidden="true"></i> Share</a></li>
+        <li id="top" style="display:none"><a class="icon" href="#" onclick="$('html, body').animate({ scrollTop: 0 }, 'fast');"><i class="fa fa-chevron-up fa-lg" aria-hidden="true"></i> Top</a></li>
+        <li id="menu"><a class="icon" href="#" onclick="$('#nav-footer').toggle();return false;"><i class="fa fa-bars fa-lg" aria-hidden="true"></i> Menu</a></li>
+      </ul>
+    </div>
+
+  </div>
+</div>
+
+    
+    <footer id="footer">
+  <div class="footer-left">
+    Copyright &copy; 2018 Landleany
+  </div>
+  <div class="footer-right">
+    <nav>
+      <ul>
+         
+          <li><a href="/">Home</a></li>
+         
+          <li><a href="/about/">About</a></li>
+         
+          <li><a href="/archives/">Writing</a></li>
+         
+          <li><a href="http://github.com/probberechts">Projects</a></li>
+        
+      </ul>
+    </nav>
+  </div>
+</footer>
+
+</body>
+</html>
+<!-- styles -->
+<link rel="stylesheet" href="/lib/font-awesome/css/font-awesome.min.css">
+<link rel="stylesheet" href="/lib/meslo-LG/styles.css">
+<link rel="stylesheet" href="/lib/justified-gallery/justifiedGallery.min.css">
+
+<!-- jquery -->
+<script src="/lib/jquery/jquery.min.js"></script>
+<script src="/lib/justified-gallery/jquery.justifiedGallery.min.js"></script>
+<script src="/js/main.js"></script>
+<!-- search -->
+
+<!-- Google Analytics -->
+
+    <script type="text/javascript">
+        (function(i,s,o,g,r,a,m) {i['GoogleAnalyticsObject']=r;i[r]=i[r]||function() {
+        (i[r].q=i[r].q||[]).push(arguments)},i[r].l=1*new Date();a=s.createElement(o),
+        m=s.getElementsByTagName(o)[0];a.async=1;a.src=g;m.parentNode.insertBefore(a,m)
+        })(window,document,'script','//www.google-analytics.com/analytics.js','ga');
+        ga('create', 'UA-86660611-1', 'auto');
+        ga('send', 'pageview');
+    </script>
+
+<!-- Disqus Comments -->
+
+

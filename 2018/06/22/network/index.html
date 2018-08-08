@@ -12,7 +12,7 @@
 <meta property="og:url" content="http://yoursite.com/2018/06/22/network/index.html">
 <meta property="og:site_name" content="Drip">
 <meta property="og:description" content="三次握手，四次挥手链接，看图         【问题1】为什么连接的时候是三次握手，关闭的时候却是四次握手？答：因为当Server端收到Client端的SYN连接请求报文后，可以直接发送SYN+ACK报文。其中ACK报文是用来应答的，SYN报文是用来同步的。但是关闭连接时，当Server端收到FIN报文时，很可能并不会立即关闭SOCKET，所以只能先回复一个ACK报文，告诉Client端，”你发的">
-<meta property="og:updated_time" content="2018-06-22T14:25:35.000Z">
+<meta property="og:updated_time" content="2018-07-12T09:24:27.000Z">
 <meta name="twitter:card" content="summary">
 <meta name="twitter:title" content="Network">
 <meta name="twitter:description" content="三次握手，四次挥手链接，看图         【问题1】为什么连接的时候是三次握手，关闭的时候却是四次握手？答：因为当Server端收到Client端的SYN连接请求报文后，可以直接发送SYN+ACK报文。其中ACK报文是用来应答的，SYN报文是用来同步的。但是关闭连接时，当Server端收到FIN报文时，很可能并不会立即关闭SOCKET，所以只能先回复一个ACK报文，告诉Client端，”你发的">
@@ -67,7 +67,7 @@
     <span id="actions">
       <ul>
         
-        <li><a class="icon" href="/2019/02/05/css/"><i class="fa fa-chevron-left" aria-hidden="true" onmouseover="$('#i-prev').toggle();" onmouseout="$('#i-prev').toggle();"></i></a></li>
+        <li><a class="icon" href="/2018/06/25/react/"><i class="fa fa-chevron-left" aria-hidden="true" onmouseover="$('#i-prev').toggle();" onmouseout="$('#i-prev').toggle();"></i></a></li>
         
         
         <li><a class="icon" href="/2018/06/07/fabric-peer/"><i class="fa fa-chevron-right" aria-hidden="true" onmouseover="$('#i-next').toggle();" onmouseout="$('#i-next').toggle();"></i></a></li>
@@ -96,7 +96,7 @@
 
     </div>
     <div id="toc">
-      <ol class="toc"><li class="toc-item toc-level-1"><a class="toc-link" href="#三次握手，四次挥手"><span class="toc-number">1.</span> <span class="toc-text">三次握手，四次挥手</span></a></li><li class="toc-item toc-level-1"><a class="toc-link" href="#深入理解握手"><span class="toc-number">2.</span> <span class="toc-text">深入理解握手</span></a></li><li class="toc-item toc-level-1"><a class="toc-link" href="#Socket-编程可以控制断开连接时候的四次挥手中的-FIN-信号的发送"><span class="toc-number">3.</span> <span class="toc-text">Socket 编程可以控制断开连接时候的四次挥手中的 FIN 信号的发送</span></a></li></ol>
+      <ol class="toc"><li class="toc-item toc-level-1"><a class="toc-link" href="#三次握手，四次挥手"><span class="toc-number">1.</span> <span class="toc-text">三次握手，四次挥手</span></a></li><li class="toc-item toc-level-1"><a class="toc-link" href="#深入理解握手"><span class="toc-number">2.</span> <span class="toc-text">深入理解握手</span></a></li><li class="toc-item toc-level-1"><a class="toc-link" href="#Socket-编程可以控制断开连接时候的四次挥手中的-FIN-信号的发送"><span class="toc-number">3.</span> <span class="toc-text">Socket 编程可以控制断开连接时候的四次挥手中的 FIN 信号的发送</span></a></li><li class="toc-item toc-level-1"><a class="toc-link" href="#keep-alive-和-heartbeat"><span class="toc-number">4.</span> <span class="toc-text">keep-alive 和 heartbeat</span></a></li></ol>
     </div>
   </span>
 </div>
@@ -132,9 +132,24 @@
   <div class="content" itemprop="articleBody">
     <h1 id="三次握手，四次挥手"><a href="#三次握手，四次挥手" class="headerlink" title="三次握手，四次挥手"></a>三次握手，四次挥手</h1><p><a href="https://blog.csdn.net/whuslei/article/details/6667471" target="_blank" rel="external">链接，看图</a>        </p>
 <p>【问题1】为什么连接的时候是三次握手，关闭的时候却是四次握手？<br>答：因为当Server端收到Client端的SYN连接请求报文后，可以直接发送SYN+ACK报文。其中ACK报文是用来应答的，SYN报文是用来同步的。但是关闭连接时，当Server端收到FIN报文时，很可能并不会立即关闭SOCKET，所以只能先回复一个ACK报文，告诉Client端，”你发的FIN报文我收到了”。只有等到我Server端所有的报文都发送完了，我才能发送FIN报文，因此不能一起发送。故需要四步握手。      </p>
-<p>【问题2】为什么TIME_WAIT状态需要经过2MSL(最大报文段生存时间)才能返回到CLOSE状态？<br>答：虽然按道理，四个报文都发送完毕，我们可以直接进入CLOSE状态了，但是我们必须假象网络是不可靠的，有可以最后一个ACK丢失。所以TIME_WAIT状态就是用来重发可能丢失的ACK报文       </p>
+<p>【问题2】为什么TIME_WAIT状态需要经过2MSL(最大报文段生存时间)才能返回到CLOSE状态？<br>答：虽然按道理，四个报文都发送完毕，我们可以直接进入CLOSE状态了，但是我们必须假设网络是不可靠的，有可以最后一个ACK丢失。所以TIME_WAIT状态就是用来重发可能丢失的ACK报文       </p>
 <p>TCP协议中，主动发起请求的一端称为『客户端』，被动连接的一端称为『服务端』，服务端的资源是比较宝贵的，需要在协议的设计时考虑这个问题。因此在握手阶段，服务端一定要等待客户端的第三次 ACK 才可以进入连接建立状态（如果在服务端发送 SYN + ACK 时就建立连接有可能会造成服务端资源的浪费：如果服务端的 SYN + ACK 没有顺利到达客户端，客户端就会重发 SYN，此时服务端就会重复建立多余的连接，造成资源浪费）。反而，客户端在发送 ACK 就可以建立连接，而不需要等待服务端第四次 ACK，就是因为客户端的资源无所谓啊哈哈。      </p>
 <h1 id="深入理解握手"><a href="#深入理解握手" class="headerlink" title="深入理解握手"></a>深入理解握手</h1><h1 id="Socket-编程可以控制断开连接时候的四次挥手中的-FIN-信号的发送"><a href="#Socket-编程可以控制断开连接时候的四次挥手中的-FIN-信号的发送" class="headerlink" title="Socket 编程可以控制断开连接时候的四次挥手中的 FIN 信号的发送"></a>Socket 编程可以控制断开连接时候的四次挥手中的 FIN 信号的发送</h1><p><strong>调用 con.Close() 即为发送 FIN</strong><br>一旦 con.Recv() 收到 EOF，则表示收到远端的 FIN，且自动返回了 ACK，此时需要我们控制决定是否还要其他要发送的数据，先发送过去，若没有则调用 con.Close() 发送 FIN 至远端<br>在远端收到 FIN，且回复 ACK 后，到其准备好发送 FIN 至远端这段时间为 CLOSE_WAIT，发送 FIN 之后，为 LAST_ACK 状态，收到远端 ACK，进入 CLOSE 状态</p>
+<h1 id="keep-alive-和-heartbeat"><a href="#keep-alive-和-heartbeat" class="headerlink" title="keep-alive 和 heartbeat"></a>keep-alive 和 heartbeat</h1><p>keep-alive: 保活；heartbeat: 心跳<br>首先 Socket 编程提供系统层面的 tcp_keepalive 设置，即建立 socket 连接的时候传入 <code>SO_KEEPALIVE</code> 选项。<br>设置该选项后，如果2小时内在此套接口的任一方向都没有数据交换，TCP就自动给对方 发一个保持存活探测分节(keepalive probe)。这是一个对方必须响应的TCP分节.它会导致以下三种情况：       </p>
+<p>1、对方接收一切正常：以期望的ACK响应，2小时后，TCP将发出另一个探测分节。       </p>
+<p>2、对方已崩溃且已重新启动：以RST响应。套接口的待处理错误被置为ECONNRESET，套接 口本身则被关闭。       </p>
+<p>3、对方无任何响应：源自berkeley的TCP发送另外8个探测分节，相隔75秒一个，试图得到一个响应。在发出第一个探测分节11分钟15秒后若仍无响应就放弃。套接口的待处理错误被置为ETIMEOUT，套接口本身则被关闭。如ICMP错误是“host unreachable(主机不可达)”，说明对方主机并没有崩溃，但是不可达，这种情况下待处理错误被置为 EHOSTUNREACH。        </p>
+<p>其中三个参数是 tcp_keepalive 的设置：<br>1、<code>tcp_keepalive_intvl</code>，保活探测消息的发送频率。默认值为75s。      </p>
+<p>发送频率tcp_keepalive_intvl乘以发送次数tcp_keepalive_probes，就得到了从开始探测直到放弃探测确定连接断开的时间，大约为11min。       </p>
+<p>2、<code>tcp_keepalive_probes</code>，TCP发送保活探测消息以确定连接是否已断开的次数。默认值为9（次）。      </p>
+<p>注意：只有设置了SO_KEEPALIVE套接口选项后才会发送保活探测消息。        </p>
+<p>3、<code>tcp_keepalive_time</code>，在TCP保活打开的情况下，最后一次数据交换到TCP发送第一个保活探测消息的时间，即允许的持续空闲时间。默认值为7200s（2h）。           </p>
+<p><strong>当然，也可以通过设置/proc/sys/net/ipv4/tcp_keepalive_time、tcp_keepalive_intvl和 tcp_keepalive_probes等内核参数来达到目的，但是这样的话，会影响所有的socket，因此建议使用setsockopt设置针对某个 socket 的配置</strong>      </p>
+<p><strong>既然有系统层面的 <code>tcp_keepalive</code>，为什么还要用应用层的心跳包呢？</strong><br>“套接字本身是有一套心跳保活机制的（TCP Keepalive），不过默认的设置并不像我们一厢情愿的那样有效。在双方TCP套接字建立连接后（即都进入ESTABLISHED状态）并且在两个小时左右上层没有任何数据传输的情况下，这套机制才会被激活。</p>
+<p>很多人认为两个小时的时间设置得很不合理。为什么不设置成为10分钟，或者更短的时间？（可以通过SO_KEEPALIVE选项设置。）但是这样做其实并不被推荐。实际上这套机制只是操作系统底层使用的一个被动机制，原理上不应该被上层应用层使用。当系统关闭一个由KEEPALIVE机制检查出来的死连接时，是不会主动通知上层应用的，只有在调用相应的IO操作在返回值中检查出来。<br>因此，忘记SO_KEEPALIVE，在应用层自己写一套保活机制比较靠谱。”              </p>
+<p><strong>HTTP 中的 Keep-Alive header 配置并不是发送心跳包！</strong><br>而是客户端为了通知服务端，当第一个请求完成后，服务端不要立刻关闭该条连接，因为后续可能会有更多的请求到达。原理如下：<br>Keep-Alive: timeout=5, max=100<br>timeout：过期时间5秒（对应httpd.conf里的参数是：KeepAliveTimeout），max是最多一百次请求，强制断掉连接<br>就是在timeout时间内又有新的连接过来，同时max会自动减1，直到为0，强制断掉。见下面的四个图，注意看Date的值（前后时间差都是在5秒之内）！          </p>
+<p><strong>gRPC 的 keepalive 原理</strong><br>其实是应用层发送 heartbeat 包，并不是配置 socket 层！      </p>
+<p><strong>总结，设置 keepalive 或 heartbeat 机制的目的只有两个：</strong><br>1、保活：有些负载均衡或 proxy 会在一段时间内断开没有数据的连接<br>2、其实通知应用层连接已经断开（硬件、网络等原因造成的连接断开）<br>3、并不是为了断线自动重连      </p>
 
   </div>
 </article>
@@ -161,7 +176,7 @@
     </div>
 
     <div id="toc-footer" style="display: none">
-      <ol class="toc"><li class="toc-item toc-level-1"><a class="toc-link" href="#三次握手，四次挥手"><span class="toc-number">1.</span> <span class="toc-text">三次握手，四次挥手</span></a></li><li class="toc-item toc-level-1"><a class="toc-link" href="#深入理解握手"><span class="toc-number">2.</span> <span class="toc-text">深入理解握手</span></a></li><li class="toc-item toc-level-1"><a class="toc-link" href="#Socket-编程可以控制断开连接时候的四次挥手中的-FIN-信号的发送"><span class="toc-number">3.</span> <span class="toc-text">Socket 编程可以控制断开连接时候的四次挥手中的 FIN 信号的发送</span></a></li></ol>
+      <ol class="toc"><li class="toc-item toc-level-1"><a class="toc-link" href="#三次握手，四次挥手"><span class="toc-number">1.</span> <span class="toc-text">三次握手，四次挥手</span></a></li><li class="toc-item toc-level-1"><a class="toc-link" href="#深入理解握手"><span class="toc-number">2.</span> <span class="toc-text">深入理解握手</span></a></li><li class="toc-item toc-level-1"><a class="toc-link" href="#Socket-编程可以控制断开连接时候的四次挥手中的-FIN-信号的发送"><span class="toc-number">3.</span> <span class="toc-text">Socket 编程可以控制断开连接时候的四次挥手中的 FIN 信号的发送</span></a></li><li class="toc-item toc-level-1"><a class="toc-link" href="#keep-alive-和-heartbeat"><span class="toc-number">4.</span> <span class="toc-text">keep-alive 和 heartbeat</span></a></li></ol>
     </div>
 
     <div id="actions-footer">

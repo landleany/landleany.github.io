@@ -12,7 +12,7 @@
 <meta property="og:url" content="http://yoursite.com/2018/02/03/git/index.html">
 <meta property="og:site_name" content="Drip">
 <meta property="og:description" content="GIT 分支 git branch -a    查看所有分支 git branch -r    查看远程分支 git branch   查看本地分支 git branch test  创建分支 git branch -d test   删除本地分支 git checkout test    切换分支 git checkout -b test 创建并切换到该分支 git remote add nam">
-<meta property="og:updated_time" content="2018-04-20T01:39:10.000Z">
+<meta property="og:updated_time" content="2018-07-12T09:15:53.000Z">
 <meta name="twitter:card" content="summary">
 <meta name="twitter:title" content="GIT">
 <meta name="twitter:description" content="GIT 分支 git branch -a    查看所有分支 git branch -r    查看远程分支 git branch   查看本地分支 git branch test  创建分支 git branch -d test   删除本地分支 git checkout test    切换分支 git checkout -b test 创建并切换到该分支 git remote add nam">
@@ -67,7 +67,7 @@
     <span id="actions">
       <ul>
         
-        <li><a class="icon" href="/2018/03/11/blockchain/"><i class="fa fa-chevron-left" aria-hidden="true" onmouseover="$('#i-prev').toggle();" onmouseout="$('#i-prev').toggle();"></i></a></li>
+        <li><a class="icon" href="/2018/02/03/go-reload/"><i class="fa fa-chevron-left" aria-hidden="true" onmouseover="$('#i-prev').toggle();" onmouseout="$('#i-prev').toggle();"></i></a></li>
         
         
         <li><a class="icon" href="/2018/02/01/vue/"><i class="fa fa-chevron-right" aria-hidden="true" onmouseover="$('#i-next').toggle();" onmouseout="$('#i-next').toggle();"></i></a></li>
@@ -139,9 +139,12 @@
 <li>git checkout test    <em>切换分支</em></li>
 <li>git checkout -b test <em>创建并切换到该分支</em></li>
 <li>git remote add name git-url  <em>添加远程仓库并设置别名</em></li>
-<li>git remote 可以查看当前有哪些远程仓库</li>
+<li>git remote <em>可以查看当前有哪些远程仓库</em></li>
 <li>git fetch 远程仓库名  <em>获取该远程仓库所有分支并在本地建立对应的本地分支</em></li>
 <li>git push 远程仓库别名 分支名  <em>推送分支，可以用来创建对应的远程分支</em></li>
+<li>git push –delete branch_name <em>删除远程分支</em></li>
+<li>git push –delete tag tag_name  <em>删除远程 tag</em></li>
+<li>git pull –tag <em>才能把远程的 tag 拉到本地</em></li>
 </ol>
 <h1 id="GIT-fetch-用法"><a href="#GIT-fetch-用法" class="headerlink" title="GIT fetch 用法"></a>GIT fetch 用法</h1><p>一旦远程主机的版本库有了更新（Git术语叫做commit），需要将这些更新取回本地，这时就要用到git fetch命令。git fetch命令通常用来查看其他人的进程，因为它取回的代码对你本地的开发代码没有影响。默认情况下，git fetch取回所有分支（branch）的更新。如果只想取回特定分支的更新，可以指定分支名。然后也可以使用git merge命令或者git rebase命令，在本地分支上合并远程分支。<br><figure class="highlight bash"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div></pre></td><td class="code"><pre><div class="line">$ git merge origin/master</div><div class="line"><span class="comment"># 或者</span></div><div class="line">$ git rebase origin/master</div></pre></td></tr></table></figure></p>
 <h1 id="GIT-pull-用法"><a href="#GIT-pull-用法" class="headerlink" title="GIT pull 用法"></a>GIT pull 用法</h1><p>git pull命令的作用是，取回远程主机某个分支的更新，再与本地的指定分支合并（等同于先fetch，再merge）。默认使用 git merge 来合并，也可以用 –rebase 指定使用 git rebase 合并分支。<br><figure class="highlight bash"><table><tr><td class="gutter"><pre><div class="line">1</div></pre></td><td class="code"><pre><div class="line">$ git pull &lt;远程主机名&gt; &lt;远程分支名&gt;:&lt;本地分支名&gt;</div></pre></td></tr></table></figure></p>
