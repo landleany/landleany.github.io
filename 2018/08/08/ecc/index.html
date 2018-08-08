@@ -6,13 +6,16 @@
     <meta http-equiv="X-UA-Compatible" content="IE=edge">
     <meta name="HandheldFriendly" content="True">
     <meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1" />
-    <meta property="og:type" content="article">
+    <meta name="description" content="不错的教程 椭圆曲线介绍             有限域         国密算法分类国密即国家密码局认定的国产密码算法。主要有SM1，SM2，SM3，SM4。密钥长度和分组长度均为128位。      SM1 为对称加密。其加密强度与AES相当。该算法不公开，调用该算法时，需要通过加密芯片的接口进行调用。      SM2为非对称加密，基于ECC。该算法已公开。由于该算法基于ECC，故其签名速度">
+<meta property="og:type" content="article">
 <meta property="og:title" content="椭圆曲线加密体系">
 <meta property="og:url" content="http://yoursite.com/2018/08/08/ecc/index.html">
 <meta property="og:site_name" content="Drip">
-<meta property="og:updated_time" content="2018-08-08T02:52:19.000Z">
+<meta property="og:description" content="不错的教程 椭圆曲线介绍             有限域         国密算法分类国密即国家密码局认定的国产密码算法。主要有SM1，SM2，SM3，SM4。密钥长度和分组长度均为128位。      SM1 为对称加密。其加密强度与AES相当。该算法不公开，调用该算法时，需要通过加密芯片的接口进行调用。      SM2为非对称加密，基于ECC。该算法已公开。由于该算法基于ECC，故其签名速度">
+<meta property="og:updated_time" content="2018-08-08T04:27:11.000Z">
 <meta name="twitter:card" content="summary">
 <meta name="twitter:title" content="椭圆曲线加密体系">
+<meta name="twitter:description" content="不错的教程 椭圆曲线介绍             有限域         国密算法分类国密即国家密码局认定的国产密码算法。主要有SM1，SM2，SM3，SM4。密钥长度和分组长度均为128位。      SM1 为对称加密。其加密强度与AES相当。该算法不公开，调用该算法时，需要通过加密芯片的接口进行调用。      SM2为非对称加密，基于ECC。该算法已公开。由于该算法基于ECC，故其签名速度">
     
     
         
@@ -91,7 +94,7 @@
 
     </div>
     <div id="toc">
-      
+      <ol class="toc"><li class="toc-item toc-level-1"><a class="toc-link" href="#国密算法分类"><span class="toc-number">1.</span> <span class="toc-text">国密算法分类</span></a></li><li class="toc-item toc-level-1"><a class="toc-link" href="#国密-sm2-其实就是选择了一条特定的椭圆曲线和相关参数，算法没有改变"><span class="toc-number">2.</span> <span class="toc-text">国密 sm2 其实就是选择了一条特定的椭圆曲线和相关参数，算法没有改变</span></a></li><li class="toc-item toc-level-1"><a class="toc-link" href="#secp256k1-标准"><span class="toc-number">3.</span> <span class="toc-text">secp256k1 标准</span></a></li><li class="toc-item toc-level-1"><a class="toc-link" href="#openssl"><span class="toc-number">4.</span> <span class="toc-text">openssl</span></a></li><li class="toc-item toc-level-1"><a class="toc-link" href="#有限域"><span class="toc-number">5.</span> <span class="toc-text">有限域</span></a></li><li class="toc-item toc-level-1"><a class="toc-link" href="#模p有限域GF-p"><span class="toc-number">6.</span> <span class="toc-text">模p有限域GF(p)</span></a></li><li class="toc-item toc-level-1"><a class="toc-link" href="#椭圆曲线方程"><span class="toc-number">7.</span> <span class="toc-text">椭圆曲线方程</span></a></li><li class="toc-item toc-level-1"><a class="toc-link" href="#名词概念"><span class="toc-number">8.</span> <span class="toc-text">名词概念</span></a></li></ol>
     </div>
   </span>
 </div>
@@ -125,7 +128,25 @@
   
 
   <div class="content" itemprop="articleBody">
-    
+    <p><a href="https://www.cnblogs.com/qcblog/p/8998045.html" target="_blank" rel="external">不错的教程</a></p>
+<p><a href="https://pangjiuzala.github.io/2016/03/03/Bitcoin%E5%8A%A0%E5%AF%86%E6%8A%80%E6%9C%AF%E4%B9%8B%E6%A4%AD%E5%9C%86%E6%9B%B2%E7%BA%BF%E5%AF%86%E7%A0%81%E5%AD%A6/" target="_blank" rel="external">椭圆曲线介绍</a>            </p>
+<p><a href="https://blog.csdn.net/qmickecs/article/details/77281602" target="_blank" rel="external">有限域</a>        </p>
+<h1 id="国密算法分类"><a href="#国密算法分类" class="headerlink" title="国密算法分类"></a>国密算法分类</h1><p>国密即国家密码局认定的国产密码算法。主要有SM1，SM2，SM3，SM4。密钥长度和分组长度均为128位。     </p>
+<p>SM1 为对称加密。其加密强度与AES相当。该算法不公开，调用该算法时，需要通过加密芯片的接口进行调用。     </p>
+<p><strong>SM2</strong>为非对称加密，基于ECC。该算法已公开。由于该算法基于ECC，故其签名速度与秘钥生成速度都快于RSA。ECC 256位（SM2采用的就是ECC 256位的一种）安全强度比RSA 2048位高，但运算速度快于RSA。     </p>
+<p>SM3 消息摘要。可以用MD5作为对比理解。该算法已公开。校验结果为256位。     </p>
+<p>SM4 无线局域网标准的分组数据算法。对称加密，密钥长度和分组长度均为128位。     </p>
+<h1 id="国密-sm2-其实就是选择了一条特定的椭圆曲线和相关参数，算法没有改变"><a href="#国密-sm2-其实就是选择了一条特定的椭圆曲线和相关参数，算法没有改变" class="headerlink" title="国密 sm2 其实就是选择了一条特定的椭圆曲线和相关参数，算法没有改变"></a>国密 sm2 其实就是选择了一条特定的椭圆曲线和相关参数，算法没有改变</h1><p>首先需要选择一条椭圆曲线方程，然后选择实现有限域的方式（比如取余，素数p的选择），然后选择基准点G<br><figure class="highlight bash"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div><div class="line">7</div><div class="line">8</div><div class="line">9</div></pre></td><td class="code"><pre><div class="line"></div><div class="line">y^2=x^3+ax+b</div><div class="line"> </div><div class="line">p=FFFFFFFE FFFFFFFFFFFFFFFF FFFFFFFF FFFFFFFF 00000000 FFFFFFFF FFFFFFFF</div><div class="line">a=FFFFFFFE FFFFFFFFFFFFFFFF FFFFFFFF FFFFFFFF 00000000 FFFFFFFF FFFFFFFC</div><div class="line">b=28E9FA9E 9D9F5E344D5A9E4B CF6509A7 F39789F5 15AB8F92 DDBCBD41 4D940E93</div><div class="line">n=FFFFFFFE FFFFFFFFFFFFFFFF FFFFFFFF 7203DF6B 21C6052B 53BBF409 39D54123</div><div class="line">Gx=32C4AE2C 1F198119 5F990446 6A39C994 8FE30BBF F2660BE1 715A4589 334C74C7</div><div class="line">Gy=BC3736A2 F4F6779C 59BDCEE3 6B692153 D0A9877C C62A4740 02DF32E5 2139F0A0</div></pre></td></tr></table></figure></p>
+<h1 id="secp256k1-标准"><a href="#secp256k1-标准" class="headerlink" title="secp256k1 标准"></a>secp256k1 标准</h1><p><a href="https://www.zhihu.com/question/22399196" target="_blank" rel="external">知乎</a><br>椭圆曲线方程是： y^2=x^3+7<br>采用模p有限域：GF(p)，p= 2^{256}−2^{32}−2^9−2^8−2^7−2^6−2^4−1<br>然后是参数 G 。 G 是椭圆曲线上的一个点，称为基点。对于secp256k1，它的具体值是：</p>
+<p>G=(55066263022277343669578718895168534326250603453777594175500187360389116729240,\ 32670510020758816978083085130507043184471273380659243275938904335757337482424)        </p>
+<p>Q=kG，其中 k 是私钥， Q 是公钥    </p>
+<h1 id="openssl"><a href="#openssl" class="headerlink" title="openssl"></a>openssl</h1><p>openssl 是著名的C库和命令行工具箱，实现了各种密码学的函数，包括椭圆曲线（ECC）。其中内置了 67 种椭圆曲线函数。<br><figure class="highlight bash"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div></pre></td><td class="code"><pre><div class="line"><span class="comment"># 比如使用 secp256k1 这条曲线</span></div><div class="line">openssl genpkey -genparam -algorithm ec -pkeyopt ec_paramgen_curve:secp256k1 -out secp256k1.param</div></pre></td></tr></table></figure></p>
+<h1 id="有限域"><a href="#有限域" class="headerlink" title="有限域"></a>有限域</h1><p>实数有无限多个，所以实数域是一个无限域。而如果一个域的元素是有限的，那么他就是一个有限域，又叫伽（ga1）罗瓦域（就是那个为爱死于决斗的数学家）。<br><code>有限域中元素的个数被称为有限域的阶(order)。有限域的阶一定是某个素数p的k次幂（k是正整数)</code>         </p>
+<h1 id="模p有限域GF-p"><a href="#模p有限域GF-p" class="headerlink" title="模p有限域GF(p)"></a>模p有限域GF(p)</h1><p>最常见的有限域莫过于模素数p有限域GF(p)。    </p>
+<p>GF(p)是定义在整数集合{0, 1, … , p-1}上的域。GF(p)上的加法和乘法分别是模加法和模乘法       </p>
+<h1 id="椭圆曲线方程"><a href="#椭圆曲线方程" class="headerlink" title="椭圆曲线方程"></a>椭圆曲线方程</h1><p>y^2 = x^3 + ax + b，虽然图像不像椭圆</p>
+<h1 id="名词概念"><a href="#名词概念" class="headerlink" title="名词概念"></a>名词概念</h1><p>缩写    英文全名    中文翻译<br>EC    Elliptic Curve    椭圆曲线<br>ECC    Elliptic Curve Cryptogphay    椭圆曲线密码学<br>ECDSA    Elliptic Curve Digital Signature Algorithm    椭圆曲线数字签名算法<br>DH    Diffie-Hellman Key Exchange    Diffie-Hellman密钥交换<br>ECDH    Elliptic Curve Diffie-Hellman Key Exchange    椭圆曲线Diffie-Hellman密钥交换<br>IES    Integrated Encryption Schema    集成加密框架<br>ECIES    Elliptic Curve Integrated Encryption Schema    椭圆曲线集成加密框架<br>KDF    Key Derivation Function    密钥(私钥)生成函数          </p>
+
   </div>
 </article>
 
@@ -151,7 +172,7 @@
     </div>
 
     <div id="toc-footer" style="display: none">
-      
+      <ol class="toc"><li class="toc-item toc-level-1"><a class="toc-link" href="#国密算法分类"><span class="toc-number">1.</span> <span class="toc-text">国密算法分类</span></a></li><li class="toc-item toc-level-1"><a class="toc-link" href="#国密-sm2-其实就是选择了一条特定的椭圆曲线和相关参数，算法没有改变"><span class="toc-number">2.</span> <span class="toc-text">国密 sm2 其实就是选择了一条特定的椭圆曲线和相关参数，算法没有改变</span></a></li><li class="toc-item toc-level-1"><a class="toc-link" href="#secp256k1-标准"><span class="toc-number">3.</span> <span class="toc-text">secp256k1 标准</span></a></li><li class="toc-item toc-level-1"><a class="toc-link" href="#openssl"><span class="toc-number">4.</span> <span class="toc-text">openssl</span></a></li><li class="toc-item toc-level-1"><a class="toc-link" href="#有限域"><span class="toc-number">5.</span> <span class="toc-text">有限域</span></a></li><li class="toc-item toc-level-1"><a class="toc-link" href="#模p有限域GF-p"><span class="toc-number">6.</span> <span class="toc-text">模p有限域GF(p)</span></a></li><li class="toc-item toc-level-1"><a class="toc-link" href="#椭圆曲线方程"><span class="toc-number">7.</span> <span class="toc-text">椭圆曲线方程</span></a></li><li class="toc-item toc-level-1"><a class="toc-link" href="#名词概念"><span class="toc-number">8.</span> <span class="toc-text">名词概念</span></a></li></ol>
     </div>
 
     <div id="actions-footer">
