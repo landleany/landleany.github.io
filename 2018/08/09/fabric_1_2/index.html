@@ -1,0 +1,245 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <!-- so meta -->
+    <meta charset="utf-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="HandheldFriendly" content="True">
+    <meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1" />
+    <meta name="description" content="Service Discovery在 Fabric 1.2 之前，SDK 需要保存很多节点信息，包括节点地址，MSP，TLS，需要记得每个合约的背书策略等。这些信息是静态的，会随着网络的动态变化而过时。由于在 SDK 维护这些信息比较麻烦，现在支持向 peer 请求获取相关信息（借助 gossip），即 Service Discovery。提供一下四种查询：       Configuration">
+<meta property="og:type" content="article">
+<meta property="og:title" content="Fabric 1.2 release 新特性">
+<meta property="og:url" content="http://yoursite.com/2018/08/09/fabric_1_2/index.html">
+<meta property="og:site_name" content="Drip">
+<meta property="og:description" content="Service Discovery在 Fabric 1.2 之前，SDK 需要保存很多节点信息，包括节点地址，MSP，TLS，需要记得每个合约的背书策略等。这些信息是静态的，会随着网络的动态变化而过时。由于在 SDK 维护这些信息比较麻烦，现在支持向 peer 请求获取相关信息（借助 gossip），即 Service Discovery。提供一下四种查询：       Configuration">
+<meta property="og:updated_time" content="2018-08-09T09:23:59.000Z">
+<meta name="twitter:card" content="summary">
+<meta name="twitter:title" content="Fabric 1.2 release 新特性">
+<meta name="twitter:description" content="Service Discovery在 Fabric 1.2 之前，SDK 需要保存很多节点信息，包括节点地址，MSP，TLS，需要记得每个合约的背书策略等。这些信息是静态的，会随着网络的动态变化而过时。由于在 SDK 维护这些信息比较麻烦，现在支持向 peer 请求获取相关信息（借助 gossip），即 Service Discovery。提供一下四种查询：       Configuration">
+    
+    
+        
+          
+              <link rel="shortcut icon" href="/images/favicon.ico">
+          
+        
+        
+          
+            <link rel="icon" type="image/png" href="/images/favicon-192x192.png" sizes="192x192">
+          
+        
+        
+          
+            <link rel="apple-touch-icon" sizes="180x180" href="/images/apple-touch-icon.png">
+          
+        
+    
+    <!-- title -->
+    <title>Fabric 1.2 release 新特性</title>
+    <!-- styles -->
+    <link rel="stylesheet" href="/css/style.css">
+    <!-- rss -->
+    
+    
+</head>
+
+<body>
+    
+      <div id="header-post">
+  <a id="menu-icon" href="#"><i class="fa fa-bars fa-lg"></i></a>
+  <a id="menu-icon-tablet" href="#"><i class="fa fa-bars fa-lg"></i></a>
+  <a id="top-icon-tablet" href="#" onclick="$('html, body').animate({ scrollTop: 0 }, 'fast');" style="display:none;"><i class="fa fa-chevron-up fa-lg"></i></a>
+  <span id="menu">
+    <span id="nav">
+      <ul>
+         
+          <li><a href="/">Home</a></li>
+         
+          <li><a href="/about/">About</a></li>
+         
+          <li><a href="/archives/">Writing</a></li>
+         
+          <li><a href="http://github.com/probberechts">Projects</a></li>
+        
+      </ul>
+    </span>
+    <br/>
+    <span id="actions">
+      <ul>
+        
+        <li><a class="icon" href="/2018/08/10/fabric_cc/"><i class="fa fa-chevron-left" aria-hidden="true" onmouseover="$('#i-prev').toggle();" onmouseout="$('#i-prev').toggle();"></i></a></li>
+        
+        
+        <li><a class="icon" href="/2018/08/08/ecc/"><i class="fa fa-chevron-right" aria-hidden="true" onmouseover="$('#i-next').toggle();" onmouseout="$('#i-next').toggle();"></i></a></li>
+        
+        <li><a class="icon" href="#" onclick="$('html, body').animate({ scrollTop: 0 }, 'fast');"><i class="fa fa-chevron-up" aria-hidden="true" onmouseover="$('#i-top').toggle();" onmouseout="$('#i-top').toggle();"></i></a></li>
+      </ul>
+      <span id="i-prev" class="info" style="display:none;">Previous post</span>
+      <span id="i-next" class="info" style="display:none;">Next post</span>
+      <span id="i-top" class="info" style="display:none;">Back to top</span>
+      <span id="i-share" class="info" style="display:none;">Share post</span>
+    </span>
+    <br/>
+    <div id="share" style="display: none">
+      <ul>
+  <li><a class="icon" href="http://www.facebook.com/sharer.php?u=http://yoursite.com/2018/08/09/fabric_1_2/"><i class="fa fa-facebook " aria-hidden="true"></i></a></li>
+  <li><a class="icon" href="https://twitter.com/share?url=http://yoursite.com/2018/08/09/fabric_1_2/&text=Fabric 1.2 release 新特性"><i class="fa fa-twitter " aria-hidden="true"></i></a></li>
+  <li><a class="icon" href="http://www.linkedin.com/shareArticle?url=http://yoursite.com/2018/08/09/fabric_1_2/&title=Fabric 1.2 release 新特性"><i class="fa fa-linkedin " aria-hidden="true"></i></a></li>
+  <li><a class="icon" href="https://pinterest.com/pin/create/bookmarklet/?url=http://yoursite.com/2018/08/09/fabric_1_2/&is_video=false&description=Fabric 1.2 release 新特性"><i class="fa fa-pinterest " aria-hidden="true"></i></a></li>
+  <li><a class="icon" href="mailto:?subject=Fabric 1.2 release 新特性&body=Check out this article: http://yoursite.com/2018/08/09/fabric_1_2/"><i class="fa fa-envelope " aria-hidden="true"></i></a></li>
+  <li><a class="icon" href="https://getpocket.com/save?url=http://yoursite.com/2018/08/09/fabric_1_2/&title=Fabric 1.2 release 新特性"><i class="fa fa-get-pocket " aria-hidden="true"></i></a></li>
+  <li><a class="icon" href="http://reddit.com/submit?url=http://yoursite.com/2018/08/09/fabric_1_2/&title=Fabric 1.2 release 新特性"><i class="fa fa-reddit " aria-hidden="true"></i></a></li>
+  <li><a class="icon" href="http://www.stumbleupon.com/submit?url=http://yoursite.com/2018/08/09/fabric_1_2/&title=Fabric 1.2 release 新特性"><i class="fa fa-stumbleupon " aria-hidden="true"></i></a></li>
+  <li><a class="icon" href="http://digg.com/submit?url=http://yoursite.com/2018/08/09/fabric_1_2/&title=Fabric 1.2 release 新特性"><i class="fa fa-digg " aria-hidden="true"></i></a></li>
+  <li><a class="icon" href="http://www.tumblr.com/share/link?url=http://yoursite.com/2018/08/09/fabric_1_2/&name=Fabric 1.2 release 新特性&description="><i class="fa fa-tumblr " aria-hidden="true"></i></a></li>
+</ul>
+
+    </div>
+    <div id="toc">
+      <ol class="toc"><li class="toc-item toc-level-1"><a class="toc-link" href="#Service-Discovery"><span class="toc-number">1.</span> <span class="toc-text">Service Discovery</span></a></li><li class="toc-item toc-level-1"><a class="toc-link" href="#Private-Data"><span class="toc-number">2.</span> <span class="toc-text">Private Data</span></a></li><li class="toc-item toc-level-1"><a class="toc-link" href="#新的-event-机制"><span class="toc-number">3.</span> <span class="toc-text">新的 event 机制</span></a></li><li class="toc-item toc-level-1"><a class="toc-link" href="#新的-transaction-flow"><span class="toc-number">4.</span> <span class="toc-text">新的 transaction flow</span></a></li></ol>
+    </div>
+  </span>
+</div>
+
+    
+    <div class="content index width mx-auto px2 my4">
+        
+        <article class="post" itemscope itemtype="http://schema.org/BlogPosting">
+  <header>
+    
+    <h1 class="posttitle" itemprop="name headline">
+        Fabric 1.2 release 新特性
+    </h1>
+
+
+
+    <div class="meta">
+      <span class="author" itemprop="author" itemscope itemtype="http://schema.org/Person">
+        <span itemprop="name">Drip</span>
+      </span>
+      
+    <div class="postdate">
+        <time datetime="2018-08-09T02:30:30.000Z" itemprop="datePublished">2018-08-09</time>
+    </div>
+
+
+      
+
+    </div>
+  </header>
+  
+
+  <div class="content" itemprop="articleBody">
+    <h1 id="Service-Discovery"><a href="#Service-Discovery" class="headerlink" title="Service Discovery"></a>Service Discovery</h1><p>在 Fabric 1.2 之前，SDK 需要保存很多节点信息，包括节点地址，MSP，TLS，需要记得每个合约的背书策略等。这些信息是静态的，会随着网络的动态变化而过时。<br>由于在 SDK 维护这些信息比较麻烦，现在支持向 peer 请求获取相关信息（借助 gossip），即 Service Discovery。提供一下四种查询：     </p>
+<ol>
+<li>Configuration query: Returns the MSPConfig of all organizations in the channel along with the orderer endpoints of the channel.</li>
+<li>Peer membership query: Returns the peers that have joined the channel.</li>
+<li>Endorsement query: Returns an endorsement descriptor for given chaincode(s) in a channel.</li>
+<li>Local peer membership query: Returns the local membership information of the peer that responds to the query. By default the client needs to be an administrator for the peer to respond to this query.        </li>
+</ol>
+<p>在 core.yaml 中新增的配置，决定该 peer 是否开启 ServiceDiscovery 服务<br><figure class="highlight yaml"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div><div class="line">7</div><div class="line">8</div><div class="line">9</div><div class="line">10</div><div class="line">11</div><div class="line">12</div><div class="line">13</div><div class="line">14</div><div class="line">15</div></pre></td><td class="code"><pre><div class="line"><span class="comment"># The discovery service is used by clients to query information about peers,</span></div><div class="line">   <span class="comment"># such as - which peers have joined a certain channel, what is the latest</span></div><div class="line">   <span class="comment"># channel config, and most importantly - given a chaincode and a channel,</span></div><div class="line">   <span class="comment"># what possible sets of peers satisfy the endorsement policy.</span></div><div class="line"><span class="attr">   discovery:</span></div><div class="line"><span class="attr">       enabled:</span> <span class="literal">true</span></div><div class="line">       <span class="comment"># Whether the authentication cache is enabled or not.</span></div><div class="line"><span class="attr">       authCacheEnabled:</span> <span class="literal">true</span></div><div class="line">       <span class="comment"># The maximum size of the cache, after which a purge takes place</span></div><div class="line"><span class="attr">       authCacheMaxSize:</span> <span class="number">1000</span></div><div class="line">       <span class="comment"># The proportion (0 to 1) of entries that remain in the cache after the cache is purged due to overpopulation</span></div><div class="line"><span class="attr">       authCachePurgeRetentionRatio:</span> <span class="number">0.75</span></div><div class="line">       <span class="comment"># Whether to allow non-admins to perform non channel scoped queries.</span></div><div class="line">       <span class="comment"># When this is false, it means that only peer admins can perform non channel scoped queries.</span></div><div class="line"><span class="attr">       orgMembersAllowedAccess:</span> <span class="literal">false</span></div></pre></td></tr></table></figure></p>
+<h1 id="Private-Data"><a href="#Private-Data" class="headerlink" title="Private Data"></a>Private Data</h1><p>在合约的初始化时，现在可以提供 –collections-config 参数，表示 collections 配置文件的地址。该 json 文件中可以包含该合约内多个 collection 配置，每个 collection 可以有自己独立的权限配置：    </p>
+<ol>
+<li><p>name，表示该 collection 的名称。</p>
+</li>
+<li><p>policy，语法等同于背书策略，例如 “OR(‘Org1MSP.member’, ‘Org2MSP.member’)”。</p>
+</li>
+<li><p>maxPeerCount，模拟执行后，需要给符合 policy 的 peer 节点 gossip 该私有 collection 数据，该项限制发送的 peer 节点的最大数量。如果该项设置为 0，则表示在模拟执行阶段，不会发送 private 数据给其他的 peer。但是最好不要这样设置，因为如果该 Endorser peer 在 模拟执行阶段 与 commit 阶段中间挂掉了，那这些 private 数据就会无法发出去，导致其他 peer 无法拉取到私密数据。 因此该项配置是为了 private 数据的冗余性和可靠性。</p>
+</li>
+<li><p>requiredPeerCount，上一步 gossip 私有 collection 数据是需要等待 ack 的，这里表示需要获得的最少 ack 数量。如果在一定时间内未获得该数量的响应，则会在模拟执行阶段返回对应错误，防止进入进入后续的 commit 阶段。最好不要配置为 0，因为可能会导致 private 数据的丢失。</p>
+</li>
+<li><p>blockToLive，私有数据是没有账本的，而是写入对应的 side db 中。由于在业务中，私有数据为了不留痕迹，需要在使用过后被自动清除这样的需求，该参数表示经过几个 block 后从数据库中删除对应 collection 数据。设置为 0 则表示不删除。</p>
+</li>
+</ol>
+<p>合约中，通过调用 <code>PutPrivateData(collection_name,key,value)</code> 和 <code>GetPrivateData(collection_name,key)</code> 读写私有数据，如果没有权限会返回对应的 error    </p>
+<h1 id="新的-event-机制"><a href="#新的-event-机制" class="headerlink" title="新的 event 机制"></a>新的 event 机制</h1><p>自从 Fabric 1.1 开始，提供了两个新的服务供 sdk 实现 channel based event 机制。即 <code>Deliver</code> 和 <code>DeliverFiltered</code> 这两个 peer 上新的接口。大致原理是从 peer 上拉取对应 channel 的账本，然后 sdk 本地解析区块，提取其中的 <code>ChaincodeActionPayload</code> 和 <code>FilteredChaincodeAction</code> 字段内容。<br>相较之前的 eventhub 机制，优点是可以 replay event（从指定区块开始拉取，因此也不容易因为网络等原因错过 event），可以被其他 org 的身份访问（只要满足该通道的 reader 权限即可）。         </p>
+<h1 id="新的-transaction-flow"><a href="#新的-transaction-flow" class="headerlink" title="新的 transaction flow"></a>新的 transaction flow</h1>
+  </div>
+</article>
+
+
+
+    </div>
+    
+      <div id="footer-post-container">
+  <div id="footer-post">
+
+    <div id="nav-footer" style="display: none">
+      <ul>
+         
+          <li><a href="/">Home</a></li>
+         
+          <li><a href="/about/">About</a></li>
+         
+          <li><a href="/archives/">Writing</a></li>
+         
+          <li><a href="http://github.com/probberechts">Projects</a></li>
+        
+      </ul>
+    </div>
+
+    <div id="toc-footer" style="display: none">
+      <ol class="toc"><li class="toc-item toc-level-1"><a class="toc-link" href="#Service-Discovery"><span class="toc-number">1.</span> <span class="toc-text">Service Discovery</span></a></li><li class="toc-item toc-level-1"><a class="toc-link" href="#Private-Data"><span class="toc-number">2.</span> <span class="toc-text">Private Data</span></a></li><li class="toc-item toc-level-1"><a class="toc-link" href="#新的-event-机制"><span class="toc-number">3.</span> <span class="toc-text">新的 event 机制</span></a></li><li class="toc-item toc-level-1"><a class="toc-link" href="#新的-transaction-flow"><span class="toc-number">4.</span> <span class="toc-text">新的 transaction flow</span></a></li></ol>
+    </div>
+
+    <div id="actions-footer">
+      <ul>
+        <li id="toc"><a class="icon" href="#" onclick="$('#toc-footer').toggle();return false;"><i class="fa fa-list fa-lg" aria-hidden="true"></i> TOC</a></li>
+        <li id="share"><a class="icon" href="#" onclick="$('#share-footer').toggle();return false;"><i class="fa fa-share-alt fa-lg" aria-hidden="true"></i> Share</a></li>
+        <li id="top" style="display:none"><a class="icon" href="#" onclick="$('html, body').animate({ scrollTop: 0 }, 'fast');"><i class="fa fa-chevron-up fa-lg" aria-hidden="true"></i> Top</a></li>
+        <li id="menu"><a class="icon" href="#" onclick="$('#nav-footer').toggle();return false;"><i class="fa fa-bars fa-lg" aria-hidden="true"></i> Menu</a></li>
+      </ul>
+    </div>
+
+  </div>
+</div>
+
+    
+    <footer id="footer">
+  <div class="footer-left">
+    Copyright &copy; 2018 Landleany
+  </div>
+  <div class="footer-right">
+    <nav>
+      <ul>
+         
+          <li><a href="/">Home</a></li>
+         
+          <li><a href="/about/">About</a></li>
+         
+          <li><a href="/archives/">Writing</a></li>
+         
+          <li><a href="http://github.com/probberechts">Projects</a></li>
+        
+      </ul>
+    </nav>
+  </div>
+</footer>
+
+</body>
+</html>
+<!-- styles -->
+<link rel="stylesheet" href="/lib/font-awesome/css/font-awesome.min.css">
+<link rel="stylesheet" href="/lib/meslo-LG/styles.css">
+<link rel="stylesheet" href="/lib/justified-gallery/justifiedGallery.min.css">
+
+<!-- jquery -->
+<script src="/lib/jquery/jquery.min.js"></script>
+<script src="/lib/justified-gallery/jquery.justifiedGallery.min.js"></script>
+<script src="/js/main.js"></script>
+<!-- search -->
+
+<!-- Google Analytics -->
+
+    <script type="text/javascript">
+        (function(i,s,o,g,r,a,m) {i['GoogleAnalyticsObject']=r;i[r]=i[r]||function() {
+        (i[r].q=i[r].q||[]).push(arguments)},i[r].l=1*new Date();a=s.createElement(o),
+        m=s.getElementsByTagName(o)[0];a.async=1;a.src=g;m.parentNode.insertBefore(a,m)
+        })(window,document,'script','//www.google-analytics.com/analytics.js','ga');
+        ga('create', 'UA-86660611-1', 'auto');
+        ga('send', 'pageview');
+    </script>
+
+<!-- Disqus Comments -->
+
+
