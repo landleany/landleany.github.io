@@ -12,7 +12,7 @@
 <meta property="og:url" content="http://yoursite.com/2018/08/08/ecc/index.html">
 <meta property="og:site_name" content="Drip">
 <meta property="og:description" content="不错的教程 椭圆曲线介绍             有限域         国密算法分类国密即国家密码局认定的国产密码算法。主要有SM1，SM2，SM3，SM4。密钥长度和分组长度均为128位。      SM1 为对称加密。其加密强度与AES相当。该算法不公开，调用该算法时，需要通过加密芯片的接口进行调用。      SM2为非对称加密，基于ECC。该算法已公开。由于该算法基于ECC，故其签名速度">
-<meta property="og:updated_time" content="2018-08-08T04:27:11.000Z">
+<meta property="og:updated_time" content="2018-08-13T07:05:01.000Z">
 <meta name="twitter:card" content="summary">
 <meta name="twitter:title" content="椭圆曲线加密体系">
 <meta name="twitter:description" content="不错的教程 椭圆曲线介绍             有限域         国密算法分类国密即国家密码局认定的国产密码算法。主要有SM1，SM2，SM3，SM4。密钥长度和分组长度均为128位。      SM1 为对称加密。其加密强度与AES相当。该算法不公开，调用该算法时，需要通过加密芯片的接口进行调用。      SM2为非对称加密，基于ECC。该算法已公开。由于该算法基于ECC，故其签名速度">
@@ -96,7 +96,7 @@
 
     </div>
     <div id="toc">
-      <ol class="toc"><li class="toc-item toc-level-1"><a class="toc-link" href="#国密算法分类"><span class="toc-number">1.</span> <span class="toc-text">国密算法分类</span></a></li><li class="toc-item toc-level-1"><a class="toc-link" href="#国密-sm2-其实就是选择了一条特定的椭圆曲线和相关参数，算法没有改变"><span class="toc-number">2.</span> <span class="toc-text">国密 sm2 其实就是选择了一条特定的椭圆曲线和相关参数，算法没有改变</span></a></li><li class="toc-item toc-level-1"><a class="toc-link" href="#secp256k1-标准"><span class="toc-number">3.</span> <span class="toc-text">secp256k1 标准</span></a></li><li class="toc-item toc-level-1"><a class="toc-link" href="#openssl"><span class="toc-number">4.</span> <span class="toc-text">openssl</span></a></li><li class="toc-item toc-level-1"><a class="toc-link" href="#有限域"><span class="toc-number">5.</span> <span class="toc-text">有限域</span></a></li><li class="toc-item toc-level-1"><a class="toc-link" href="#模p有限域GF-p"><span class="toc-number">6.</span> <span class="toc-text">模p有限域GF(p)</span></a></li><li class="toc-item toc-level-1"><a class="toc-link" href="#椭圆曲线方程"><span class="toc-number">7.</span> <span class="toc-text">椭圆曲线方程</span></a></li><li class="toc-item toc-level-1"><a class="toc-link" href="#名词概念"><span class="toc-number">8.</span> <span class="toc-text">名词概念</span></a></li></ol>
+      <ol class="toc"><li class="toc-item toc-level-1"><a class="toc-link" href="#国密算法分类"><span class="toc-number">1.</span> <span class="toc-text">国密算法分类</span></a></li><li class="toc-item toc-level-1"><a class="toc-link" href="#国密-sm2-其实就是选择了一条特定的椭圆曲线和相关参数，算法没有改变"><span class="toc-number">2.</span> <span class="toc-text">国密 sm2 其实就是选择了一条特定的椭圆曲线和相关参数，算法没有改变</span></a></li><li class="toc-item toc-level-1"><a class="toc-link" href="#secp256k1-标准"><span class="toc-number">3.</span> <span class="toc-text">secp256k1 标准</span></a></li><li class="toc-item toc-level-1"><a class="toc-link" href="#openssl"><span class="toc-number">4.</span> <span class="toc-text">openssl</span></a></li><li class="toc-item toc-level-1"><a class="toc-link" href="#有限域"><span class="toc-number">5.</span> <span class="toc-text">有限域</span></a></li><li class="toc-item toc-level-1"><a class="toc-link" href="#模p有限域GF-p"><span class="toc-number">6.</span> <span class="toc-text">模p有限域GF(p)</span></a></li><li class="toc-item toc-level-1"><a class="toc-link" href="#椭圆曲线方程"><span class="toc-number">7.</span> <span class="toc-text">椭圆曲线方程</span></a></li><li class="toc-item toc-level-1"><a class="toc-link" href="#名词概念"><span class="toc-number">8.</span> <span class="toc-text">名词概念</span></a></li><li class="toc-item toc-level-1"><a class="toc-link" href="#高级加密标准-AES-Advanced-Encryption-Standard-为最常见的对称加密算法-微信小程序加密传输就是用这个加密算法的-。对称加密算法也就是加密和解密用相同的密钥，"><span class="toc-number">9.</span> <span class="toc-text">高级加密标准(AES,Advanced Encryption Standard)为最常见的对称加密算法(微信小程序加密传输就是用这个加密算法的)。对称加密算法也就是加密和解密用相同的密钥，</span></a></li><li class="toc-item toc-level-1"><a class="toc-link" href="#常见的对称加密算法"><span class="toc-number">10.</span> <span class="toc-text">常见的对称加密算法</span></a></li></ol>
     </div>
   </span>
 </div>
@@ -148,6 +148,29 @@
 <p>GF(p)是定义在整数集合{0, 1, … , p-1}上的域。GF(p)上的加法和乘法分别是模加法和模乘法       </p>
 <h1 id="椭圆曲线方程"><a href="#椭圆曲线方程" class="headerlink" title="椭圆曲线方程"></a>椭圆曲线方程</h1><p>y^2 = x^3 + ax + b，虽然图像不像椭圆</p>
 <h1 id="名词概念"><a href="#名词概念" class="headerlink" title="名词概念"></a>名词概念</h1><p>缩写    英文全名    中文翻译<br>EC    Elliptic Curve    椭圆曲线<br>ECC    Elliptic Curve Cryptogphay    椭圆曲线密码学<br>ECDSA    Elliptic Curve Digital Signature Algorithm    椭圆曲线数字签名算法<br>DH    Diffie-Hellman Key Exchange    Diffie-Hellman密钥交换<br>ECDH    Elliptic Curve Diffie-Hellman Key Exchange    椭圆曲线Diffie-Hellman密钥交换<br>IES    Integrated Encryption Schema    集成加密框架<br>ECIES    Elliptic Curve Integrated Encryption Schema    椭圆曲线集成加密框架<br>KDF    Key Derivation Function    密钥(私钥)生成函数          </p>
+<h1 id="高级加密标准-AES-Advanced-Encryption-Standard-为最常见的对称加密算法-微信小程序加密传输就是用这个加密算法的-。对称加密算法也就是加密和解密用相同的密钥，"><a href="#高级加密标准-AES-Advanced-Encryption-Standard-为最常见的对称加密算法-微信小程序加密传输就是用这个加密算法的-。对称加密算法也就是加密和解密用相同的密钥，" class="headerlink" title="高级加密标准(AES,Advanced Encryption Standard)为最常见的对称加密算法(微信小程序加密传输就是用这个加密算法的)。对称加密算法也就是加密和解密用相同的密钥，"></a>高级加密标准(AES,Advanced Encryption Standard)为最常见的对称加密算法(微信小程序加密传输就是用这个加密算法的)。对称加密算法也就是加密和解密用相同的密钥，</h1><h1 id="常见的对称加密算法"><a href="#常见的对称加密算法" class="headerlink" title="常见的对称加密算法"></a>常见的对称加密算法</h1><ol>
+<li><p>DES<br>DES算法全称为Data Encryption Standard，即数据加密算法，DES加密算法是IBM公司于1975年研究成功并公开发表的。DES算法的入口参数有三个：Key、Data、Mode。其中Key为8个字节共64位，是DES算法的工作密钥；Data也为8个字节64位，是要被加密或被解密的数据。</p>
+</li>
+<li><p>3DES</p>
+</li>
+</ol>
+<p>3DES（Triple DES）是三重数据加密算法（TDEA）密码的通称。它相当于是对每个数据块应用三次DES加密算法。由于计算机运算能力的增强，原版DES密码的密钥长度变得容易被暴力破解；3DES通过增加DES的密钥长度来避免类似的攻击，而不是设计一种全新的块密码算法。</p>
+<ol>
+<li>AES</li>
+</ol>
+<p>AES：又称Rijndael加密法，是美国联邦政府采用的一种区块加密标准。用来替代原先的DES。目前已然成为对称密钥加密中的算法之一。</p>
+<ol>
+<li>RC2</li>
+</ol>
+<p>RC2是由密码学家Ron Rivest设计的一种传统对称分组加密算法，它可作为DES算法的建议替代算法。它的输入和输出都是64比特。密钥的长度是从1字节到128字节可变。</p>
+<ol>
+<li>RC4</li>
+</ol>
+<p>RC4加密算法是大名鼎鼎的RSA三人组中的头号人物Ronald Rivest在1987年设计的密钥长度可变的流加密算法簇。由于RC4核心部分的S-box长度可为任意，该算法的速度可以达到DES加密的10倍左右，且具有很高级别的非线性。</p>
+<ol>
+<li>RC5</li>
+</ol>
+<p>RC5分组密码算法是1994由麻萨诸塞技术研究所的Ronald L. Rivest教授发明的，并由RSA实验室分析。它是参数可变的分组密码算法，三个可变的参数是：分组大小、密钥大小和加密轮数。在RC5算法中使用了三种运算：异或、加和循环。</p>
 
   </div>
 </article>
@@ -174,7 +197,7 @@
     </div>
 
     <div id="toc-footer" style="display: none">
-      <ol class="toc"><li class="toc-item toc-level-1"><a class="toc-link" href="#国密算法分类"><span class="toc-number">1.</span> <span class="toc-text">国密算法分类</span></a></li><li class="toc-item toc-level-1"><a class="toc-link" href="#国密-sm2-其实就是选择了一条特定的椭圆曲线和相关参数，算法没有改变"><span class="toc-number">2.</span> <span class="toc-text">国密 sm2 其实就是选择了一条特定的椭圆曲线和相关参数，算法没有改变</span></a></li><li class="toc-item toc-level-1"><a class="toc-link" href="#secp256k1-标准"><span class="toc-number">3.</span> <span class="toc-text">secp256k1 标准</span></a></li><li class="toc-item toc-level-1"><a class="toc-link" href="#openssl"><span class="toc-number">4.</span> <span class="toc-text">openssl</span></a></li><li class="toc-item toc-level-1"><a class="toc-link" href="#有限域"><span class="toc-number">5.</span> <span class="toc-text">有限域</span></a></li><li class="toc-item toc-level-1"><a class="toc-link" href="#模p有限域GF-p"><span class="toc-number">6.</span> <span class="toc-text">模p有限域GF(p)</span></a></li><li class="toc-item toc-level-1"><a class="toc-link" href="#椭圆曲线方程"><span class="toc-number">7.</span> <span class="toc-text">椭圆曲线方程</span></a></li><li class="toc-item toc-level-1"><a class="toc-link" href="#名词概念"><span class="toc-number">8.</span> <span class="toc-text">名词概念</span></a></li></ol>
+      <ol class="toc"><li class="toc-item toc-level-1"><a class="toc-link" href="#国密算法分类"><span class="toc-number">1.</span> <span class="toc-text">国密算法分类</span></a></li><li class="toc-item toc-level-1"><a class="toc-link" href="#国密-sm2-其实就是选择了一条特定的椭圆曲线和相关参数，算法没有改变"><span class="toc-number">2.</span> <span class="toc-text">国密 sm2 其实就是选择了一条特定的椭圆曲线和相关参数，算法没有改变</span></a></li><li class="toc-item toc-level-1"><a class="toc-link" href="#secp256k1-标准"><span class="toc-number">3.</span> <span class="toc-text">secp256k1 标准</span></a></li><li class="toc-item toc-level-1"><a class="toc-link" href="#openssl"><span class="toc-number">4.</span> <span class="toc-text">openssl</span></a></li><li class="toc-item toc-level-1"><a class="toc-link" href="#有限域"><span class="toc-number">5.</span> <span class="toc-text">有限域</span></a></li><li class="toc-item toc-level-1"><a class="toc-link" href="#模p有限域GF-p"><span class="toc-number">6.</span> <span class="toc-text">模p有限域GF(p)</span></a></li><li class="toc-item toc-level-1"><a class="toc-link" href="#椭圆曲线方程"><span class="toc-number">7.</span> <span class="toc-text">椭圆曲线方程</span></a></li><li class="toc-item toc-level-1"><a class="toc-link" href="#名词概念"><span class="toc-number">8.</span> <span class="toc-text">名词概念</span></a></li><li class="toc-item toc-level-1"><a class="toc-link" href="#高级加密标准-AES-Advanced-Encryption-Standard-为最常见的对称加密算法-微信小程序加密传输就是用这个加密算法的-。对称加密算法也就是加密和解密用相同的密钥，"><span class="toc-number">9.</span> <span class="toc-text">高级加密标准(AES,Advanced Encryption Standard)为最常见的对称加密算法(微信小程序加密传输就是用这个加密算法的)。对称加密算法也就是加密和解密用相同的密钥，</span></a></li><li class="toc-item toc-level-1"><a class="toc-link" href="#常见的对称加密算法"><span class="toc-number">10.</span> <span class="toc-text">常见的对称加密算法</span></a></li></ol>
     </div>
 
     <div id="actions-footer">
