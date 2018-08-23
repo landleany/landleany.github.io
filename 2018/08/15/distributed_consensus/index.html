@@ -1,0 +1,273 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <!-- so meta -->
+    <meta charset="utf-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="HandheldFriendly" content="True">
+    <meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1" />
+    <meta name="description" content="CAP 理论中的 C 表示 强一致性采用 AP 的例子是 BASE，指基本可用（Basically Available）、软状态（ Soft State）、最终一致性（ Eventual Consistency）。大多数的 nosql 数据库就是基于BASE设计的，如redis、mongodb等采用 CP 的例子是 二阶段提交，它是 ACID 思想在分布式系统中的延伸        链接">
+<meta property="og:type" content="article">
+<meta property="og:title" content="一致性模型">
+<meta property="og:url" content="http://yoursite.com/2018/08/15/distributed_consensus/index.html">
+<meta property="og:site_name" content="Drip">
+<meta property="og:description" content="CAP 理论中的 C 表示 强一致性采用 AP 的例子是 BASE，指基本可用（Basically Available）、软状态（ Soft State）、最终一致性（ Eventual Consistency）。大多数的 nosql 数据库就是基于BASE设计的，如redis、mongodb等采用 CP 的例子是 二阶段提交，它是 ACID 思想在分布式系统中的延伸        链接">
+<meta property="og:updated_time" content="2018-08-23T15:34:42.000Z">
+<meta name="twitter:card" content="summary">
+<meta name="twitter:title" content="一致性模型">
+<meta name="twitter:description" content="CAP 理论中的 C 表示 强一致性采用 AP 的例子是 BASE，指基本可用（Basically Available）、软状态（ Soft State）、最终一致性（ Eventual Consistency）。大多数的 nosql 数据库就是基于BASE设计的，如redis、mongodb等采用 CP 的例子是 二阶段提交，它是 ACID 思想在分布式系统中的延伸        链接">
+    
+    
+        
+          
+              <link rel="shortcut icon" href="/images/favicon.ico">
+          
+        
+        
+          
+            <link rel="icon" type="image/png" href="/images/favicon-192x192.png" sizes="192x192">
+          
+        
+        
+          
+            <link rel="apple-touch-icon" sizes="180x180" href="/images/apple-touch-icon.png">
+          
+        
+    
+    <!-- title -->
+    <title>一致性模型</title>
+    <!-- styles -->
+    <link rel="stylesheet" href="/css/style.css">
+    <!-- rss -->
+    
+    
+</head>
+
+<body>
+    
+      <div id="header-post">
+  <a id="menu-icon" href="#"><i class="fa fa-bars fa-lg"></i></a>
+  <a id="menu-icon-tablet" href="#"><i class="fa fa-bars fa-lg"></i></a>
+  <a id="top-icon-tablet" href="#" onclick="$('html, body').animate({ scrollTop: 0 }, 'fast');" style="display:none;"><i class="fa fa-chevron-up fa-lg"></i></a>
+  <span id="menu">
+    <span id="nav">
+      <ul>
+         
+          <li><a href="/">Home</a></li>
+         
+          <li><a href="/about/">About</a></li>
+         
+          <li><a href="/archives/">Writing</a></li>
+         
+          <li><a href="http://github.com/probberechts">Projects</a></li>
+        
+      </ul>
+    </span>
+    <br/>
+    <span id="actions">
+      <ul>
+        
+        
+        <li><a class="icon" href="/2018/08/15/p2p/"><i class="fa fa-chevron-right" aria-hidden="true" onmouseover="$('#i-next').toggle();" onmouseout="$('#i-next').toggle();"></i></a></li>
+        
+        <li><a class="icon" href="#" onclick="$('html, body').animate({ scrollTop: 0 }, 'fast');"><i class="fa fa-chevron-up" aria-hidden="true" onmouseover="$('#i-top').toggle();" onmouseout="$('#i-top').toggle();"></i></a></li>
+      </ul>
+      <span id="i-prev" class="info" style="display:none;">Previous post</span>
+      <span id="i-next" class="info" style="display:none;">Next post</span>
+      <span id="i-top" class="info" style="display:none;">Back to top</span>
+      <span id="i-share" class="info" style="display:none;">Share post</span>
+    </span>
+    <br/>
+    <div id="share" style="display: none">
+      <ul>
+  <li><a class="icon" href="http://www.facebook.com/sharer.php?u=http://yoursite.com/2018/08/15/distributed_consensus/"><i class="fa fa-facebook " aria-hidden="true"></i></a></li>
+  <li><a class="icon" href="https://twitter.com/share?url=http://yoursite.com/2018/08/15/distributed_consensus/&text=一致性模型"><i class="fa fa-twitter " aria-hidden="true"></i></a></li>
+  <li><a class="icon" href="http://www.linkedin.com/shareArticle?url=http://yoursite.com/2018/08/15/distributed_consensus/&title=一致性模型"><i class="fa fa-linkedin " aria-hidden="true"></i></a></li>
+  <li><a class="icon" href="https://pinterest.com/pin/create/bookmarklet/?url=http://yoursite.com/2018/08/15/distributed_consensus/&is_video=false&description=一致性模型"><i class="fa fa-pinterest " aria-hidden="true"></i></a></li>
+  <li><a class="icon" href="mailto:?subject=一致性模型&body=Check out this article: http://yoursite.com/2018/08/15/distributed_consensus/"><i class="fa fa-envelope " aria-hidden="true"></i></a></li>
+  <li><a class="icon" href="https://getpocket.com/save?url=http://yoursite.com/2018/08/15/distributed_consensus/&title=一致性模型"><i class="fa fa-get-pocket " aria-hidden="true"></i></a></li>
+  <li><a class="icon" href="http://reddit.com/submit?url=http://yoursite.com/2018/08/15/distributed_consensus/&title=一致性模型"><i class="fa fa-reddit " aria-hidden="true"></i></a></li>
+  <li><a class="icon" href="http://www.stumbleupon.com/submit?url=http://yoursite.com/2018/08/15/distributed_consensus/&title=一致性模型"><i class="fa fa-stumbleupon " aria-hidden="true"></i></a></li>
+  <li><a class="icon" href="http://digg.com/submit?url=http://yoursite.com/2018/08/15/distributed_consensus/&title=一致性模型"><i class="fa fa-digg " aria-hidden="true"></i></a></li>
+  <li><a class="icon" href="http://www.tumblr.com/share/link?url=http://yoursite.com/2018/08/15/distributed_consensus/&name=一致性模型&description="><i class="fa fa-tumblr " aria-hidden="true"></i></a></li>
+</ul>
+
+    </div>
+    <div id="toc">
+      <ol class="toc"><li class="toc-item toc-level-1"><a class="toc-link" href="#如果CP和AP用来描述和评论系统是不合适的，那么我们应该用什么呢？"><span class="toc-number">1.</span> <span class="toc-text">如果CP和AP用来描述和评论系统是不合适的，那么我们应该用什么呢？</span></a></li><li class="toc-item toc-level-1"><a class="toc-link" href="#Replicated-Data-Consistency-Explained-Through-Baseball"><span class="toc-number">2.</span> <span class="toc-text">Replicated Data Consistency Explained Through Baseball</span></a></li><li class="toc-item toc-level-1"><a class="toc-link" href="#raft-算法"><span class="toc-number">3.</span> <span class="toc-text">raft 算法</span></a></li></ol>
+    </div>
+  </span>
+</div>
+
+    
+    <div class="content index width mx-auto px2 my4">
+        
+        <article class="post" itemscope itemtype="http://schema.org/BlogPosting">
+  <header>
+    
+    <h1 class="posttitle" itemprop="name headline">
+        一致性模型
+    </h1>
+
+
+
+    <div class="meta">
+      <span class="author" itemprop="author" itemscope itemtype="http://schema.org/Person">
+        <span itemprop="name">Drip</span>
+      </span>
+      
+    <div class="postdate">
+        <time datetime="2018-08-15T09:02:30.000Z" itemprop="datePublished">2018-08-15</time>
+    </div>
+
+
+      
+
+    </div>
+  </header>
+  
+
+  <div class="content" itemprop="articleBody">
+    <p>CAP 理论中的 C 表示 <code>强一致性</code><br>采用 AP 的例子是 <code>BASE</code>，指基本可用（Basically Available）、软状态（ Soft State）、最终一致性（ Eventual Consistency）。大多数的 nosql 数据库就是基于BASE设计的，如redis、mongodb等<br>采用 CP 的例子是 <code>二阶段提交</code>，它是 <code>ACID 思想在分布式系统中的延伸</code>       </p>
+<p><a href="http://int64.me/2016/CAP%E5%88%9D%E7%AA%A5.html" target="_blank" rel="external">链接</a>          </p>
+<p><a href="https://blog.the-pans.com/cap/" target="_blank" rel="external">请不要再称数据库是CP或者AP</a><br>上面这篇文章的意思就是，CAP 是一个过渡简化的模型，很多目前市面上成熟的系统并不能简单的归类至 CP 或 AP，往往是一个混合体。因此大家不必过渡纠结于分类，而是应该关注于实际的问题。        </p>
+<p><strong>zookeeper</strong> 默认没有提供强一致性（所以请不要简单的称为 CP），但是客户端可以在读取前发送 sync 命令，来获取最近的修改，即强一致性。也就是说 zookeeper 是可以切换是否是强一致性的。      </p>
+<h1 id="如果CP和AP用来描述和评论系统是不合适的，那么我们应该用什么呢？"><a href="#如果CP和AP用来描述和评论系统是不合适的，那么我们应该用什么呢？" class="headerlink" title="如果CP和AP用来描述和评论系统是不合适的，那么我们应该用什么呢？"></a>如果CP和AP用来描述和评论系统是不合适的，那么我们应该用什么呢？</h1><p>可以使用一致性模型，比如 强一致性、弱一致性、最终一致性       </p>
+<h1 id="Replicated-Data-Consistency-Explained-Through-Baseball"><a href="#Replicated-Data-Consistency-Explained-Through-Baseball" class="headerlink" title="Replicated Data Consistency Explained Through Baseball"></a>Replicated Data Consistency Explained Through Baseball</h1><p><a href="https://www.microsoft.com/en-us/research/wp-content/uploads/2011/10/ConsistencyAndBaseballReport.pdf" target="_blank" rel="external">讲解一致性模型的论文</a><br>可以分为以下6种模型：</p>
+<ol>
+<li>Strong Consistency:  See all previous writes.</li>
+<li>Eventual Consistency: See subset of previous writes.</li>
+<li>Consistent Prefix: See initial sequence of writes.</li>
+<li>Bounded Staleness: See all “old” writes.</li>
+<li>Monotonic Reads: See increasing subset of writes.</li>
+<li>Read My Writes: See all writes performed by reader.</li>
+</ol>
+<p>These last four read guarantees are all a form of eventual consistency but stronger than the eventual<br>consistency model that is typically provided in systems like Amazon.       </p>
+<h1 id="raft-算法"><a href="#raft-算法" class="headerlink" title="raft 算法"></a>raft 算法</h1><p><a href="https://blog.csdn.net/oqqYuan1234567890/article/details/73824261" target="_blank" rel="external">不错的讲解</a><br><code>WAL</code> = <code>Write Ahead Log</code><br>Raft状态的存储主要靠Snapshot和WAL（write ahead log）实现。       </p>
+<ul>
+<li>和很多数据库一样，为了保证数据的安全性（crash或者宕机下的恢复），都会使用WAL，etcd也不例外。etcd中的每一个事务操作（即写操作），都会预先写到事务文件中，这种文件就是WAL。</li>
+<li>此外，etcd作为一个高可用的KV存储系统，不可能只依靠log replay来实现数据恢复。因此，etcd还提供了snapshot（快照）功能。snapshot即是定期把整个数据库保存成一个单独的快照文件，这样一来，不但缩短了日志重放的时间，也减轻了WAL的存储量，过早的WAL可以删除掉。</li>
+</ul>
+<p><code>Basic Raft</code>：Raft 的基本算法<br><code>Raft thesis</code>：<a href="https://ramcloud.stanford.edu/~ongaro/thesis.pdf" target="_blank" rel="external">扩展部分: 《CONSENSUS: BRIDGING THEORY AND PRACTICE》</a>           </p>
+<p><a href="https://blog.neverchanje.com/2017/01/30/etcd_raft_core/" target="_blank" rel="external">教程</a>      </p>
+<ol>
+<li>在 raft 中，数据是单向流，leader -&gt; follower，表现在两个方面：一，请求都是 leader 处理，发送给 follower 添加；二，当 leader 发现 follower 不一致时，强制 follower 与 leader 一致。</li>
+<li>leader 会定期发送当前 commitIndex，follower 收到后判断是否存在，存在就将其 commit</li>
+<li>raft 半数选举保证了同一个 Term 中只会有一个 leader</li>
+<li>leader 只要保证自己不会重复发送相同的 Index 的 log，就能保证不同副本中的 log 数组中，相同 Term 和 Index 的 log 的 Command 一定是一样的</li>
+<li>leader 在发送 appendEntry 请求中，还会附带上 entry 列表中首个 log 的上一个 log 的 Term 和 Index，follower 必须检查这个是否在自己的 log 数组中。raft 通过这个保证不同副本中，相同 Term 和 Index 的 log 之前的所有 log 都是相同的，这是因为 follower 中的 entry 数据来源都是 leader 的 appendEntry 请求中的 entry 列表，只要保证新增数据列表能够衔接，即跟上一次 leader 的 appendEntry 成功请求中的列表的最后一个 entry 一致，即可保证所有数据都是一致的。</li>
+<li>raft 保证的是副本之间的 log 列表一致，包括 commit 以及未 commit 的 log</li>
+<li>为了保证 follower 的数据与 leader 一致，leader 为每个 follower 设置了 nextIndex（表示下一次与该节点发送 appendEntry 请求时，entry 列表包含从该位置后面的数据），follower 收到请求后，如果不一致，根据 <strong>第5条</strong> 会返回拒绝，此时 leader 会递减 nextIndex，然后再次发送 appendEntry，以此类推直到被 follower 接收，此时 follower 的数据就会被 leader 修改过来（有个优化算法，不需要每次减1，而是以 Term 为单位向前递减）</li>
+<li>最后为了保证已经 commit 的数据不会被 <strong>第7条</strong> 的规则所删除，在选举阶段，保证选出的 leader 包含了所有已经 commit 的 log。（既保证 commit 数据不会被撤回，也保证了数据的单向性，即 leader 无需从 follower 恢复丢失的数据）</li>
+<li>选举时，需要比较两者最后的 log 的 Term 和 Index，Term 不相同时取 Term 大的，相同时，取 Index 大的</li>
+<li>Leader 可以 commit 当前 Term 时期的 log，只要它被大多数的 follower 接受。 但是 Leader 不能随意 commit 之前 Term 的 log，即使被大多数接受（可以被当前的 Leader 改写）。</li>
+<li>新的 Leader 当选后，如果之前 Term 的 log 还没有 commit，则还要继续发送 appendEntry 给其他 followers 供它们复制，但是不根据大多数接受而 commit。只有当其自身 Term 的 log 被大多数接受后而 commit 之后，之前的所有数据才会被默认 commit</li>
+<li><strong>第11条</strong>，结合论文 figure 8，这是为了防止出现这样的情况：新的 Leader 如果用多数法则 commit 之前 Term 的 log，而在其发送新的 Term 的 log 之前奔溃了，新的 Leader 可能继续根据多数法则提交过去 Term 的 log，会出现无法 commit 相同 Index 位置的 log（而如果之前的 Leader 在发送新的 Term log 之后再奔溃，该节点就无法被接受成为新的 Leader，因为新的 Leader 肯定在该 Index 上有相同的数据不会冲突）。</li>
+<li>因此为了防止 <strong>第12条</strong> 的情况，raft 直接不让 Leader 在 commit 当前 Term 的 log 数据之前 commit 之前 Term 的 log</li>
+<li>前面描述的数据出现不一致的危机，都是 Leader 奔溃的情况</li>
+<li>raft 系统的稳定需要满足：broadcastTime ≪ electionTimeout ≪ MTBF（服务平均正常时间），要求 electionTimeout 这段时间（无法服务时间）占整个服务时间的很小比例</li>
+<li>BroadcastTime（网络请求响应时间）：0.5 - 20 ms   electionTimeout：10 - 500 ms  MTBF：几个月</li>
+<li>raft 中成员变更的安全性关键在于：不能在同一时刻出现一个以上的 leader</li>
+<li>成员信息 configuration 是一条特殊的 log entry，有自己的类型区分一般信息</li>
+<li>raft 中成员配置的更新分为两个阶段：1. joint—consensus 2. new-config</li>
+<li>旧配置 Co,新配置 Cn，过渡配置 Co-n（joint-consensus，表示大多数原则需要既满足旧配置 Co，还要满足新配置 Cn）。 节点一旦成功 append 配置类型的 log，即采用该配置，不管该 log 是否 commit（即 Leader 一旦发起新的配置，就采用该配置了）</li>
+<li>Co 升级到 Cn 的流程：Leader 发起 Co-n 配置更新，等到 commit 之后，再发送 Cn 配置更新，等待其 commit</li>
+<li><strong>第21条</strong> 如果直接发送 Cn 配置类型的 log，则在某一个时刻肯定存在分别采用 Cn 或 Co 的节点，此时如果发生 Leader 选举则可能会选出 2 个不同的 leader，破坏前面一系列正确性的基础。而发送 Co-n 配置，虽然某一个时间也会存在不同的配置（Co 和 Co-n），但只能选出一个 leader（可能是 Co 也可能是 Co-n，如果是采用 Co 的 leader，则 commit Co-n 这条 log 就会失败，客户端需要重启发起升级请求）。一旦 Co-n 被 commit 之后，即大部分采用 Co-n，这是发起 Cn，此时一共存在 Cn，Co，Co-n 三种配置，此时若发生 Leader 选举，一定也只能有一个 Leader，且采用 Co-n 这个配置。一旦 Cn 被 commit，才能停掉无用的节点。</li>
+<li><strong>第22条</strong> 之所以设计的这么复杂，是因为防止中途发生选举选出一个以上 leader。如果能保证中途不发生选举，可以直接发送 Cn 的配置 log 等待 commit 即可。</li>
+<li>如果不采用过渡方案，不管我们设定是收到 Cn log 时生效还是 Cn log 被 commit 时生效，都会存在一个时间点：同时存在 Co 和 Cn，可能选出 2 个 leader</li>
+<li>反证过渡方案的正确性：第一阶段：同时存在 Co 和 Co-n，选出了 LeaderA 和 LeaderB，如果 A 和 B 都采用 Co 的配置，说明 Co 中的大部分都投给 A，且 Co 中的大部分又投给了 B，由于只能投一票，则 A 必定等于 B。同理，A 和 B 都采用 Co-n 配置，也是不成立的。如果 A 采用 Co，B 采用 Co-n，则 Co 中的大部分投给了 A，而 Co 中的大部分和 Cn 中的大部分都投给了 B，因此 A == B。综上，只能选出一个 leader</li>
+<li>反证过渡方案的正确性：第二阶段：Co-n 被 commit 后，说明 Co 中的大部分采用了 Co-n 且 Cn 中的大部分也采用了 Co-n，此时选举出的 leader 肯定是采用 Co-n 配置（因为 leader 必须包含已经 commit 的 log）。因此，如果存在 A 和 B 都是采用 Co-n 的 leader，说明 Co 和 Cn 中的大部分投给 A，且 Co 和 Cn 中的大部分又投给了 B，因为每个节点只能投一票，则 A == B。综上，只能选出一个 leader。</li>
+<li>配置升级的过程中会有三个问题：1.新的节点因为没有 log，因此在选举投票时因为缺少前面的 log 而投拒绝票，导致很长时间内选不出 leader 而导致服务不可用。解决：可以在节点加入时作为观察者，不参与投票而只是同步 log，一旦 log 同步后，才发起配置更新； 2. leader 可能不在 Cn 的配置中。解决：该节点在 commit Cn 后让出 leader； 3. 被 Cn 移除的节点如果没有关系，会因为收不到心跳而发起错误的选举。解决：</li>
+</ol>
+<p>概念介绍：<br><code>SoftState</code>:<br><code>HardState</code>:</p>
+<p>组件学习：<br><code>wal</code>:<br><code>shapshotter</code>:<br><code>transport</code>:</p>
+
+  </div>
+</article>
+
+
+
+    </div>
+    
+      <div id="footer-post-container">
+  <div id="footer-post">
+
+    <div id="nav-footer" style="display: none">
+      <ul>
+         
+          <li><a href="/">Home</a></li>
+         
+          <li><a href="/about/">About</a></li>
+         
+          <li><a href="/archives/">Writing</a></li>
+         
+          <li><a href="http://github.com/probberechts">Projects</a></li>
+        
+      </ul>
+    </div>
+
+    <div id="toc-footer" style="display: none">
+      <ol class="toc"><li class="toc-item toc-level-1"><a class="toc-link" href="#如果CP和AP用来描述和评论系统是不合适的，那么我们应该用什么呢？"><span class="toc-number">1.</span> <span class="toc-text">如果CP和AP用来描述和评论系统是不合适的，那么我们应该用什么呢？</span></a></li><li class="toc-item toc-level-1"><a class="toc-link" href="#Replicated-Data-Consistency-Explained-Through-Baseball"><span class="toc-number">2.</span> <span class="toc-text">Replicated Data Consistency Explained Through Baseball</span></a></li><li class="toc-item toc-level-1"><a class="toc-link" href="#raft-算法"><span class="toc-number">3.</span> <span class="toc-text">raft 算法</span></a></li></ol>
+    </div>
+
+    <div id="actions-footer">
+      <ul>
+        <li id="toc"><a class="icon" href="#" onclick="$('#toc-footer').toggle();return false;"><i class="fa fa-list fa-lg" aria-hidden="true"></i> TOC</a></li>
+        <li id="share"><a class="icon" href="#" onclick="$('#share-footer').toggle();return false;"><i class="fa fa-share-alt fa-lg" aria-hidden="true"></i> Share</a></li>
+        <li id="top" style="display:none"><a class="icon" href="#" onclick="$('html, body').animate({ scrollTop: 0 }, 'fast');"><i class="fa fa-chevron-up fa-lg" aria-hidden="true"></i> Top</a></li>
+        <li id="menu"><a class="icon" href="#" onclick="$('#nav-footer').toggle();return false;"><i class="fa fa-bars fa-lg" aria-hidden="true"></i> Menu</a></li>
+      </ul>
+    </div>
+
+  </div>
+</div>
+
+    
+    <footer id="footer">
+  <div class="footer-left">
+    Copyright &copy; 2018 Landleany
+  </div>
+  <div class="footer-right">
+    <nav>
+      <ul>
+         
+          <li><a href="/">Home</a></li>
+         
+          <li><a href="/about/">About</a></li>
+         
+          <li><a href="/archives/">Writing</a></li>
+         
+          <li><a href="http://github.com/probberechts">Projects</a></li>
+        
+      </ul>
+    </nav>
+  </div>
+</footer>
+
+</body>
+</html>
+<!-- styles -->
+<link rel="stylesheet" href="/lib/font-awesome/css/font-awesome.min.css">
+<link rel="stylesheet" href="/lib/meslo-LG/styles.css">
+<link rel="stylesheet" href="/lib/justified-gallery/justifiedGallery.min.css">
+
+<!-- jquery -->
+<script src="/lib/jquery/jquery.min.js"></script>
+<script src="/lib/justified-gallery/jquery.justifiedGallery.min.js"></script>
+<script src="/js/main.js"></script>
+<!-- search -->
+
+<!-- Google Analytics -->
+
+    <script type="text/javascript">
+        (function(i,s,o,g,r,a,m) {i['GoogleAnalyticsObject']=r;i[r]=i[r]||function() {
+        (i[r].q=i[r].q||[]).push(arguments)},i[r].l=1*new Date();a=s.createElement(o),
+        m=s.getElementsByTagName(o)[0];a.async=1;a.src=g;m.parentNode.insertBefore(a,m)
+        })(window,document,'script','//www.google-analytics.com/analytics.js','ga');
+        ga('create', 'UA-86660611-1', 'auto');
+        ga('send', 'pageview');
+    </script>
+
+<!-- Disqus Comments -->
+
+
