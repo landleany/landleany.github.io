@@ -12,7 +12,7 @@
 <meta property="og:url" content="http://yoursite.com/2018/08/15/distributed_consensus/index.html">
 <meta property="og:site_name" content="Drip">
 <meta property="og:description" content="CAP 理论中的 C 表示 强一致性采用 AP 的例子是 BASE，指基本可用（Basically Available）、软状态（ Soft State）、最终一致性（ Eventual Consistency）。大多数的 nosql 数据库就是基于BASE设计的，如redis、mongodb等采用 CP 的例子是 二阶段提交，它是 ACID 思想在分布式系统中的延伸        链接">
-<meta property="og:updated_time" content="2018-08-23T15:34:42.000Z">
+<meta property="og:updated_time" content="2018-08-24T06:13:31.000Z">
 <meta name="twitter:card" content="summary">
 <meta name="twitter:title" content="一致性模型">
 <meta name="twitter:description" content="CAP 理论中的 C 表示 强一致性采用 AP 的例子是 BASE，指基本可用（Basically Available）、软状态（ Soft State）、最终一致性（ Eventual Consistency）。大多数的 nosql 数据库就是基于BASE设计的，如redis、mongodb等采用 CP 的例子是 二阶段提交，它是 ACID 思想在分布式系统中的延伸        链接">
@@ -66,6 +66,8 @@
     <br/>
     <span id="actions">
       <ul>
+        
+        <li><a class="icon" href="/2018/08/25/seek/"><i class="fa fa-chevron-left" aria-hidden="true" onmouseover="$('#i-prev').toggle();" onmouseout="$('#i-prev').toggle();"></i></a></li>
         
         
         <li><a class="icon" href="/2018/08/15/p2p/"><i class="fa fa-chevron-right" aria-hidden="true" onmouseover="$('#i-next').toggle();" onmouseout="$('#i-next').toggle();"></i></a></li>
@@ -159,7 +161,7 @@
 <li>raft 保证的是副本之间的 log 列表一致，包括 commit 以及未 commit 的 log</li>
 <li>为了保证 follower 的数据与 leader 一致，leader 为每个 follower 设置了 nextIndex（表示下一次与该节点发送 appendEntry 请求时，entry 列表包含从该位置后面的数据），follower 收到请求后，如果不一致，根据 <strong>第5条</strong> 会返回拒绝，此时 leader 会递减 nextIndex，然后再次发送 appendEntry，以此类推直到被 follower 接收，此时 follower 的数据就会被 leader 修改过来（有个优化算法，不需要每次减1，而是以 Term 为单位向前递减）</li>
 <li>最后为了保证已经 commit 的数据不会被 <strong>第7条</strong> 的规则所删除，在选举阶段，保证选出的 leader 包含了所有已经 commit 的 log。（既保证 commit 数据不会被撤回，也保证了数据的单向性，即 leader 无需从 follower 恢复丢失的数据）</li>
-<li>选举时，需要比较两者最后的 log 的 Term 和 Index，Term 不相同时取 Term 大的，相同时，取 Index 大的</li>
+<li>选举时，需要比较两者最后的 log （注意：必须是已有的最后一条 log 的 Term，而不是自己递增的 Term，因为这个 Term 会随着该节点网络问题不断 electionTimout 而变得非常大） 的 Term 和 Index，Term 不相同时取 Term 大的，相同时，取 Index 大的</li>
 <li>Leader 可以 commit 当前 Term 时期的 log，只要它被大多数的 follower 接受。 但是 Leader 不能随意 commit 之前 Term 的 log，即使被大多数接受（可以被当前的 Leader 改写）。</li>
 <li>新的 Leader 当选后，如果之前 Term 的 log 还没有 commit，则还要继续发送 appendEntry 给其他 followers 供它们复制，但是不根据大多数接受而 commit。只有当其自身 Term 的 log 被大多数接受后而 commit 之后，之前的所有数据才会被默认 commit</li>
 <li><strong>第11条</strong>，结合论文 figure 8，这是为了防止出现这样的情况：新的 Leader 如果用多数法则 commit 之前 Term 的 log，而在其发送新的 Term 的 log 之前奔溃了，新的 Leader 可能继续根据多数法则提交过去 Term 的 log，会出现无法 commit 相同 Index 位置的 log（而如果之前的 Leader 在发送新的 Term log 之后再奔溃，该节点就无法被接受成为新的 Leader，因为新的 Leader 肯定在该 Index 上有相同的数据不会冲突）。</li>
@@ -177,7 +179,12 @@
 <li>如果不采用过渡方案，不管我们设定是收到 Cn log 时生效还是 Cn log 被 commit 时生效，都会存在一个时间点：同时存在 Co 和 Cn，可能选出 2 个 leader</li>
 <li>反证过渡方案的正确性：第一阶段：同时存在 Co 和 Co-n，选出了 LeaderA 和 LeaderB，如果 A 和 B 都采用 Co 的配置，说明 Co 中的大部分都投给 A，且 Co 中的大部分又投给了 B，由于只能投一票，则 A 必定等于 B。同理，A 和 B 都采用 Co-n 配置，也是不成立的。如果 A 采用 Co，B 采用 Co-n，则 Co 中的大部分投给了 A，而 Co 中的大部分和 Cn 中的大部分都投给了 B，因此 A == B。综上，只能选出一个 leader</li>
 <li>反证过渡方案的正确性：第二阶段：Co-n 被 commit 后，说明 Co 中的大部分采用了 Co-n 且 Cn 中的大部分也采用了 Co-n，此时选举出的 leader 肯定是采用 Co-n 配置（因为 leader 必须包含已经 commit 的 log）。因此，如果存在 A 和 B 都是采用 Co-n 的 leader，说明 Co 和 Cn 中的大部分投给 A，且 Co 和 Cn 中的大部分又投给了 B，因为每个节点只能投一票，则 A == B。综上，只能选出一个 leader。</li>
-<li>配置升级的过程中会有三个问题：1.新的节点因为没有 log，因此在选举投票时因为缺少前面的 log 而投拒绝票，导致很长时间内选不出 leader 而导致服务不可用。解决：可以在节点加入时作为观察者，不参与投票而只是同步 log，一旦 log 同步后，才发起配置更新； 2. leader 可能不在 Cn 的配置中。解决：该节点在 commit Cn 后让出 leader； 3. 被 Cn 移除的节点如果没有关系，会因为收不到心跳而发起错误的选举。解决：</li>
+<li>如果过渡方案的第二阶段不等待 Co-n 被 commit，就发送 Cn，此时节点中存在三种配置：Co，Co-n，Cn，虽然 Co 和 Co-n 中只能有 1 个 leader，且 Cn 和 Co-n 中也只能有 1 个 leader，但没有保证，Co 的 leader 和 Cn 的 leader 不能共存。</li>
+<li>配置升级的过程中会有三个问题：1.新的节点因为没有 log，因此在选举投票时因为缺少前面的 log 而投拒绝票，导致很长时间内选不出 leader 而导致服务不可用。解决：可以在节点加入时作为观察者，不参与投票而只是同步 log，一旦 log 同步后，才发起配置更新； 2. leader 可能不在 Cn 的配置中。解决：该节点在 commit Cn 后让出 leader； 3. 被 Cn 移除的节点如果没有关系，会因为收不到心跳而发起错误的选举。解决：节点忽略在其最小 randomElectionTimeout（electionTimout ~ 2 * electionTimout - 1） 时间内 （即 t &lt; electionTimeout）的 Vote 消息</li>
+<li>raft 中的 log 压缩采用的 snapshotting，每个节点独立的进行压缩，snapshot 中存储 state machine 中的状态以及包含最后一条 log 的 Index 和 Term，这是为了能够继续支持 appendEntry 的检查策略</li>
+<li>raft 中的 log 合适压缩，可以设定一个 log 个数阈值，一旦达到这个值，就会压缩。之后，如果发送给 follower 的 appendEntry 的 index 很小（比如新节点加入，或者落后太久），leader 已经没有该条 log，则直接通过 InstallSnapshot 这个请求发送 snapshot</li>
+<li>Linearizable Read 通俗来讲，就是读请求需要读到最新的已经commit的数据，不会读到老数据。Leader 上总是会有最新的数据，因此要实现 Linearizable Read 必须是从 Leader 上读写数据。比如之前 a = 1，然后客户端提交了 a = 2 的 log，被 leaderA commit 了并返回给客户端，但是在同步 commitIndex 给 followers 时奔溃了。 之后 leaderB 被选举出来，它包含 a = 2 这条 log，但是 Term 是之前的，为了尽快的 commit 之前 Term 的数据，raft 规定新的 leader 选举出来后，立刻 commit 一个 no-op 的 entry，这之后才能保证之前的 a = 2 log 被 commit，然后更新状态数据库，然后给客户端的数据一定是最新的。（由于网络延迟的问题，leader 首先得判断自己是否真的是 leader）</li>
+<li></li>
 </ol>
 <p>概念介绍：<br><code>SoftState</code>:<br><code>HardState</code>:</p>
 <p>组件学习：<br><code>wal</code>:<br><code>shapshotter</code>:<br><code>transport</code>:</p>
