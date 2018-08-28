@@ -6,16 +6,16 @@
     <meta http-equiv="X-UA-Compatible" content="IE=edge">
     <meta name="HandheldFriendly" content="True">
     <meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1" />
-    <meta name="description" content="Fabric 代码中常见的两类接口 Adapter: 该接口定义的方法为上层具体业务逻辑可以传入的方法，会被使用该接口的底层函数库调用。 Support: 该接口定义为支持该函数库工作的所需接口，提供功能支持。">
+    <meta name="description" content="首先用二进制方式打开文件：vi -b somefile :%!xxd 表示在该文件中调用 xxd 这个工具，该工具可以在左侧显示16进制，右侧显示原内容">
 <meta property="og:type" content="article">
-<meta property="og:title" content="Fabric 代码注解">
-<meta property="og:url" content="http://yoursite.com/2018/07/13/fabric-code/index.html">
+<meta property="og:title" content="VIM 16进制查看文件">
+<meta property="og:url" content="http://yoursite.com/2018/08/28/vi/index.html">
 <meta property="og:site_name" content="Drip">
-<meta property="og:description" content="Fabric 代码中常见的两类接口 Adapter: 该接口定义的方法为上层具体业务逻辑可以传入的方法，会被使用该接口的底层函数库调用。 Support: 该接口定义为支持该函数库工作的所需接口，提供功能支持。">
-<meta property="og:updated_time" content="2018-07-14T10:05:30.000Z">
+<meta property="og:description" content="首先用二进制方式打开文件：vi -b somefile :%!xxd 表示在该文件中调用 xxd 这个工具，该工具可以在左侧显示16进制，右侧显示原内容">
+<meta property="og:updated_time" content="2018-08-28T03:05:00.000Z">
 <meta name="twitter:card" content="summary">
-<meta name="twitter:title" content="Fabric 代码注解">
-<meta name="twitter:description" content="Fabric 代码中常见的两类接口 Adapter: 该接口定义的方法为上层具体业务逻辑可以传入的方法，会被使用该接口的底层函数库调用。 Support: 该接口定义为支持该函数库工作的所需接口，提供功能支持。">
+<meta name="twitter:title" content="VIM 16进制查看文件">
+<meta name="twitter:description" content="首先用二进制方式打开文件：vi -b somefile :%!xxd 表示在该文件中调用 xxd 这个工具，该工具可以在左侧显示16进制，右侧显示原内容">
     
     
         
@@ -35,7 +35,7 @@
         
     
     <!-- title -->
-    <title>Fabric 代码注解</title>
+    <title>VIM 16进制查看文件</title>
     <!-- styles -->
     <link rel="stylesheet" href="/css/style.css">
     <!-- rss -->
@@ -67,10 +67,8 @@
     <span id="actions">
       <ul>
         
-        <li><a class="icon" href="/2018/07/16/interledger/"><i class="fa fa-chevron-left" aria-hidden="true" onmouseover="$('#i-prev').toggle();" onmouseout="$('#i-prev').toggle();"></i></a></li>
         
-        
-        <li><a class="icon" href="/2018/07/13/make/"><i class="fa fa-chevron-right" aria-hidden="true" onmouseover="$('#i-next').toggle();" onmouseout="$('#i-next').toggle();"></i></a></li>
+        <li><a class="icon" href="/2018/08/25/io/"><i class="fa fa-chevron-right" aria-hidden="true" onmouseover="$('#i-next').toggle();" onmouseout="$('#i-next').toggle();"></i></a></li>
         
         <li><a class="icon" href="#" onclick="$('html, body').animate({ scrollTop: 0 }, 'fast');"><i class="fa fa-chevron-up" aria-hidden="true" onmouseover="$('#i-top').toggle();" onmouseout="$('#i-top').toggle();"></i></a></li>
       </ul>
@@ -82,21 +80,21 @@
     <br/>
     <div id="share" style="display: none">
       <ul>
-  <li><a class="icon" href="http://www.facebook.com/sharer.php?u=http://yoursite.com/2018/07/13/fabric-code/"><i class="fa fa-facebook " aria-hidden="true"></i></a></li>
-  <li><a class="icon" href="https://twitter.com/share?url=http://yoursite.com/2018/07/13/fabric-code/&text=Fabric 代码注解"><i class="fa fa-twitter " aria-hidden="true"></i></a></li>
-  <li><a class="icon" href="http://www.linkedin.com/shareArticle?url=http://yoursite.com/2018/07/13/fabric-code/&title=Fabric 代码注解"><i class="fa fa-linkedin " aria-hidden="true"></i></a></li>
-  <li><a class="icon" href="https://pinterest.com/pin/create/bookmarklet/?url=http://yoursite.com/2018/07/13/fabric-code/&is_video=false&description=Fabric 代码注解"><i class="fa fa-pinterest " aria-hidden="true"></i></a></li>
-  <li><a class="icon" href="mailto:?subject=Fabric 代码注解&body=Check out this article: http://yoursite.com/2018/07/13/fabric-code/"><i class="fa fa-envelope " aria-hidden="true"></i></a></li>
-  <li><a class="icon" href="https://getpocket.com/save?url=http://yoursite.com/2018/07/13/fabric-code/&title=Fabric 代码注解"><i class="fa fa-get-pocket " aria-hidden="true"></i></a></li>
-  <li><a class="icon" href="http://reddit.com/submit?url=http://yoursite.com/2018/07/13/fabric-code/&title=Fabric 代码注解"><i class="fa fa-reddit " aria-hidden="true"></i></a></li>
-  <li><a class="icon" href="http://www.stumbleupon.com/submit?url=http://yoursite.com/2018/07/13/fabric-code/&title=Fabric 代码注解"><i class="fa fa-stumbleupon " aria-hidden="true"></i></a></li>
-  <li><a class="icon" href="http://digg.com/submit?url=http://yoursite.com/2018/07/13/fabric-code/&title=Fabric 代码注解"><i class="fa fa-digg " aria-hidden="true"></i></a></li>
-  <li><a class="icon" href="http://www.tumblr.com/share/link?url=http://yoursite.com/2018/07/13/fabric-code/&name=Fabric 代码注解&description="><i class="fa fa-tumblr " aria-hidden="true"></i></a></li>
+  <li><a class="icon" href="http://www.facebook.com/sharer.php?u=http://yoursite.com/2018/08/28/vi/"><i class="fa fa-facebook " aria-hidden="true"></i></a></li>
+  <li><a class="icon" href="https://twitter.com/share?url=http://yoursite.com/2018/08/28/vi/&text=VIM 16进制查看文件"><i class="fa fa-twitter " aria-hidden="true"></i></a></li>
+  <li><a class="icon" href="http://www.linkedin.com/shareArticle?url=http://yoursite.com/2018/08/28/vi/&title=VIM 16进制查看文件"><i class="fa fa-linkedin " aria-hidden="true"></i></a></li>
+  <li><a class="icon" href="https://pinterest.com/pin/create/bookmarklet/?url=http://yoursite.com/2018/08/28/vi/&is_video=false&description=VIM 16进制查看文件"><i class="fa fa-pinterest " aria-hidden="true"></i></a></li>
+  <li><a class="icon" href="mailto:?subject=VIM 16进制查看文件&body=Check out this article: http://yoursite.com/2018/08/28/vi/"><i class="fa fa-envelope " aria-hidden="true"></i></a></li>
+  <li><a class="icon" href="https://getpocket.com/save?url=http://yoursite.com/2018/08/28/vi/&title=VIM 16进制查看文件"><i class="fa fa-get-pocket " aria-hidden="true"></i></a></li>
+  <li><a class="icon" href="http://reddit.com/submit?url=http://yoursite.com/2018/08/28/vi/&title=VIM 16进制查看文件"><i class="fa fa-reddit " aria-hidden="true"></i></a></li>
+  <li><a class="icon" href="http://www.stumbleupon.com/submit?url=http://yoursite.com/2018/08/28/vi/&title=VIM 16进制查看文件"><i class="fa fa-stumbleupon " aria-hidden="true"></i></a></li>
+  <li><a class="icon" href="http://digg.com/submit?url=http://yoursite.com/2018/08/28/vi/&title=VIM 16进制查看文件"><i class="fa fa-digg " aria-hidden="true"></i></a></li>
+  <li><a class="icon" href="http://www.tumblr.com/share/link?url=http://yoursite.com/2018/08/28/vi/&name=VIM 16进制查看文件&description="><i class="fa fa-tumblr " aria-hidden="true"></i></a></li>
 </ul>
 
     </div>
     <div id="toc">
-      <ol class="toc"><li class="toc-item toc-level-1"><a class="toc-link" href="#Fabric-代码中常见的两类接口"><span class="toc-number">1.</span> <span class="toc-text">Fabric 代码中常见的两类接口</span></a></li></ol>
+      
     </div>
   </span>
 </div>
@@ -108,7 +106,7 @@
   <header>
     
     <h1 class="posttitle" itemprop="name headline">
-        Fabric 代码注解
+        VIM 16进制查看文件
     </h1>
 
 
@@ -119,7 +117,7 @@
       </span>
       
     <div class="postdate">
-        <time datetime="2018-07-13T05:30:30.000Z" itemprop="datePublished">2018-07-13</time>
+        <time datetime="2018-08-28T05:30:30.000Z" itemprop="datePublished">2018-08-28</time>
     </div>
 
 
@@ -130,9 +128,9 @@
   
 
   <div class="content" itemprop="articleBody">
-    <h1 id="Fabric-代码中常见的两类接口"><a href="#Fabric-代码中常见的两类接口" class="headerlink" title="Fabric 代码中常见的两类接口"></a>Fabric 代码中常见的两类接口</h1><ol>
-<li>Adapter: 该接口定义的方法为上层具体业务逻辑可以传入的方法，会被使用该接口的底层函数库调用。</li>
-<li>Support: 该接口定义为支持该函数库工作的所需接口，提供功能支持。</li>
+    <ol>
+<li>首先用二进制方式打开文件：<code>vi -b somefile</code></li>
+<li><code>:%!xxd</code> 表示在该文件中调用 <code>xxd</code> 这个工具，该工具可以在左侧显示16进制，右侧显示原内容 </li>
 </ol>
 
   </div>
@@ -160,7 +158,7 @@
     </div>
 
     <div id="toc-footer" style="display: none">
-      <ol class="toc"><li class="toc-item toc-level-1"><a class="toc-link" href="#Fabric-代码中常见的两类接口"><span class="toc-number">1.</span> <span class="toc-text">Fabric 代码中常见的两类接口</span></a></li></ol>
+      
     </div>
 
     <div id="actions-footer">

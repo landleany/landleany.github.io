@@ -12,7 +12,7 @@
 <meta property="og:url" content="http://yoursite.com/2018/08/25/io/index.html">
 <meta property="og:site_name" content="Drip">
 <meta property="og:description" content="文件系统 block鸟叔的链接例如 Linux 操作系统的文件权限(rwx)与文件属性(拥有者、群组、时间参数等)。 文件系统通常会将这两部份的数据分别存放在不同的区块，权限与属性放置到 inode 中，至于实际数据则放置到 data block 区块中。 另外，还有一个超级区块 (superblock) 会记录整个文件系统的整体信息，包括 inode 与 block 的总量、使用量、剩余量等。每">
-<meta property="og:updated_time" content="2018-08-26T12:20:48.000Z">
+<meta property="og:updated_time" content="2018-08-27T12:22:26.000Z">
 <meta name="twitter:card" content="summary">
 <meta name="twitter:title" content="文件系统（IO）">
 <meta name="twitter:description" content="文件系统 block鸟叔的链接例如 Linux 操作系统的文件权限(rwx)与文件属性(拥有者、群组、时间参数等)。 文件系统通常会将这两部份的数据分别存放在不同的区块，权限与属性放置到 inode 中，至于实际数据则放置到 data block 区块中。 另外，还有一个超级区块 (superblock) 会记录整个文件系统的整体信息，包括 inode 与 block 的总量、使用量、剩余量等。每">
@@ -67,6 +67,8 @@
     <span id="actions">
       <ul>
         
+        <li><a class="icon" href="/2018/08/28/vi/"><i class="fa fa-chevron-left" aria-hidden="true" onmouseover="$('#i-prev').toggle();" onmouseout="$('#i-prev').toggle();"></i></a></li>
+        
         
         <li><a class="icon" href="/2018/08/25/seek/"><i class="fa fa-chevron-right" aria-hidden="true" onmouseover="$('#i-next').toggle();" onmouseout="$('#i-next').toggle();"></i></a></li>
         
@@ -94,7 +96,7 @@
 
     </div>
     <div id="toc">
-      <ol class="toc"><li class="toc-item toc-level-1"><a class="toc-link" href="#文件系统-block"><span class="toc-number">1.</span> <span class="toc-text">文件系统 block</span></a></li><li class="toc-item toc-level-1"><a class="toc-link" href="#linux-查看文件系统-block-大小"><span class="toc-number">2.</span> <span class="toc-text">linux 查看文件系统 block 大小</span></a></li><li class="toc-item toc-level-1"><a class="toc-link" href="#索引式文件系统"><span class="toc-number">3.</span> <span class="toc-text">索引式文件系统</span></a></li><li class="toc-item toc-level-1"><a class="toc-link" href="#非索引式文件系统"><span class="toc-number">4.</span> <span class="toc-text">非索引式文件系统</span></a></li><li class="toc-item toc-level-1"><a class="toc-link" href="#direct-io-和-buffer-io"><span class="toc-number">5.</span> <span class="toc-text">direct io 和 buffer io</span></a></li><li class="toc-item toc-level-1"><a class="toc-link" href="#sync"><span class="toc-number">6.</span> <span class="toc-text">sync</span></a></li><li class="toc-item toc-level-1"><a class="toc-link" href="#uintptr"><span class="toc-number">7.</span> <span class="toc-text">uintptr</span></a></li><li class="toc-item toc-level-1"><a class="toc-link" href="#Go-unsafe-Pointer"><span class="toc-number">8.</span> <span class="toc-text">Go unsafe Pointer</span></a></li></ol>
+      <ol class="toc"><li class="toc-item toc-level-1"><a class="toc-link" href="#文件系统-block"><span class="toc-number">1.</span> <span class="toc-text">文件系统 block</span></a></li><li class="toc-item toc-level-1"><a class="toc-link" href="#linux-查看文件系统-block-大小"><span class="toc-number">2.</span> <span class="toc-text">linux 查看文件系统 block 大小</span></a></li><li class="toc-item toc-level-1"><a class="toc-link" href="#索引式文件系统"><span class="toc-number">3.</span> <span class="toc-text">索引式文件系统</span></a></li><li class="toc-item toc-level-1"><a class="toc-link" href="#非索引式文件系统"><span class="toc-number">4.</span> <span class="toc-text">非索引式文件系统</span></a></li><li class="toc-item toc-level-1"><a class="toc-link" href="#direct-io-和-buffer-io"><span class="toc-number">5.</span> <span class="toc-text">direct io 和 buffer io</span></a></li><li class="toc-item toc-level-1"><a class="toc-link" href="#使用-O-DIRECT-的限制"><span class="toc-number">6.</span> <span class="toc-text">使用 O_DIRECT 的限制</span></a></li><li class="toc-item toc-level-1"><a class="toc-link" href="#判断-a-b-0"><span class="toc-number">7.</span> <span class="toc-text">判断 a % b = 0</span></a></li><li class="toc-item toc-level-1"><a class="toc-link" href="#sync"><span class="toc-number">8.</span> <span class="toc-text">sync</span></a></li><li class="toc-item toc-level-1"><a class="toc-link" href="#uintptr"><span class="toc-number">9.</span> <span class="toc-text">uintptr</span></a></li><li class="toc-item toc-level-1"><a class="toc-link" href="#Go-unsafe-Pointer"><span class="toc-number">10.</span> <span class="toc-text">Go unsafe Pointer</span></a></li><li class="toc-item toc-level-1"><a class="toc-link" href="#Torn-Write"><span class="toc-number">11.</span> <span class="toc-text">Torn Write</span></a></li></ol>
     </div>
   </span>
 </div>
@@ -157,6 +159,10 @@
 <p>当用户想自己实现缓冲区，而非直接使用内核缓冲区及其算法，可以使用上述第二种 io（direct io），通过 <code>O_DIRECT</code> flag 打开的文件即为 direct io 模式。      </p>
 <figure class="highlight go"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div></pre></td><td class="code"><pre><div class="line"><span class="comment">// unix </span></div><div class="line">os.OpenFile(fn, syscall.O_DIRECT, mode)  <span class="comment">// 在 syscall 库中，os 和 io 库中没有</span></div></pre></td></tr></table></figure>
 <p><strong>注意：这里的 bufferio 的缓冲区是内核提供的，golang 还有一个 <code>bufio</code> 库在该基础上提供用户空间的缓冲区。</strong>           </p>
+<h1 id="使用-O-DIRECT-的限制"><a href="#使用-O-DIRECT-的限制" class="headerlink" title="使用 O_DIRECT 的限制"></a>使用 O_DIRECT 的限制</h1><p>f.Write([]byte) 需要同时满足传入的字节数组的 <code>长度</code>，<code>首地址</code>，<code>文件 offset</code> 都是 block 的整数倍      </p>
+<p>例子，block 为 512 字节，长度为 1024 字节，如何让首地址是 512 的整数倍：<br><figure class="highlight go"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div></pre></td><td class="code"><pre><div class="line">a := <span class="built_in">make</span>([]<span class="keyword">byte</span>, <span class="number">1024</span> + <span class="number">512</span>)</div><div class="line">offset := <span class="number">512</span> - <span class="keyword">int</span>(<span class="keyword">uintptr</span>(unsafe.Pointer(&amp;a[<span class="number">0</span>]))&amp;<span class="keyword">uintptr</span>(<span class="number">511</span>))</div><div class="line">a = a[offset: <span class="number">1024</span>+offset]   <span class="comment">// 此时 a[0] 的地址即为 512 的倍数</span></div></pre></td></tr></table></figure></p>
+<p>具体的数学原理见下面 ！</p>
+<h1 id="判断-a-b-0"><a href="#判断-a-b-0" class="headerlink" title="判断 a % b = 0"></a>判断 a % b = 0</h1><p>如果 b 是 2 的幂，则可以把 a 和 b 均表示为 2进制，b 则为 1000..0，整除表示 a 的后几位都是 0 （即 a 每次右移溢出的都是 0 ）。<br>前提： b 为 2 ^ n<br>c = a &amp; (b-1)<br>c 一定能被 b 整除<br>此时 c 一定小于 a<br>且 a - c &lt;= b<br>c + b 也一定能被 b 整除<br>且 c + b &gt;= a</p>
 <h1 id="sync"><a href="#sync" class="headerlink" title="sync"></a>sync</h1><p>当采用 buffer io 时，对硬盘（或者其他持久存储设备）文件的 write 操作，更新的只是内存中的页缓存（page cache），而脏页面不会立即更新到硬盘中，而是由操作系统统一调度，如由专门的 flusher 内核线程在满足一定条件时（如一定时间间隔、内存中的脏页达到一定比例）内将脏页面同步到硬盘上（放入设备的IO请求队列）。<br>因为 write 调用不会等到硬盘 IO 完成之后才返回，因此如果 OS 在 write 调用之后、硬盘同步之前崩溃，则数据可能丢失。虽然这样的时间窗口很小，但是对于需要保证事务的持久化（durability）和一致性（consistency）的数据库程序来说，write()所提供的“松散的异步语义”是不够的，通常需要 OS 提供的同步 IO（synchronized-IO）原语来保证： </p>
 <ol>
 <li>fsync: 同步文件的修改内容（脏页），fsync 还会同步文件的描述信息（metadata，包括size、访问时间st_atime &amp; st_mtime等等），因为文件的数据和metadata通常存在硬盘的不同地方，因此fsync至少需要两次 IO 写操作。</li>
@@ -173,6 +179,19 @@
 <li>uintptr可以转换为unsafe.Pointer</li>
 <li>unsafe.Pointer可以转换为uintptr</li>
 </ol>
+<h1 id="Torn-Write"><a href="#Torn-Write" class="headerlink" title="Torn Write"></a>Torn Write</h1><p>Torn write: When a disk write is issued to a chunk, only a<br>portion of sectors in the chunk are successfully updated,<br>and the chunk contains some stale sectors in the end part.<br>例如 系统断电时，只写入了部分 block（sector）<br>注意：文件系统可以保证单个 block 写入是原子性的，也就是即使突然断电，也能保证上一个 block 的内容完全写入成功。</p>
+<p>首先，Torn Write 是无法完全避免的，我们只能做到 <code>检测是否发生了</code> 以及 <code>恢复</code>。<br>raft-wal 中 <code>检测功能</code>，其实现方式是：     </p>
+<ol>
+<li>默认文件系统的 block 为 512 Bytes  </li>
+<li>首先申请固定大小的文件，这能保证文件里面的内容都是 0</li>
+<li>将新文件的文件指针放置于头部</li>
+<li>每次写入一条 log 时，先计算其长度，用 uint64 变量保存（8 bytes），首先写入文件（该变量还保证了 log 补齐所用的字节数）。然后将 log 数据按 8 bytes 对齐，尾部不足补 0（数据按 8 bytes 这个对齐是为了保证：存储长度变量时不会横跨两个 block （512 % 8 = 0），也就能保证长度的保存一定不会被 torn write</li>
+<li>检测原理：首先读取指针后的 8 bytes，计算出 log 长度以及补齐的长度，然后读取（log 长度 + 补齐长度）的数据，然后将这些数据切分为各个 block，判断是否有 block 里面的字节都为 0（初始为 0 ），如果存在则表示该条数据的写入发生了 torn write。</li>
+<li>torn write 只发生在最后一条数据，因为是说明系统层面发生了问题，比如断电，后续写入一定无法正常进行，甚至程序直接奔溃</li>
+<li>上述正常工作的一个前提是：长度信息不能被分成两次 write 写入某个 block，如果其中一次 torn write，长度信息只有一部分不可靠。这个影响了下面 <code>page writer</code> 的设计。（如果没有 page write，而是针对每条 log，都执行 write(长度) + write(data) 是没有这个问题的！）</li>
+</ol>
+<p>继续介绍 <code>page writer</code>，它出现的本意是为了提高效率，减少 IO 操作（并不是为了避免 torn 发生）。但是为了协助 <code>torn write 检测</code>，其 page 大小必须为 block 的整数倍（这样设置在文件系统层面，也能提高效率，保证每次都是完整块写入）。因为如果不是整数倍，就会导致某次 flush 时长度信息被切断 ，即文件系统中最后一个 block 只写入某条 log 的长度信息的部分数据，此时如果发生系统断电 torn write，这时最后一条 log 的长度信息就是不可靠的，因此影响上面讲的 <code>检测</code> 的正确性。</p>
+<p>raft-wal 中 <code>恢复</code> 的实现简单粗暴：直接丢弃最后一条数据。       </p>
 
   </div>
 </article>
@@ -199,7 +218,7 @@
     </div>
 
     <div id="toc-footer" style="display: none">
-      <ol class="toc"><li class="toc-item toc-level-1"><a class="toc-link" href="#文件系统-block"><span class="toc-number">1.</span> <span class="toc-text">文件系统 block</span></a></li><li class="toc-item toc-level-1"><a class="toc-link" href="#linux-查看文件系统-block-大小"><span class="toc-number">2.</span> <span class="toc-text">linux 查看文件系统 block 大小</span></a></li><li class="toc-item toc-level-1"><a class="toc-link" href="#索引式文件系统"><span class="toc-number">3.</span> <span class="toc-text">索引式文件系统</span></a></li><li class="toc-item toc-level-1"><a class="toc-link" href="#非索引式文件系统"><span class="toc-number">4.</span> <span class="toc-text">非索引式文件系统</span></a></li><li class="toc-item toc-level-1"><a class="toc-link" href="#direct-io-和-buffer-io"><span class="toc-number">5.</span> <span class="toc-text">direct io 和 buffer io</span></a></li><li class="toc-item toc-level-1"><a class="toc-link" href="#sync"><span class="toc-number">6.</span> <span class="toc-text">sync</span></a></li><li class="toc-item toc-level-1"><a class="toc-link" href="#uintptr"><span class="toc-number">7.</span> <span class="toc-text">uintptr</span></a></li><li class="toc-item toc-level-1"><a class="toc-link" href="#Go-unsafe-Pointer"><span class="toc-number">8.</span> <span class="toc-text">Go unsafe Pointer</span></a></li></ol>
+      <ol class="toc"><li class="toc-item toc-level-1"><a class="toc-link" href="#文件系统-block"><span class="toc-number">1.</span> <span class="toc-text">文件系统 block</span></a></li><li class="toc-item toc-level-1"><a class="toc-link" href="#linux-查看文件系统-block-大小"><span class="toc-number">2.</span> <span class="toc-text">linux 查看文件系统 block 大小</span></a></li><li class="toc-item toc-level-1"><a class="toc-link" href="#索引式文件系统"><span class="toc-number">3.</span> <span class="toc-text">索引式文件系统</span></a></li><li class="toc-item toc-level-1"><a class="toc-link" href="#非索引式文件系统"><span class="toc-number">4.</span> <span class="toc-text">非索引式文件系统</span></a></li><li class="toc-item toc-level-1"><a class="toc-link" href="#direct-io-和-buffer-io"><span class="toc-number">5.</span> <span class="toc-text">direct io 和 buffer io</span></a></li><li class="toc-item toc-level-1"><a class="toc-link" href="#使用-O-DIRECT-的限制"><span class="toc-number">6.</span> <span class="toc-text">使用 O_DIRECT 的限制</span></a></li><li class="toc-item toc-level-1"><a class="toc-link" href="#判断-a-b-0"><span class="toc-number">7.</span> <span class="toc-text">判断 a % b = 0</span></a></li><li class="toc-item toc-level-1"><a class="toc-link" href="#sync"><span class="toc-number">8.</span> <span class="toc-text">sync</span></a></li><li class="toc-item toc-level-1"><a class="toc-link" href="#uintptr"><span class="toc-number">9.</span> <span class="toc-text">uintptr</span></a></li><li class="toc-item toc-level-1"><a class="toc-link" href="#Go-unsafe-Pointer"><span class="toc-number">10.</span> <span class="toc-text">Go unsafe Pointer</span></a></li><li class="toc-item toc-level-1"><a class="toc-link" href="#Torn-Write"><span class="toc-number">11.</span> <span class="toc-text">Torn Write</span></a></li></ol>
     </div>
 
     <div id="actions-footer">
