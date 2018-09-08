@@ -12,7 +12,7 @@
 <meta property="og:url" content="http://yoursite.com/2018/08/15/distributed_consensus/index.html">
 <meta property="og:site_name" content="Drip">
 <meta property="og:description" content="CAP 理论中的 C 表示 强一致性采用 AP 的例子是 BASE，指基本可用（Basically Available）、软状态（ Soft State）、最终一致性（ Eventual Consistency）。大多数的 nosql 数据库就是基于BASE设计的，如redis、mongodb等采用 CP 的例子是 二阶段提交，它是 ACID 思想在分布式系统中的延伸        链接">
-<meta property="og:updated_time" content="2018-08-27T14:24:30.000Z">
+<meta property="og:updated_time" content="2018-08-29T14:34:47.000Z">
 <meta name="twitter:card" content="summary">
 <meta name="twitter:title" content="一致性模型">
 <meta name="twitter:description" content="CAP 理论中的 C 表示 强一致性采用 AP 的例子是 BASE，指基本可用（Basically Available）、软状态（ Soft State）、最终一致性（ Eventual Consistency）。大多数的 nosql 数据库就是基于BASE设计的，如redis、mongodb等采用 CP 的例子是 二阶段提交，它是 ACID 思想在分布式系统中的延伸        链接">
@@ -184,7 +184,7 @@
 <li>raft 中的 log 压缩采用的 snapshotting，每个节点独立的进行压缩，snapshot 中存储 state machine 中的状态以及包含最后一条 log 的 Index 和 Term，这是为了能够继续支持 appendEntry 的检查策略</li>
 <li>raft 中的 log 合适压缩，可以设定一个 log 个数阈值，一旦达到这个值，就会压缩。之后，如果发送给 follower 的 appendEntry 的 index 很小（比如新节点加入，或者落后太久），leader 已经没有该条 log，则直接通过 InstallSnapshot 这个请求发送 snapshot</li>
 <li>Linearizable Read 通俗来讲，就是读请求需要读到最新的已经commit的数据，不会读到老数据。Leader 上总是会有最新的数据，因此要实现 Linearizable Read 必须是从 Leader 上读写数据。比如之前 a = 1，然后客户端提交了 a = 2 的 log，被 leaderA commit 了并返回给客户端，但是在同步 commitIndex 给 followers 时奔溃了。 之后 leaderB 被选举出来，它包含 a = 2 这条 log，但是 Term 是之前的，为了尽快的 commit 之前 Term 的数据，raft 规定新的 leader 选举出来后，立刻 commit 一个 no-op 的 entry，这之后才能保证之前的 a = 2 log 被 commit，然后更新状态数据库，然后给客户端的数据一定是最新的。（由于网络延迟的问题，leader 首先得判断自己是否真的是 leader）</li>
-<li></li>
+<li>使用 etcd-transport 结合 etcd-raft 时，新增节点时，该节点必须调用 transport.AddPeer 添加当前的 leader 节点（其他节点可以不设置，因为会在收到 configChange 时自动添加），否则 leader 发来的请求是不会被认可的（AddPeer 相当于是白名单）</li>
 </ol>
 <p>概念介绍：<br><code>SoftState</code>:<br><code>HardState</code>:</p>
 <p>组件学习：<br><code>wal</code>:<br>预写式日志（Write-ahead logging，缩写 WAL）是关系数据库系统中用于提供原子性和持久性（ACID属性中的两个）的一系列技术。在使用WAL的系统中，所有的修改在提交之前都要先写入log文件中。 raft-wal 将所有节点收到的 log 记录下来，并不像 MemoryStorge 一样会有覆盖，保证 log 的一致性。 wal 是用于恢复时，ReadAll 方法会循环读取已经持久化的 log，并根据其 Index 将其放入列表对应的位置，即后面相同的 Index 的 log 可以覆盖之前放入列表的 log，因此最终返回的 log 列表与之前运行状态一致。</p>

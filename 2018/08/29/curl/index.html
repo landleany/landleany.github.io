@@ -6,16 +6,16 @@
     <meta http-equiv="X-UA-Compatible" content="IE=edge">
     <meta name="HandheldFriendly" content="True">
     <meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1" />
-    <meta name="description" content="首先用二进制方式打开文件：vi -b somefile :%!xxd 表示在该文件中调用 xxd 这个工具，该工具可以在左侧显示16进制，右侧显示原内容">
+    <meta name="description" content="CURL 是一个非常有用的命令，列举一些常见的用法 curl -o [文件名] www.sina.com 保存网页或文件 curl -L www.sina.com 会根据 3xx 自动跳转，适用于 google.com curl -x 127.0.0.1:50008 google.com 使用代理访问 curl -X POST -d &amp;#39;{&amp;quot;name&amp;quot;: &amp;quot;st">
 <meta property="og:type" content="article">
-<meta property="og:title" content="VIM 16进制查看文件">
-<meta property="og:url" content="http://yoursite.com/2018/08/28/vi/index.html">
+<meta property="og:title" content="CURL命令">
+<meta property="og:url" content="http://yoursite.com/2018/08/29/curl/index.html">
 <meta property="og:site_name" content="Drip">
-<meta property="og:description" content="首先用二进制方式打开文件：vi -b somefile :%!xxd 表示在该文件中调用 xxd 这个工具，该工具可以在左侧显示16进制，右侧显示原内容">
-<meta property="og:updated_time" content="2018-08-28T03:05:00.000Z">
+<meta property="og:description" content="CURL 是一个非常有用的命令，列举一些常见的用法 curl -o [文件名] www.sina.com 保存网页或文件 curl -L www.sina.com 会根据 3xx 自动跳转，适用于 google.com curl -x 127.0.0.1:50008 google.com 使用代理访问 curl -X POST -d &amp;#39;{&amp;quot;name&amp;quot;: &amp;quot;st">
+<meta property="og:updated_time" content="2018-08-29T04:24:01.000Z">
 <meta name="twitter:card" content="summary">
-<meta name="twitter:title" content="VIM 16进制查看文件">
-<meta name="twitter:description" content="首先用二进制方式打开文件：vi -b somefile :%!xxd 表示在该文件中调用 xxd 这个工具，该工具可以在左侧显示16进制，右侧显示原内容">
+<meta name="twitter:title" content="CURL命令">
+<meta name="twitter:description" content="CURL 是一个非常有用的命令，列举一些常见的用法 curl -o [文件名] www.sina.com 保存网页或文件 curl -L www.sina.com 会根据 3xx 自动跳转，适用于 google.com curl -x 127.0.0.1:50008 google.com 使用代理访问 curl -X POST -d &amp;#39;{&amp;quot;name&amp;quot;: &amp;quot;st">
     
     
         
@@ -35,7 +35,7 @@
         
     
     <!-- title -->
-    <title>VIM 16进制查看文件</title>
+    <title>CURL命令</title>
     <!-- styles -->
     <link rel="stylesheet" href="/css/style.css">
     <!-- rss -->
@@ -67,10 +67,8 @@
     <span id="actions">
       <ul>
         
-        <li><a class="icon" href="/2018/08/29/curl/"><i class="fa fa-chevron-left" aria-hidden="true" onmouseover="$('#i-prev').toggle();" onmouseout="$('#i-prev').toggle();"></i></a></li>
         
-        
-        <li><a class="icon" href="/2018/08/25/io/"><i class="fa fa-chevron-right" aria-hidden="true" onmouseover="$('#i-next').toggle();" onmouseout="$('#i-next').toggle();"></i></a></li>
+        <li><a class="icon" href="/2018/08/28/vi/"><i class="fa fa-chevron-right" aria-hidden="true" onmouseover="$('#i-next').toggle();" onmouseout="$('#i-next').toggle();"></i></a></li>
         
         <li><a class="icon" href="#" onclick="$('html, body').animate({ scrollTop: 0 }, 'fast');"><i class="fa fa-chevron-up" aria-hidden="true" onmouseover="$('#i-top').toggle();" onmouseout="$('#i-top').toggle();"></i></a></li>
       </ul>
@@ -82,21 +80,21 @@
     <br/>
     <div id="share" style="display: none">
       <ul>
-  <li><a class="icon" href="http://www.facebook.com/sharer.php?u=http://yoursite.com/2018/08/28/vi/"><i class="fa fa-facebook " aria-hidden="true"></i></a></li>
-  <li><a class="icon" href="https://twitter.com/share?url=http://yoursite.com/2018/08/28/vi/&text=VIM 16进制查看文件"><i class="fa fa-twitter " aria-hidden="true"></i></a></li>
-  <li><a class="icon" href="http://www.linkedin.com/shareArticle?url=http://yoursite.com/2018/08/28/vi/&title=VIM 16进制查看文件"><i class="fa fa-linkedin " aria-hidden="true"></i></a></li>
-  <li><a class="icon" href="https://pinterest.com/pin/create/bookmarklet/?url=http://yoursite.com/2018/08/28/vi/&is_video=false&description=VIM 16进制查看文件"><i class="fa fa-pinterest " aria-hidden="true"></i></a></li>
-  <li><a class="icon" href="mailto:?subject=VIM 16进制查看文件&body=Check out this article: http://yoursite.com/2018/08/28/vi/"><i class="fa fa-envelope " aria-hidden="true"></i></a></li>
-  <li><a class="icon" href="https://getpocket.com/save?url=http://yoursite.com/2018/08/28/vi/&title=VIM 16进制查看文件"><i class="fa fa-get-pocket " aria-hidden="true"></i></a></li>
-  <li><a class="icon" href="http://reddit.com/submit?url=http://yoursite.com/2018/08/28/vi/&title=VIM 16进制查看文件"><i class="fa fa-reddit " aria-hidden="true"></i></a></li>
-  <li><a class="icon" href="http://www.stumbleupon.com/submit?url=http://yoursite.com/2018/08/28/vi/&title=VIM 16进制查看文件"><i class="fa fa-stumbleupon " aria-hidden="true"></i></a></li>
-  <li><a class="icon" href="http://digg.com/submit?url=http://yoursite.com/2018/08/28/vi/&title=VIM 16进制查看文件"><i class="fa fa-digg " aria-hidden="true"></i></a></li>
-  <li><a class="icon" href="http://www.tumblr.com/share/link?url=http://yoursite.com/2018/08/28/vi/&name=VIM 16进制查看文件&description="><i class="fa fa-tumblr " aria-hidden="true"></i></a></li>
+  <li><a class="icon" href="http://www.facebook.com/sharer.php?u=http://yoursite.com/2018/08/29/curl/"><i class="fa fa-facebook " aria-hidden="true"></i></a></li>
+  <li><a class="icon" href="https://twitter.com/share?url=http://yoursite.com/2018/08/29/curl/&text=CURL命令"><i class="fa fa-twitter " aria-hidden="true"></i></a></li>
+  <li><a class="icon" href="http://www.linkedin.com/shareArticle?url=http://yoursite.com/2018/08/29/curl/&title=CURL命令"><i class="fa fa-linkedin " aria-hidden="true"></i></a></li>
+  <li><a class="icon" href="https://pinterest.com/pin/create/bookmarklet/?url=http://yoursite.com/2018/08/29/curl/&is_video=false&description=CURL命令"><i class="fa fa-pinterest " aria-hidden="true"></i></a></li>
+  <li><a class="icon" href="mailto:?subject=CURL命令&body=Check out this article: http://yoursite.com/2018/08/29/curl/"><i class="fa fa-envelope " aria-hidden="true"></i></a></li>
+  <li><a class="icon" href="https://getpocket.com/save?url=http://yoursite.com/2018/08/29/curl/&title=CURL命令"><i class="fa fa-get-pocket " aria-hidden="true"></i></a></li>
+  <li><a class="icon" href="http://reddit.com/submit?url=http://yoursite.com/2018/08/29/curl/&title=CURL命令"><i class="fa fa-reddit " aria-hidden="true"></i></a></li>
+  <li><a class="icon" href="http://www.stumbleupon.com/submit?url=http://yoursite.com/2018/08/29/curl/&title=CURL命令"><i class="fa fa-stumbleupon " aria-hidden="true"></i></a></li>
+  <li><a class="icon" href="http://digg.com/submit?url=http://yoursite.com/2018/08/29/curl/&title=CURL命令"><i class="fa fa-digg " aria-hidden="true"></i></a></li>
+  <li><a class="icon" href="http://www.tumblr.com/share/link?url=http://yoursite.com/2018/08/29/curl/&name=CURL命令&description="><i class="fa fa-tumblr " aria-hidden="true"></i></a></li>
 </ul>
 
     </div>
     <div id="toc">
-      
+      <ol class="toc"><li class="toc-item toc-level-1"><a class="toc-link" href="#CURL-是一个非常有用的命令，列举一些常见的用法"><span class="toc-number">1.</span> <span class="toc-text">CURL 是一个非常有用的命令，列举一些常见的用法</span></a></li></ol>
     </div>
   </span>
 </div>
@@ -108,7 +106,7 @@
   <header>
     
     <h1 class="posttitle" itemprop="name headline">
-        VIM 16进制查看文件
+        CURL命令
     </h1>
 
 
@@ -119,7 +117,7 @@
       </span>
       
     <div class="postdate">
-        <time datetime="2018-08-28T05:30:30.000Z" itemprop="datePublished">2018-08-28</time>
+        <time datetime="2018-08-29T05:30:30.000Z" itemprop="datePublished">2018-08-29</time>
     </div>
 
 
@@ -130,10 +128,17 @@
   
 
   <div class="content" itemprop="articleBody">
-    <ol>
-<li>首先用二进制方式打开文件：<code>vi -b somefile</code></li>
-<li><code>:%!xxd</code> 表示在该文件中调用 <code>xxd</code> 这个工具，该工具可以在左侧显示16进制，右侧显示原内容 </li>
-</ol>
+    <h1 id="CURL-是一个非常有用的命令，列举一些常见的用法"><a href="#CURL-是一个非常有用的命令，列举一些常见的用法" class="headerlink" title="CURL 是一个非常有用的命令，列举一些常见的用法"></a>CURL 是一个非常有用的命令，列举一些常见的用法</h1><ul>
+<li><code>curl -o [文件名] www.sina.com</code> 保存网页或文件</li>
+<li><code>curl -L www.sina.com</code> 会根据 3xx 自动跳转，适用于 google.com</li>
+<li><code>curl -x 127.0.0.1:50008 google.com</code> 使用代理访问</li>
+<li><code>curl -X POST -d &#39;{&quot;name&quot;: &quot;stan&quot;}&#39; example.com/form.cgi</code> POST 请求</li>
+<li><code>curl -A &quot;[User Agent]&quot; [URL]</code> 模拟其他设备</li>
+<li><code>curl --cookie &quot;name=xxx&quot; www.example.com</code> 使用自定义的 cookie 内容访问</li>
+<li><code>curl -c cookies http://example.com</code> 将服务器返回的 cookie 保存在本地 cookies 文件</li>
+<li><code>curl -b cookies http://example.com</code> 使用本地 cookies 文件访问</li>
+<li><code>curl -H &quot;Content-Type:application/json&quot; http://example.com</code> 增加一行 header</li>
+</ul>
 
   </div>
 </article>
@@ -160,7 +165,7 @@
     </div>
 
     <div id="toc-footer" style="display: none">
-      
+      <ol class="toc"><li class="toc-item toc-level-1"><a class="toc-link" href="#CURL-是一个非常有用的命令，列举一些常见的用法"><span class="toc-number">1.</span> <span class="toc-text">CURL 是一个非常有用的命令，列举一些常见的用法</span></a></li></ol>
     </div>
 
     <div id="actions-footer">
