@@ -1,0 +1,232 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <!-- so meta -->
+    <meta charset="utf-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="HandheldFriendly" content="True">
+    <meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1" />
+    <meta name="description" content="什么是 GerritGerrit是建立在Git版本控制系统之上的基于Web的代码审查工具。       任何一个有多个成员的团队都有某种类型的中心源代码库（或者他们应该有）。理论上，Git 在没有这样一个中心位置的情况下也可以工作，但是在实践中，通常都会有一个中心代码库。实际上，这个代码库是项目中的权威副本。每个人从这里获取代码，也把代码推送到这里，并且通常在这里构造服务器，同时其他的一些工具也把">
+<meta property="og:type" content="article">
+<meta property="og:title" content="Gerrit">
+<meta property="og:url" content="http://yoursite.com/2018/09/16/gerrit/index.html">
+<meta property="og:site_name" content="Drip">
+<meta property="og:description" content="什么是 GerritGerrit是建立在Git版本控制系统之上的基于Web的代码审查工具。       任何一个有多个成员的团队都有某种类型的中心源代码库（或者他们应该有）。理论上，Git 在没有这样一个中心位置的情况下也可以工作，但是在实践中，通常都会有一个中心代码库。实际上，这个代码库是项目中的权威副本。每个人从这里获取代码，也把代码推送到这里，并且通常在这里构造服务器，同时其他的一些工具也把">
+<meta property="og:updated_time" content="2018-09-16T06:03:55.000Z">
+<meta name="twitter:card" content="summary">
+<meta name="twitter:title" content="Gerrit">
+<meta name="twitter:description" content="什么是 GerritGerrit是建立在Git版本控制系统之上的基于Web的代码审查工具。       任何一个有多个成员的团队都有某种类型的中心源代码库（或者他们应该有）。理论上，Git 在没有这样一个中心位置的情况下也可以工作，但是在实践中，通常都会有一个中心代码库。实际上，这个代码库是项目中的权威副本。每个人从这里获取代码，也把代码推送到这里，并且通常在这里构造服务器，同时其他的一些工具也把">
+    
+    
+        
+          
+              <link rel="shortcut icon" href="/images/favicon.ico">
+          
+        
+        
+          
+            <link rel="icon" type="image/png" href="/images/favicon-192x192.png" sizes="192x192">
+          
+        
+        
+          
+            <link rel="apple-touch-icon" sizes="180x180" href="/images/apple-touch-icon.png">
+          
+        
+    
+    <!-- title -->
+    <title>Gerrit</title>
+    <!-- styles -->
+    <link rel="stylesheet" href="/css/style.css">
+    <!-- rss -->
+    
+    
+</head>
+
+<body>
+    
+      <div id="header-post">
+  <a id="menu-icon" href="#"><i class="fa fa-bars fa-lg"></i></a>
+  <a id="menu-icon-tablet" href="#"><i class="fa fa-bars fa-lg"></i></a>
+  <a id="top-icon-tablet" href="#" onclick="$('html, body').animate({ scrollTop: 0 }, 'fast');" style="display:none;"><i class="fa fa-chevron-up fa-lg"></i></a>
+  <span id="menu">
+    <span id="nav">
+      <ul>
+         
+          <li><a href="/">Home</a></li>
+         
+          <li><a href="/about/">About</a></li>
+         
+          <li><a href="/archives/">Writing</a></li>
+         
+          <li><a href="http://github.com/probberechts">Projects</a></li>
+        
+      </ul>
+    </span>
+    <br/>
+    <span id="actions">
+      <ul>
+        
+        
+        <li><a class="icon" href="/2018/08/29/curl/"><i class="fa fa-chevron-right" aria-hidden="true" onmouseover="$('#i-next').toggle();" onmouseout="$('#i-next').toggle();"></i></a></li>
+        
+        <li><a class="icon" href="#" onclick="$('html, body').animate({ scrollTop: 0 }, 'fast');"><i class="fa fa-chevron-up" aria-hidden="true" onmouseover="$('#i-top').toggle();" onmouseout="$('#i-top').toggle();"></i></a></li>
+      </ul>
+      <span id="i-prev" class="info" style="display:none;">Previous post</span>
+      <span id="i-next" class="info" style="display:none;">Next post</span>
+      <span id="i-top" class="info" style="display:none;">Back to top</span>
+      <span id="i-share" class="info" style="display:none;">Share post</span>
+    </span>
+    <br/>
+    <div id="share" style="display: none">
+      <ul>
+  <li><a class="icon" href="http://www.facebook.com/sharer.php?u=http://yoursite.com/2018/09/16/gerrit/"><i class="fa fa-facebook " aria-hidden="true"></i></a></li>
+  <li><a class="icon" href="https://twitter.com/share?url=http://yoursite.com/2018/09/16/gerrit/&text=Gerrit"><i class="fa fa-twitter " aria-hidden="true"></i></a></li>
+  <li><a class="icon" href="http://www.linkedin.com/shareArticle?url=http://yoursite.com/2018/09/16/gerrit/&title=Gerrit"><i class="fa fa-linkedin " aria-hidden="true"></i></a></li>
+  <li><a class="icon" href="https://pinterest.com/pin/create/bookmarklet/?url=http://yoursite.com/2018/09/16/gerrit/&is_video=false&description=Gerrit"><i class="fa fa-pinterest " aria-hidden="true"></i></a></li>
+  <li><a class="icon" href="mailto:?subject=Gerrit&body=Check out this article: http://yoursite.com/2018/09/16/gerrit/"><i class="fa fa-envelope " aria-hidden="true"></i></a></li>
+  <li><a class="icon" href="https://getpocket.com/save?url=http://yoursite.com/2018/09/16/gerrit/&title=Gerrit"><i class="fa fa-get-pocket " aria-hidden="true"></i></a></li>
+  <li><a class="icon" href="http://reddit.com/submit?url=http://yoursite.com/2018/09/16/gerrit/&title=Gerrit"><i class="fa fa-reddit " aria-hidden="true"></i></a></li>
+  <li><a class="icon" href="http://www.stumbleupon.com/submit?url=http://yoursite.com/2018/09/16/gerrit/&title=Gerrit"><i class="fa fa-stumbleupon " aria-hidden="true"></i></a></li>
+  <li><a class="icon" href="http://digg.com/submit?url=http://yoursite.com/2018/09/16/gerrit/&title=Gerrit"><i class="fa fa-digg " aria-hidden="true"></i></a></li>
+  <li><a class="icon" href="http://www.tumblr.com/share/link?url=http://yoursite.com/2018/09/16/gerrit/&name=Gerrit&description="><i class="fa fa-tumblr " aria-hidden="true"></i></a></li>
+</ul>
+
+    </div>
+    <div id="toc">
+      <ol class="toc"><li class="toc-item toc-level-1"><a class="toc-link" href="#什么是-Gerrit"><span class="toc-number">1.</span> <span class="toc-text">什么是 Gerrit</span></a></li><li class="toc-item toc-level-1"><a class="toc-link" href="#如何向已有的-Gerrit-项目提交代码"><span class="toc-number">2.</span> <span class="toc-text">如何向已有的 Gerrit 项目提交代码</span></a></li><li class="toc-item toc-level-1"><a class="toc-link" href="#git-重写最近一次提交"><span class="toc-number">3.</span> <span class="toc-text">git 重写最近一次提交</span></a></li></ol>
+    </div>
+  </span>
+</div>
+
+    
+    <div class="content index width mx-auto px2 my4">
+        
+        <article class="post" itemscope itemtype="http://schema.org/BlogPosting">
+  <header>
+    
+    <h1 class="posttitle" itemprop="name headline">
+        Gerrit
+    </h1>
+
+
+
+    <div class="meta">
+      <span class="author" itemprop="author" itemscope itemtype="http://schema.org/Person">
+        <span itemprop="name">Drip</span>
+      </span>
+      
+    <div class="postdate">
+        <time datetime="2018-09-16T05:30:30.000Z" itemprop="datePublished">2018-09-16</time>
+    </div>
+
+
+      
+
+    </div>
+  </header>
+  
+
+  <div class="content" itemprop="articleBody">
+    <h1 id="什么是-Gerrit"><a href="#什么是-Gerrit" class="headerlink" title="什么是 Gerrit"></a>什么是 Gerrit</h1><p>Gerrit是建立在Git版本控制系统之上的基于Web的代码审查工具。      </p>
+<p>任何一个有多个成员的团队都有某种类型的中心源代码库（或者他们应该有）。理论上，Git 在没有这样一个中心位置的情况下也可以工作，但是在实践中，通常都会有一个中心代码库。实际上，这个代码库是项目中的权威副本。每个人从这里获取代码，也把代码推送到这里，并且通常在这里构造服务器，同时其他的一些工具也把这里当成源。       </p>
+<p>Gerrit 被部署在中心库中，并给它附加了一个概念：悬而未决的修改的仓库。每个人仍然从这个权威的仓库中取得代码，但是不同于直接把代码推送到这个仓库中，他们将推送到这个存储悬而未决的修改的位置。一个修改只有在被审查和批准后，它才可以被提交到权威仓库并成为整个项目的一个被接受的部分。         </p>
+<p>像其他的代码库托管解决方案一样，Gerrit 也有一个强大的接入控制模型（access control model）。用户甚至可以被授权直接把代码推送到中心代码库，而不必通过任何的代码审查。Gerrit升值可以不使用代码审查，而只简单的用来承载库和控制访问。但是通常来说，经过审查步骤会更加的简单和安全，即使是对于那些有权直接推送的用户来说。        </p>
+<h1 id="如何向已有的-Gerrit-项目提交代码"><a href="#如何向已有的-Gerrit-项目提交代码" class="headerlink" title="如何向已有的 Gerrit 项目提交代码"></a>如何向已有的 Gerrit 项目提交代码</h1><ol>
+<li><p>第一次提交修改：<br><code>git add xxx</code> , <code>git push origin HEAD:refs/for/master</code>, 其中 <code>refs/for/master</code> 是一个魔法分支，它用来创建那些针对主分支的修改的审查。对于每一个被跟踪的分支，Gerrit 都会创建一个存储你的推送并生成审查的魔法分支refs/for/(branch_name)。 </p>
+</li>
+<li><p>如果上一次的 code review 被拒绝，需要我们修改代码后 upload patch，<code>git add xxx</code>，<code>git commit --amend</code>，<code>git push origin HEAD:refs/for/master</code> 即可。</p>
+</li>
+</ol>
+<h1 id="git-重写最近一次提交"><a href="#git-重写最近一次提交" class="headerlink" title="git 重写最近一次提交"></a>git 重写最近一次提交</h1><p>如果你完成提交后又想修改被提交的快照，增加或者修改其中的文件，可能因为你最初提交时，忘了添加一个新建的文件，这个过程基本上一样。你通过修改文件然后对其运行 git add 或对一个已被记录的文件运行 git rm，随后的 git commit –amend 会获取你当前的暂存区并将它作为新提交对应的快照。</p>
+<p><a href="https://stackoverflow.com/questions/16118947/how-to-create-a-new-patchset-in-gerrit" target="_blank" rel="external">https://stackoverflow.com/questions/16118947/how-to-create-a-new-patchset-in-gerrit</a></p>
+
+  </div>
+</article>
+
+
+
+    </div>
+    
+      <div id="footer-post-container">
+  <div id="footer-post">
+
+    <div id="nav-footer" style="display: none">
+      <ul>
+         
+          <li><a href="/">Home</a></li>
+         
+          <li><a href="/about/">About</a></li>
+         
+          <li><a href="/archives/">Writing</a></li>
+         
+          <li><a href="http://github.com/probberechts">Projects</a></li>
+        
+      </ul>
+    </div>
+
+    <div id="toc-footer" style="display: none">
+      <ol class="toc"><li class="toc-item toc-level-1"><a class="toc-link" href="#什么是-Gerrit"><span class="toc-number">1.</span> <span class="toc-text">什么是 Gerrit</span></a></li><li class="toc-item toc-level-1"><a class="toc-link" href="#如何向已有的-Gerrit-项目提交代码"><span class="toc-number">2.</span> <span class="toc-text">如何向已有的 Gerrit 项目提交代码</span></a></li><li class="toc-item toc-level-1"><a class="toc-link" href="#git-重写最近一次提交"><span class="toc-number">3.</span> <span class="toc-text">git 重写最近一次提交</span></a></li></ol>
+    </div>
+
+    <div id="actions-footer">
+      <ul>
+        <li id="toc"><a class="icon" href="#" onclick="$('#toc-footer').toggle();return false;"><i class="fa fa-list fa-lg" aria-hidden="true"></i> TOC</a></li>
+        <li id="share"><a class="icon" href="#" onclick="$('#share-footer').toggle();return false;"><i class="fa fa-share-alt fa-lg" aria-hidden="true"></i> Share</a></li>
+        <li id="top" style="display:none"><a class="icon" href="#" onclick="$('html, body').animate({ scrollTop: 0 }, 'fast');"><i class="fa fa-chevron-up fa-lg" aria-hidden="true"></i> Top</a></li>
+        <li id="menu"><a class="icon" href="#" onclick="$('#nav-footer').toggle();return false;"><i class="fa fa-bars fa-lg" aria-hidden="true"></i> Menu</a></li>
+      </ul>
+    </div>
+
+  </div>
+</div>
+
+    
+    <footer id="footer">
+  <div class="footer-left">
+    Copyright &copy; 2018 Landleany
+  </div>
+  <div class="footer-right">
+    <nav>
+      <ul>
+         
+          <li><a href="/">Home</a></li>
+         
+          <li><a href="/about/">About</a></li>
+         
+          <li><a href="/archives/">Writing</a></li>
+         
+          <li><a href="http://github.com/probberechts">Projects</a></li>
+        
+      </ul>
+    </nav>
+  </div>
+</footer>
+
+</body>
+</html>
+<!-- styles -->
+<link rel="stylesheet" href="/lib/font-awesome/css/font-awesome.min.css">
+<link rel="stylesheet" href="/lib/meslo-LG/styles.css">
+<link rel="stylesheet" href="/lib/justified-gallery/justifiedGallery.min.css">
+
+<!-- jquery -->
+<script src="/lib/jquery/jquery.min.js"></script>
+<script src="/lib/justified-gallery/jquery.justifiedGallery.min.js"></script>
+<script src="/js/main.js"></script>
+<!-- search -->
+
+<!-- Google Analytics -->
+
+    <script type="text/javascript">
+        (function(i,s,o,g,r,a,m) {i['GoogleAnalyticsObject']=r;i[r]=i[r]||function() {
+        (i[r].q=i[r].q||[]).push(arguments)},i[r].l=1*new Date();a=s.createElement(o),
+        m=s.getElementsByTagName(o)[0];a.async=1;a.src=g;m.parentNode.insertBefore(a,m)
+        })(window,document,'script','//www.google-analytics.com/analytics.js','ga');
+        ga('create', 'UA-86660611-1', 'auto');
+        ga('send', 'pageview');
+    </script>
+
+<!-- Disqus Comments -->
+
+
