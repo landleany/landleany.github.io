@@ -12,7 +12,7 @@
 <meta property="og:url" content="http://yoursite.com/2018/08/29/curl/index.html">
 <meta property="og:site_name" content="Drip">
 <meta property="og:description" content="CURL 是一个非常有用的命令，列举一些常见的用法 curl -o [文件名] www.sina.com 保存网页或文件 curl -L www.sina.com 会根据 3xx 自动跳转，适用于 google.com curl -x 127.0.0.1:50008 google.com 使用代理访问 curl -X POST -d &amp;#39;{&amp;quot;name&amp;quot;: &amp;quot;st">
-<meta property="og:updated_time" content="2018-08-29T04:24:01.000Z">
+<meta property="og:updated_time" content="2018-09-19T02:46:24.000Z">
 <meta name="twitter:card" content="summary">
 <meta name="twitter:title" content="CURL命令">
 <meta name="twitter:description" content="CURL 是一个非常有用的命令，列举一些常见的用法 curl -o [文件名] www.sina.com 保存网页或文件 curl -L www.sina.com 会根据 3xx 自动跳转，适用于 google.com curl -x 127.0.0.1:50008 google.com 使用代理访问 curl -X POST -d &amp;#39;{&amp;quot;name&amp;quot;: &amp;quot;st">
@@ -135,6 +135,7 @@
 <li><code>curl -L www.sina.com</code> 会根据 3xx 自动跳转，适用于 google.com</li>
 <li><code>curl -x 127.0.0.1:50008 google.com</code> 使用代理访问</li>
 <li><code>curl -X POST -d &#39;{&quot;name&quot;: &quot;stan&quot;}&#39; example.com/form.cgi</code> POST 请求</li>
+<li><code>curl -X POST -d @xxx.json example.com/form.cgi</code> POST 请求，内容为 xxx.json 文件</li>
 <li><code>curl -A &quot;[User Agent]&quot; [URL]</code> 模拟其他设备</li>
 <li><code>curl --cookie &quot;name=xxx&quot; www.example.com</code> 使用自定义的 cookie 内容访问</li>
 <li><code>curl -c cookies http://example.com</code> 将服务器返回的 cookie 保存在本地 cookies 文件</li>

@@ -12,7 +12,7 @@
 <meta property="og:url" content="http://yoursite.com/2018/08/25/io/index.html">
 <meta property="og:site_name" content="Drip">
 <meta property="og:description" content="文件系统 block鸟叔的链接例如 Linux 操作系统的文件权限(rwx)与文件属性(拥有者、群组、时间参数等)。 文件系统通常会将这两部份的数据分别存放在不同的区块，权限与属性放置到 inode 中，至于实际数据则放置到 data block 区块中。 另外，还有一个超级区块 (superblock) 会记录整个文件系统的整体信息，包括 inode 与 block 的总量、使用量、剩余量等。每">
-<meta property="og:updated_time" content="2018-08-27T12:22:26.000Z">
+<meta property="og:updated_time" content="2018-09-18T07:18:33.000Z">
 <meta name="twitter:card" content="summary">
 <meta name="twitter:title" content="文件系统（IO）">
 <meta name="twitter:description" content="文件系统 block鸟叔的链接例如 Linux 操作系统的文件权限(rwx)与文件属性(拥有者、群组、时间参数等)。 文件系统通常会将这两部份的数据分别存放在不同的区块，权限与属性放置到 inode 中，至于实际数据则放置到 data block 区块中。 另外，还有一个超级区块 (superblock) 会记录整个文件系统的整体信息，包括 inode 与 block 的总量、使用量、剩余量等。每">
@@ -162,7 +162,7 @@
 <h1 id="使用-O-DIRECT-的限制"><a href="#使用-O-DIRECT-的限制" class="headerlink" title="使用 O_DIRECT 的限制"></a>使用 O_DIRECT 的限制</h1><p>f.Write([]byte) 需要同时满足传入的字节数组的 <code>长度</code>，<code>首地址</code>，<code>文件 offset</code> 都是 block 的整数倍      </p>
 <p>例子，block 为 512 字节，长度为 1024 字节，如何让首地址是 512 的整数倍：<br><figure class="highlight go"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div></pre></td><td class="code"><pre><div class="line">a := <span class="built_in">make</span>([]<span class="keyword">byte</span>, <span class="number">1024</span> + <span class="number">512</span>)</div><div class="line">offset := <span class="number">512</span> - <span class="keyword">int</span>(<span class="keyword">uintptr</span>(unsafe.Pointer(&amp;a[<span class="number">0</span>]))&amp;<span class="keyword">uintptr</span>(<span class="number">511</span>))</div><div class="line">a = a[offset: <span class="number">1024</span>+offset]   <span class="comment">// 此时 a[0] 的地址即为 512 的倍数</span></div></pre></td></tr></table></figure></p>
 <p>具体的数学原理见下面 ！</p>
-<h1 id="判断-a-b-0"><a href="#判断-a-b-0" class="headerlink" title="判断 a % b = 0"></a>判断 a % b = 0</h1><p>如果 b 是 2 的幂，则可以把 a 和 b 均表示为 2进制，b 则为 1000..0，整除表示 a 的后几位都是 0 （即 a 每次右移溢出的都是 0 ）。<br>前提： b 为 2 ^ n<br>c = a &amp; (b-1)<br>c 一定能被 b 整除<br>此时 c 一定小于 a<br>且 a - c &lt;= b<br>c + b 也一定能被 b 整除<br>且 c + b &gt;= a</p>
+<h1 id="判断-a-b-0"><a href="#判断-a-b-0" class="headerlink" title="判断 a % b = 0"></a>判断 a % b = 0</h1><p>如果 b 是 2 的幂，则可以把 a 和 b 均表示为 2进制，b 则为 1000..0，整除表示 a 的后几位都是 0 （即 a 每次右移溢出的都是 0 ）。<br>前提： b 为 2 ^ n<br>c = a &amp; (b-1)<br>c 是 a % b 的余数<br>a - c 一定能被 b 整除<br>此时 a - c 一定小于 a<br>且 c &lt;= b<br>a - c + b 也一定能被 b 整除<br>且 a - c + b &gt;= a</p>
 <h1 id="sync"><a href="#sync" class="headerlink" title="sync"></a>sync</h1><p>当采用 buffer io 时，对硬盘（或者其他持久存储设备）文件的 write 操作，更新的只是内存中的页缓存（page cache），而脏页面不会立即更新到硬盘中，而是由操作系统统一调度，如由专门的 flusher 内核线程在满足一定条件时（如一定时间间隔、内存中的脏页达到一定比例）内将脏页面同步到硬盘上（放入设备的IO请求队列）。<br>因为 write 调用不会等到硬盘 IO 完成之后才返回，因此如果 OS 在 write 调用之后、硬盘同步之前崩溃，则数据可能丢失。虽然这样的时间窗口很小，但是对于需要保证事务的持久化（durability）和一致性（consistency）的数据库程序来说，write()所提供的“松散的异步语义”是不够的，通常需要 OS 提供的同步 IO（synchronized-IO）原语来保证： </p>
 <ol>
 <li>fsync: 同步文件的修改内容（脏页），fsync 还会同步文件的描述信息（metadata，包括size、访问时间st_atime &amp; st_mtime等等），因为文件的数据和metadata通常存在硬盘的不同地方，因此fsync至少需要两次 IO 写操作。</li>
